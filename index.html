@@ -161,6 +161,9 @@ legend{padding:0;margin-bottom:10px}
 .lbl+.acc{margin-top:12px}
 .subnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--ln);margin-top:28px}.subnav::-webkit-scrollbar{display:none}
 .subnav a{flex:none;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px}.subnav a.on{color:var(--fg);border-bottom-color:var(--pri)}.subnav a:hover{color:var(--fg)}
+.acct-nav{display:flex;align-items:flex-end;gap:4px;margin-top:28px}.acct-nav .subnav{margin-top:0;flex:1;min-width:0}
+.acct-more{position:relative;flex:none}.acct-more summary{list-style:none;cursor:pointer;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;gap:6px;align-items:center}.acct-more summary::-webkit-details-marker{display:none}.acct-more[open] summary,.acct-more summary:hover{color:var(--fg)}
+.acct-more-m{position:absolute;right:0;top:100%;z-index:30;min-width:200px;background:var(--bg2,var(--bg));border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 18px 40px rgba(0,0,0,.35)}.acct-more-m a{display:block;padding:10px 12px;border-radius:8px;font-size:14px}.acct-more-m a:hover{background:var(--ln)}
 .subnav .n{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--pri);color:var(--pri-fg);font-size:10px;text-align:center}
 
 /* forms */
@@ -421,6 +424,11 @@ select.pf-in{font-size:22px;cursor:pointer}input[type=date].pf-in{font-size:21px
 @media (max-width:640px){.pf-row.pg-row{grid-template-columns:minmax(0,1fr) 44px!important;grid-template-areas:"w d" "t d" "b d";row-gap:2px}.pg-row.pf-head{display:none}.pg-row>:nth-child(1){grid-area:w}.pg-row>:nth-child(2){grid-area:t}.pg-row>:nth-child(3){grid-area:b}.pg-row>:nth-child(4){grid-area:d}}
 @media (max-width:640px){.sheet-tile{grid-template-columns:1fr;gap:16px}.st-thumb{display:none}.paper-act .pf-saved{flex-basis:100%;margin:0}}
 body.locked .ck{visibility:hidden}   /* the cookie bar stays out of the way of an open pop-up */
+/* account overview: one next step beside a short at-a-glance list; visits one list at a time */
+.ov2{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px;align-items:start}.ov2 .card.next{padding:28px}
+@media(max-width:860px){.ov2{grid-template-columns:1fr}}
+.ov-t{display:flex;gap:12px;align-items:flex-start;padding:12px;margin:0 -12px;border-radius:10px;color:var(--fg)}.ov-t:hover{background:var(--ln)}.ov-t>svg{flex:none;margin-top:2px;color:var(--pri)}
+.narrow-l{max-width:760px}
 
 /* ============ shared kit: spacing scale, tab bar, sheets, compact lists, chips, reviews, search, hub ============ */
 :root{--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
@@ -933,10 +941,10 @@ F.SITE = {
   id: 'velvet', brand: 'Velvet', title: 'Velvet by FLINGR', storeKey: 'flingr.velvet', launch: '2026-10-22', refPrefix: 'VV', descriptor: 'FLG*SPA', opsCode: 'WARM-OIL',
   logo: '<span class="lg-a">VELVET</span><span class="lg-b">by FLINGR</span>', gateLine: 'Touch, <span class="it">finished</span> properly.', emptyIcon: 'drop',
   arrays: ['visits', 'members', 'maps', 'glow', 'programs', 'orders', 'reviews', 'incidents', 'tickets', 'blocks', 'walkins', 'desk', 'waits', 'refills', 'giftsOut'],
-  nav: [{ label: 'Menu', href: '#/menu', pages: ['menu', 'treatment'] }, { label: 'Build a ritual', href: '#/build', pages: ['build'] }, { label: 'Programs', href: '#/programs', pages: ['programs', 'program'] }, { label: 'Membership', href: '#/membership', pages: ['membership', 'join'] }],
-  more: [['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards', '#/standards'], ['Shop', '#/shop'], ['Gift', '#/gift'], ['Journal', '#/journal'], ['Help', '#/help']],
+  nav: [{ label: 'Menu', href: '#/menu', pages: ['menu', 'treatment', 'build'] }, { label: 'Programs', href: '#/programs', pages: ['programs', 'program'] }, { label: 'Shop', href: '#/shop', pages: ['shop', 'product'] }, { label: 'Membership', href: '#/membership', pages: ['membership', 'join'] }],
+  more: [['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards', '#/standards'], ['Gift', '#/gift'], ['Journal', '#/journal'], ['Help', '#/help']],
   meLinks: [['#/account', 'Overview'], ['#/account/visits', 'Visits'], ['#/account/glow', 'Glow tracker'], ['#/account/bodymap', 'Touch sheet'], ['#/account/membership', 'Membership'], ['#/account/settings', 'Settings']],
-  accountTabs: [['', 'Overview'], ['visits', 'Visits'], ['glow', 'Glow'], ['bodymap', 'Touch sheet'], ['membership', 'Membership'], ['orders', 'Orders'], ['inbox', 'Inbox'], ['wallet', 'Wallet'], ['settings', 'Settings'], ['privacy', 'Privacy']],
+  accountTabs: [['', 'Overview'], ['visits', 'Visits'], ['bodymap', 'Touch sheet'], ['inbox', 'Inbox'], ['wallet', 'Wallet'], ['glow', 'Glow tracker', 'more'], ['membership', 'Membership', 'more'], ['orders', 'Shop orders', 'more'], ['settings', 'Settings', 'more'], ['privacy', 'Privacy', 'more']],
   opsTabs: [['', 'Today'], ['rooms', 'Rooms'], ['therapists', 'Therapists'], ['menu', 'Menu'], ['members', 'Members'], ['safety', 'Safety']],
   tabs: [{ id: 'home', label: 'Home', href: '#/', icon: 'home', pages: ['home'] }, { id: 'menu', label: 'Menu', href: '#/menu', icon: 'list', pages: ['menu', 'treatment', 'glow', 'couples', 'programs', 'program', 'shop', 'spas'] }, { id: 'book', label: 'Book', href: '#/build', icon: 'cal', pages: ['build'] }, { id: 'inbox', label: 'Inbox', href: '#/account/inbox', icon: 'msg', badge: 'inbox' }, { id: 'account', label: 'Account', href: '#/account', icon: 'user', pages: ['account', 'visit'] }],
   rememberPages: ['menu', 'shop'], searchHint: 'rituals, programs, the shop',
@@ -953,7 +961,7 @@ F.SITE = {
   promos: [{ code: 'FIRSTTOUCH', label: 'First visit', pct: 20, kinds: ['visit'], firstOnly: true, kindsMsg: 'This code is for treatments.' }, { code: 'ROSE6', label: 'Rosé series', pct: 10, kinds: ['series'], kindsMsg: 'This code is for a Rosé series.' }],
   topics: ['A visit', 'Membership', 'A series or program', 'An order', 'Payments', 'Something else'],
   who: 'the front desk', historyWord: 'visits', ticketReply: 'The front desk has replied by email and noted it on your file.',
-  footer: { blurb: 'The sensual spa. Licensed therapists, an explicit menu and your choice of release. West Hollywood, SoHo and Marylebone, 10am to 2am.', cols: [['Velvet', [['The menu', '#/menu'], ['Build a ritual', '#/build'], ['Programs', '#/programs'], ['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Membership', '#/membership']]], ['Visit', [['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards and licensing', '#/standards'], ['Shop', '#/shop'], ['Gift', '#/gift'], ['Front desk', '#/desk']]]] },
+  footer: { blurb: 'The sensual spa. Licensed therapists, an explicit menu and your choice of release. West Hollywood, SoHo and Marylebone, 10am to 2am.', cols: [['Velvet', [['The menu', '#/menu'], ['Programs', '#/programs'], ['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Membership', '#/membership']]], ['Visit', [['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards and licensing', '#/standards'], ['Shop', '#/shop'], ['Gift', '#/gift'], ['Front desk', '#/desk']]]] },
   autoList: ['Membership renewals, pauses and member prices', 'Therapist shifts, days off and new licences', 'Every room’s bookings, cleaning and turnover', 'Visits arriving, starting, resting and leaving', 'Walk-ins at the desk', 'Series reminders and the Glow tracker fading without upkeep', 'Shop orders from dispatch to delivery', 'Replies from the front desk'],
   art,
   // the bar across the top is for first-timers and the season, never membership (that lives on the membership page)
@@ -2104,10 +2112,15 @@ F.pages.account = {
     const out = v(u, r.params[1], r);
     const badge = k => k === 'inbox' ? F.inboxCount(u) || '' : '';
     return { title: out.title, html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div class="row nowrap"><span class="avb avb-lg" style="--uc:${F.uc(u)}">${U.initials(u.name)}</span><div><div class="eyebrow">Your account</div><h1 class="h-cond acct-n">${esc(u.name)}</h1><p class="tiny muted">${u.verified ? `${F.ic('shield', 12)} Verified` : '<button class="btn-link tiny" data-a="verifyId">Verify your identity</button>'}${E.memberOf(u) ? ' · ' + esc(E.plan(E.memberOf(u).planId).name) + ' member' : ''}${F.aaBadge(u) ? ' ' + F.aaBadge(u) : ''}${E.isReserve(u) ? ' · FLINGR Reserve' : ''}</p></div></div></div>
-    ${F.subnav(tabs.map(([k, l]) => ['#/account' + (k ? '/' + k : ''), l, badge(k)]), '#/account' + (tab ? '/' + tab : ''), 'Account')}</div></section>
+    ${F.acctNav(tabs, tab, badge)}</div></section>
     <section class="sec-sm acct-b"><div class="wrap">${out.html}</div></section>` };
   },
   mount(r) { if ((r.params[0] || '') === 'inbox') { const b = $('.thread-b'); if (b) b.scrollTop = b.scrollHeight; const t = r.q.t && E.threadById(r.q.t); if (t) { F.markThreadRead(t); F.chromeCounts(); } } }
+};
+// the everyday tabs in a row; the rest (marked 'more') in one More menu, so the row never runs off the page
+F.acctNav = (tabs, tab, badge) => {
+  const href = k => '#/account' + (k ? '/' + k : ''), main = tabs.filter(t => !t[2] || t[0] === tab), more = tabs.filter(t => t[2] && t[0] !== tab);
+  return `<div class="acct-nav">${F.subnav(main.map(([k, l]) => [href(k), l, badge(k)]), href(tab), 'Account')}${more.length ? `<details class="acct-more"><summary>More ${F.ic('chevd', 12)}</summary><div class="acct-more-m">${more.map(([k, l]) => `<a href="${href(k)}">${l}${badge(k) ? ` <span class="n">${badge(k)}</span>` : ''}</a>`).join('')}</div></details>` : ''}</div>`;
 };
 V.membership = u => ({ title: 'Membership', html: F.memberView(u) + `<div class="mt48">${F.aaCard()}</div>` });
 A.hubReadAll = () => { const u = E.user(); F.hub.markRead(true); F.store.commit(s => { s.notifications.forEach(n => { if (n.userId === u.id) n.read = true; }); }); F.chromeCounts(); F.rerender(); };
@@ -2727,9 +2740,7 @@ F.ticks.push(n => { const u = E.user(); if (!u || !u.prefs.notif.reminders || !N
   F.nudges(u).filter(x => x.notify !== false).slice(0, 2).forEach(x => { if (mine[x.key]) return; mine[x.key] = n; E.notify(u.id, 'reminders', x.title, x.body || '', x.href || null, n, 'nudge:' + x.key); });
   const ks = Object.keys(mine); if (ks.length > 60) ks.sort((a, b) => mine[a] - mine[b]).slice(0, ks.length - 60).forEach(k => delete mine[k]); });
 
-/* cross-site: someone who uses two FLINGR sites hears about All-Access once they've been around a while */
-F.nudge('allaccess', u => { if (!F.hub || E.allAccess(u)) return null; const h = F.hub.read(), sites = Object.keys(h.seen).filter(s => (h.seen[s] || {})[u.id] > now() - 45 * D); if (sites.length < 2) return null;
-  const save = E.aaList() - E.aaPrice(); return { key: 'allaccess-' + Math.floor(now() / (60 * D)), title: 'You use ' + U.list(sites.map(F.hub.siteName)) + '. One membership covers all three.', body: `FLINGR All-Access: ${E.pm(E.aaPrice(), F.cityId())} a month, ${E.pm(save, F.cityId())} less than the three memberships apart.`, href: '#/membership', cta: 'See All-Access', icon: 'globe', priority: -1, notify: false, soft: true }; });
+/* All-Access is offered on the membership pages only, never as a nudge */
 F.nudge('sibling', u => { const c = F.SITE.crossSell; if (!c || !F.hub) return null; const done = (F.S.reviews || []).some(r => r.userId === u.id) || E.reviewable(u).length; if (!done) return null; const h = F.hub.read(); if ((h.seen[c.site] || {})[u.id]) return null;
   return { key: 'sibling-' + c.site, title: c.title, body: c.body, href: c.href, cta: c.cta || 'Have a look', icon: 'sparkle', priority: -2, notify: false, soft: true }; });
 })();
@@ -3445,7 +3456,7 @@ F.pages.home = {
     <div class="chiprow mt24">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
     <section class="sec-md sec-alt"><div class="wrap split"><div>${F.secHead({ eyebrow: 'Your ritual, your rules', title: 'Nothing is <span class="it">guessed</span> in the room', lead: 'Choose the release, the oil, the light and your therapist. Paint your body map once; it travels with every visit. Licensed hands only: never oral, never intercourse, and you stop anything with a word.' })}<a class="btn btn-pri" href="#/build">Start building</a></div>
     <div class="opts-demo">${[['Release', F.RELEASE.edge], ['Oil', F.OPT.oil[1]], ['Light', F.OPT.light[0]], ['Therapist', 'A woman, in lingerie'], ['Body map', 'Genitals: yes · Anus: gently · Feet: avoid']].map(([k, v]) => `<div class="od-r"><span class="lbl">${k}</span><span class="hand-s">${esc(v)}</span></div>`).join('')}</div></div></section>
-    <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'Prices', title: 'Pay per ritual, <span class="it">or join</span>', action: '<a class="btn-link" href="#/membership">About membership</a>' })}<div class="plans-c"><div class="pl-c"><span class="lbl">The default</span><strong class="h-disp h4">Pay per ritual</strong><span class="small muted">The menu price, nothing to join. Rituals from ${E.pm(Math.min(...F.TREAT.filter(x => x.c === 'touch').map(x => x.usd[0])), c)}.</span></div><div class="pl-c on"><span class="lbl">${esc(F.SITE.plans[0].kicker)}</span><strong class="h-disp h4">${esc(F.SITE.plans[0].name)}</strong><span class="small muted">${F.SITE.plans[0].pct}% off every ritual and one add-on free each visit.</span><span class="mono pl-p">${E.pm(F.SITE.plans[0].usd, c)}<small class="muted">/mo</small></span></div></div></div></section>` };
+    ` };
   }
 };
 
@@ -3831,23 +3842,34 @@ const E = F.E, A = F.A, V = F.AV, now = () => Date.now(), D = 864e5;
 const vRow = v => { const t = E.tr(v.tid), tz = E.cityTz(v.cityId), tn = F.VTONE[v.status]; return `<a class="lrow" href="#/account/visit/${v.id}"><span class="lrow-d"><b>${U.fmt(v.start, tz, 'dshort')}</b><small>${U.fmt(v.start, tz, 'time')}</small></span>${F.ic(t.c === 'glow' ? 'sparkle' : t.c === 'boost' ? 'flame' : t.pair ? 'users' : 'drop', 16)}<span class="lrow-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(v.dur)} · ${esc(F.SPAS[v.cityId].name.replace('Velvet ', ''))}${v.release ? ' · ' + F.RELEASE[v.releaseNow || v.release] : ''}</small></span>${['confirmed', 'done'].includes(v.status) ? '' : F.tone({ label: tn[0], tone: tn[1] })}</a>`; };
 const upcoming = u => E.myVisits(u).filter(v => ['confirmed', 'arrived', 'in', 'lounge'].includes(v.status));
 const glowAreas = u => Object.keys(F.AREAS).map(k => [k, E.glow(u, k)]).filter(([, g]) => g.n);
+// Overview: the one thing to do next, then a short "at a glance" column. Everything else lives in its own tab.
+const tile = (href, ic, t, sub, act) => `<a class="ov-t" ${act ? `data-a="${act}" href="#"` : `href="${href}"`}>${F.ic(ic, 16)}<span><strong class="small">${t}</strong><small class="d-b muted">${sub}</small></span></a>`;
 V[''] = u => {
-  const up = upcoming(u), next = up[0], live = next && next.status !== 'confirmed', m = E.memberOf(u) || E.memberSeat(u), last = E.lastRitual(u), ga = glowAreas(u);
-  return { title: 'Account', html: `${F.vvTop(u)}<div class="g g3 al-start acct-ov"><div class="stack ov-main">
-    ${next ? `<a class="card next ${live ? 'live' : ''}" href="#/account/visit/${next.id}"><div class="row between"><span class="lbl">${live ? F.VTONE[next.status][0] : 'Next visit'}</span>${live ? '<span class="badge b-live"><i class="dot live"></i>Now</span>' : ''}</div><h2 class="h-disp h2 mt8">${esc(E.tr(next.tid).n)}</h2><p class="small muted mt4">${U.dur(next.dur)} · ${U.fmt(next.start, E.cityTz(next.cityId), 'dt')} · ${esc(F.SPAS[next.cityId].name)}</p></a>` : last ? `<div class="card"><span class="lbl">Your usual</span><h2 class="h-disp h3 mt8">${esc(E.tr(last.tid).n)}</h2><p class="small muted mt8">${U.dur(last.dur)}${last.release ? ' · ' + F.RELEASE[last.release] : ''} · ${esc(last.opts.oil || '')}</p><a class="btn btn-pri btn-sm mt16" href="#/build?t=${last.tid}&d=${last.dur}">Book it again</a></div>` : `<div class="card"><span class="lbl">Nothing booked</span><h2 class="h-disp h3 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt8">Full body, warm oil, unhurried, and you choose how it ends.</p><a class="btn btn-pri btn-sm mt16" href="#/build?t=warm">Build your ritual</a></div>`}
-    ${up.length > 1 ? `<div class="card"><span class="lbl">Also booked</span><div class="stack-s mt16">${up.slice(1, 4).map(vRow).join('')}</div></div>` : ''}</div>
-    <div class="stack"><div class="card"><span class="lbl">${m ? 'Member' : 'Paying per ritual'}</span><div class="h-disp h2 mt8">${E.money(E.walletIn(u, F.cityId()), F.cityId())}</div><p class="small muted mt8">In your Wallet${m ? ` · member prices until ${U.fmt(m.periodEnd, E.cityTz(m.cityId), 'md')}` : ''}.</p><a class="btn-link tiny mt8" href="#/account/wallet">Wallet</a></div>
-    <div class="card"><div class="row between"><span class="lbl">Touch sheet</span><button class="btn-link tiny" data-a="mapOpen">Open</button></div><div class="bm-mini mt16">${F.bodyMap(E.myMap(u), false)}</div></div>
-    ${u.verified ? '' : `<div class="notice">${F.ic('lock', 16)}<span>Verify your identity before your first visit. <button class="btn-link tiny" data-a="verifyId">Verify</button></span></div>`}</div>
-    <div class="stack"><div class="card"><div class="row between"><span class="lbl">Glow</span><a class="btn-link tiny" href="#/account/glow">Tracker</a></div>${ga.length ? `<div class="stack-s mt16">${ga.map(([k, g]) => `<div class="row nowrap"><span class="gdot" style="background:${E.glowTone(k, g.level)}"></span><span class="small">${F.AREAS[k][0]} · level ${g.level} of 6</span></div>`).join('')}</div>` : `<p class="small muted mt16">Start a Rosé series and your progress shows here, privately.</p><a class="btn-link tiny mt8" href="#/glow">The Glow Lab</a>`}</div>
-    <div class="card"><span class="lbl">For you</span><div class="stack-s mt16">${F.forYouList(u).map(t => `<a class="prow" href="#/treatment/${t.id}"><strong class="small">${esc(t.n)}</strong><small class="muted">${esc(t.s)}</small></a>`).join('')}</div></div></div></div>${F.vvLater(u) ? `<div class="stack mt48">${F.vvLater(u)}</div>` : ''}` };
+  const up = upcoming(u), next = up[0], live = next && next.status !== 'confirmed', m = E.memberOf(u) || E.memberSeat(u), last = E.lastRitual(u), ga = glowAreas(u), sh = E.sheet(u), c = F.cityId();
+  const hero = next ? `<a class="card next ${live ? 'live' : ''}" href="#/account/visit/${next.id}"><div class="row between"><span class="lbl">${live ? F.VTONE[next.status][0] : 'Your next visit'}</span>${live ? '<span class="badge b-live"><i class="dot live"></i>Now</span>' : ''}</div><h2 class="h-disp h2 mt8">${esc(E.tr(next.tid).n)}</h2><p class="small muted mt4">${U.dur(next.dur)} · ${U.fmt(next.start, E.cityTz(next.cityId), 'dt')} · ${esc(F.SPAS[next.cityId].name)}</p><span class="btn btn-ghost btn-sm mt16">Visit details</span></a>`
+    : last ? `<div class="card next"><span class="lbl">Book again</span><h2 class="h-disp h2 mt8">${esc(E.tr(last.tid).n)}</h2><p class="small muted mt4">${U.dur(last.dur)}${last.release ? ' · ' + F.RELEASE[last.release] : ''}${last.opts.oil ? ' · ' + esc(last.opts.oil) : ''}, as last time.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/build?t=${last.tid}&d=${last.dur}">Book it again</a><a class="btn-link tiny" href="#/menu">Or choose from the menu</a></div></div>`
+    : `<div class="card next"><span class="lbl">Nothing booked yet</span><h2 class="h-disp h2 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt4">Full body, warm oil, unhurried, and you choose how it ends.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/treatment/warm">Book it</a><a class="btn-link tiny" href="#/menu">Or see the whole menu</a></div></div>`;
+  const zones = sh.marked;
+  return { title: 'Account', html: `${F.vvTop(u)}${u.verified ? '' : `<div class="notice mb24">${F.ic('lock', 16)}<span>Verify your identity before your first visit. <button class="btn-link tiny" data-a="verifyId">Verify</button></span></div>`}
+  <div class="ov2"><div class="stack">${hero}
+    ${up.length > 1 ? `<div><div class="row between"><span class="lbl">Also booked</span><a class="btn-link tiny" href="#/account/visits">All visits</a></div><div class="stack-s mt16">${up.slice(1, 4).map(vRow).join('')}</div></div>` : ''}</div>
+    <aside class="card ov-side"><span class="lbl">At a glance</span><div class="stack-s mt16">
+      ${tile('#/account/wallet', 'wallet', E.money(E.walletIn(u, c), c) + ' in your Wallet', m ? `Member prices until ${U.fmt(m.periodEnd, E.cityTz(m.cityId), 'md')}` : 'Paying per ritual')}
+      ${tile('#/account/bodymap', 'drop', 'Touch sheet', zones ? 'Saved: every therapist reads it first' : 'Not set yet: two minutes, used every visit')}
+      ${tile('#/account/visits', 'cal', up.length ? U.plural(up.length, 'visit') + ' booked' : 'Visits', up.length ? 'Coming up and before' : 'Your history and programs')}
+      ${ga.length ? tile('#/account/glow', 'sparkle', 'Glow tracker', ga.map(([k, g]) => F.AREAS[k][0] + ' ' + g.level + '/6').join(' · ')) : ''}
+    </div></aside></div>` };
 };
-V.visits = u => {
+// Visits: one list at a time (coming up, before, programs) instead of three columns at once
+V.visits = (u, x, r) => {
   const up = upcoming(u), past = E.myVisits(u).filter(v => ['done', 'cancelled'].includes(v.status)).reverse(), ens = F.S.programs.filter(x => x.userId === u.id).reverse(), ws = E.waits(u);
-  return { title: 'Visits', html: `<div class="bd2"><div class="stack"><div>${F.secHead({ eyebrow: 'Coming up', action: '<a class="btn btn-pri btn-sm" href="#/build">Build a ritual</a>' })}<div class="stack-s">${up.map(vRow).join('') || '<p class="small muted">Nothing booked.</p>'}</div>
-    ${ws.length ? `<div class="stack-s mt24">${ws.map(w => `<div class="row between wrap-gap small card-s"><span>${F.ic('clock', 14)} Waitlist: ${esc(E.tr(w.tid).n)} · ${U.keyFmt(w.key, 'date')}</span><button class="btn-link tiny" data-a="waitDrop" data-w="${w.id}">Leave</button></div>`).join('')}</div>` : ''}</div>
-    <div>${F.secHead({ eyebrow: 'Before' })}${past.length ? F.showMore('past', past, vRow, { n: 5, nDesk: 10, cls: 'stack-s', more: 'Earlier visits' }) : '<p class="small muted">Your finished visits appear here, ready to book again.</p>'}</div></div>
-    <aside class="stack">${F.favCard(u)}${F.secHead({ eyebrow: 'Programs' })}${ens.length ? F.progCal(u) : ''}${ens.map(en => { const p = F.PROG[en.pid], done = en.visits.filter(id => (E.visit(id) || {}).status === 'done').length, left = en.visits.map(E.visit).filter(v => v && v.status === 'confirmed').length; return `<div class="card-s"><div class="row between"><strong>${esc(p.name)}</strong><span class="row nowrap"><span class="mono tiny">${done} of ${en.visits.length}</span><button class="btn-link tiny" data-a="programSheet" data-e="${en.id}">Plan</button></span></div><p class="small muted mt4">${esc(p.anchor)}: ${U.keyFmt(en.anchor, 'md')}${en.guests ? ' · ' + en.guests + ' guests' : ''}${(en.paused || []).length ? ' · paused ' + U.plural(en.paused.reduce((t, x) => t + x.weeks, 0), 'week') : ''}</p>${!p.back && left ? `<div class="row wrap-gap mt8"><button class="btn-link tiny" data-a="pgPause" data-e="${en.id}" data-w="1">Pause a week</button><button class="btn-link tiny" data-a="pgPause" data-e="${en.id}" data-w="2">Pause two weeks</button></div>` : ''}${en.todo.length ? `<ul class="stack-s mt16">${en.todo.map(x => `<li class="row between wrap-gap small"><span>${esc(E.tr(x.tid).n)} · ${U.keyFmt(x.key, 'md')}${x.why ? `<small class="d-b muted">${esc(x.why)}</small>` : ''}</span><a class="btn-link tiny" href="#/build?t=${x.tid}&d=${x.dur}">Book</a></li>`).join('')}</ul><p class="tiny muted mt8">${E.money(en.refunded || 0, en.cityId, true)} went back to your Wallet for these.</p>` : ''}</div>`; }).join('') || `<p class="small muted">Bridal countdowns, libido resets and more. <a class="u" href="#/programs">See programs</a>.</p>`}</aside></div>` };
+  const v = (r && r.q.v) || 'up', seg = `<div class="seg seg-sm" role="tablist">${[['up', 'Coming up', up.length], ['past', 'Before', past.length], ['prog', 'Programs', ens.length]].map(([k, l, n]) => `<a class="seg-b ${v === k ? 'on' : ''}" href="#/account/visits${k === 'up' ? '' : '?v=' + k}" role="tab" aria-selected="${v === k}">${l}${n ? ` <span class="muted">${n}</span>` : ''}</a>`).join('')}</div>`;
+  let body;
+  if (v === 'past') body = past.length ? `${F.showMore('past', past, vRow, { n: 6, nDesk: 10, cls: 'stack-s', more: 'Earlier visits' })}${F.favCard(u) ? `<div class="mt32">${F.favCard(u)}</div>` : ''}` : F.empty('No visits yet', 'Finished visits appear here, ready to book again.');
+  else if (v === 'prog') body = ens.length ? `${F.progCal(u)}<div class="stack-s mt24">${ens.map(en => { const p = F.PROG[en.pid], done = en.visits.filter(id => (E.visit(id) || {}).status === 'done').length, left = en.visits.map(E.visit).filter(v => v && v.status === 'confirmed').length; return `<div class="card-s"><div class="row between"><strong>${esc(p.name)}</strong><span class="row nowrap"><span class="mono tiny">${done} of ${en.visits.length}</span><button class="btn-link tiny" data-a="programSheet" data-e="${en.id}">Plan</button></span></div><p class="small muted mt4">${esc(p.anchor)}: ${U.keyFmt(en.anchor, 'md')}${en.guests ? ' · ' + en.guests + ' guests' : ''}${(en.paused || []).length ? ' · paused ' + U.plural(en.paused.reduce((t, x) => t + x.weeks, 0), 'week') : ''}</p>${!p.back && left ? `<div class="row wrap-gap mt8"><button class="btn-link tiny" data-a="pgPause" data-e="${en.id}" data-w="1">Pause a week</button><button class="btn-link tiny" data-a="pgPause" data-e="${en.id}" data-w="2">Pause two weeks</button></div>` : ''}${en.todo.length ? `<ul class="stack-s mt16">${en.todo.map(x => `<li class="row between wrap-gap small"><span>${esc(E.tr(x.tid).n)} · ${U.keyFmt(x.key, 'md')}${x.why ? `<small class="d-b muted">${esc(x.why)}</small>` : ''}</span><a class="btn-link tiny" href="#/build?t=${x.tid}&d=${x.dur}">Book</a></li>`).join('')}</ul><p class="tiny muted mt8">${E.money(en.refunded || 0, en.cityId, true)} went back to your Wallet for these.</p>` : ''}</div>`; }).join('')}</div>` : F.empty('No programs', 'Bridal countdowns, libido resets and more: a few visits planned around a date.', '<a class="btn btn-ghost mt24" href="#/programs">See programs</a>');
+  else body = `${up.length ? `<div class="stack-s">${up.map(vRow).join('')}</div>` : F.empty('Nothing booked', 'Pick a ritual from the menu and choose a time.', '<a class="btn btn-pri mt24" href="#/menu">See the menu</a>')}
+    ${ws.length ? `<div class="stack-s mt24">${ws.map(w => `<div class="row between wrap-gap small card-s"><span>${F.ic('clock', 14)} Waitlist: ${esc(E.tr(w.tid).n)} · ${U.keyFmt(w.key, 'date')}</span><button class="btn-link tiny" data-a="waitDrop" data-w="${w.id}">Leave</button></div>`).join('')}</div>` : ''}`;
+  return { title: 'Visits', html: `<div class="narrow-l">${seg}<div class="mt24">${body}</div></div>` };
 };
 A.waitDrop = el => { F.store.commit(s => { const w = s.waits.find(x => x.id === el.dataset.w); if (w) w.status = 'left'; }); F.toast('Off the waitlist.'); F.rerender(); };
 V.glow = u => {
@@ -3855,7 +3877,7 @@ V.glow = u => {
   return { title: 'Glow tracker', html: `${F.sheetTile({ act: 'glowPaper', title: 'Your Glow record', sub: 'Private: nobody sees it but you. Each finished session lifts the level; every two months without one, it fades a step.', counts: [[rows.filter(x => x.g.n).length, 'Areas started'], [rows.reduce((t, x) => t + x.g.n, 0), 'Sessions'], [rows.filter(x => x.due && x.due < now()).length, 'Upkeep due']], cta: 'Open my Glow record', head: 'VELVET' })}
     <div class="clist mt24">${rows.map(({ k, a, g, due, nx, t }) => `<div class="card gt"><div class="row between"><h3 class="h-disp h4">${a[0]}</h3><span class="mono tiny">${g.level} of 6</span></div><div class="tscale mt16" style="--a:${a[1]};--b:${E.glowTone(k, 6)}"><i style="left:${(g.level / 6 * 100).toFixed(1)}%"></i></div><p class="small mt16">${g.n ? `${U.plural(g.n, 'session')} · last ${U.fmt(g.last, 'UTC', 'md')}` : 'Not started'}</p>${g.n && due ? `<p class="tiny ${due < now() ? '' : 'muted'} mt4">${due < now() ? 'Upkeep is due: it has started to fade.' : 'Upkeep due by ' + U.fmt(due, 'UTC', 'md')}</p>` : ''}${nx && nx.booked ? `<p class="small mt16">${F.ic('check', 12)} Next: ${U.fmt(nx.booked.start, E.cityTz(nx.booked.cityId), 'dt')}</p>` : nx && nx.sl ? `<a class="btn btn-ghost btn-sm mt16" href="#/build?t=${nx.t.id}&s=${nx.sl.start}">Book ${U.fmt(nx.sl.start, E.cityTz(F.cityId()), 'dt')}</a>` : t ? `<a class="btn btn-ghost btn-sm mt16" href="#/build?t=${t.id}">${g.n ? 'Book the next session' : 'Start the series'}</a>` : ''}</div>`).join('')}</div>` };
 };
-V.bodymap = u => { const sh = E.sheet(u); return { title: 'Touch sheet', html: `${F.touchTile(u)}<div class="g g2 al-start mt24"><div class="card"><span class="lbl">Where to touch</span><div class="mt16">${F.bodyMap(sh.z, false)}</div><p class="small muted mt16">${esc(F.mapSummary(sh.z))}</p></div><div class="card"><span class="lbl">Every visit</span><div class="sum mt16">${[['Therapist', sh.prefs.gender], ['They wear', sh.prefs.attire], ['Oil', sh.prefs.oil], ['Pressure', sh.prefs.pressure], ['Light', sh.prefs.light], ['Music', sh.prefs.music], ['Usually ends', sh.prefs.release && F.RELEASE[sh.prefs.release]], ['Safe word', sh.safe]].map(([k, v]) => F.kv(k, v ? esc(v) : '<span class="muted">Not set</span>')).join('')}</div>${E.careNotes(u).length ? `<p class="small mt16">${E.careNotes(u).map(esc).join('<br>')}</p>` : ''}</div></div>${F.mapHistory(u)}` }; };
+V.bodymap = u => { const sh = E.sheet(u); return { title: 'Touch sheet', html: `${F.touchTile(u)}<div class="g g2 al-start mt24"><div class="card"><span class="lbl">Where to touch</span><div class="mt16">${F.bodyMap(sh.z, false)}</div><p class="small muted mt16">${esc(F.mapSummary(sh.z))}</p></div><div class="card"><span class="lbl">Every visit</span><div class="sum mt16">${[['Therapist', sh.prefs.gender], ['They wear', sh.prefs.attire], ['Oil', sh.prefs.oil], ['Pressure', sh.prefs.pressure], ['Light', sh.prefs.light], ['Music', sh.prefs.music], ['Usually ends', sh.prefs.release && F.RELEASE[sh.prefs.release]], ['Safe word', sh.safe]].map(([k, v]) => F.kv(k, v ? esc(v) : '<span class="muted">Not set</span>')).join('')}</div>${E.careNotes(u).length ? `<p class="small mt16">${E.careNotes(u).map(esc).join('<br>')}</p>` : ''}</div></div>${F.mapHistory(u)}<div class="mt24">${F.health.card(u)}</div>` }; };
 V.orders = u => {
   const os = F.S.orders.filter(o => o.userId === u.id).reverse(), ST = [['paid', 'Paid'], ['packed', 'Packed'], ['shipped', 'Shipped'], ['delivered', 'Delivered']];
   return { title: 'Orders', html: os.length ? `<div class="stack">${F.refillList(u)}${os.map(o => `<div class="card"><div class="row between wrap-gap"><div><span class="lbl">${o.no}</span><p class="small muted mt4">${U.fmt(o.at, E.cityTz(o.cityId), 'dt')} · ${E.money(o.total, o.cityId, true)}</p></div><button class="btn-link tiny" data-a="orReceipt" data-o="${o.id}">Receipt</button></div><ol class="osteps mt16">${ST.map(([k, l]) => { const s = o.steps.find(x => x.s === k); return `<li class="${s ? 'done' : ''}"><strong class="small">${l}</strong><small class="d-b muted">${s ? U.fmt(s.at, E.cityTz(o.cityId), 'md') : '—'}</small></li>`; }).join('')}</ol><p class="small mt16">${o.lines.map(l => esc(F.SHOPI[l.id].n) + ' × ' + l.q).join(' · ')}${o.refill ? ' · refill, 10% less' : ''}</p></div>`).join('')}</div>` : F.empty('No orders yet', 'Oils, the Rosé home kit and a few things for the bedroom, in plain packaging.', '<a class="btn btn-pri mt24" href="#/shop">Visit the shop</a>') };
@@ -4221,7 +4243,7 @@ const tagsOf = t => [t.c, t.id, 'id:' + t.id, t.body, t.pair ? 'pairs' : '', ...
 const fyItems = u => { const z = E.myMap(u), c = F.cityId(); return F.TREAT.filter(t => !t.hidden && F.trOpen(t) && !E.careBlock(u, t) && !E.mapClash(t, t.pair ? E.mutualMap(u) : z, (t.release || [])[0])).map(t => ({ t, id: t.id, title: t.n, sub: t.s, href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', meta: `${t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}`, price: F.trFrom(t, c), tags: tagsOf(t) })); };
 const fyScore = (x, p) => 2 + x.tags.reduce((a, k) => a + (p.tags[k] || 0), 0) + (F.rvRank('tr:' + x.id) - 4.6) * 4;
 F.forYouList = u => { const p = F.prefs(u); return fyItems(u).map(x => [x, fyScore(x, p)]).filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0].t); };
-F.forYouVV = u => [F.forYou(u, fyItems(u), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) }), F.vvLater(u)].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
+F.forYouVV = u => [F.forYou(u, fyItems(u), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
 
 /* ---------- nudges: come back at the right interval ---------- */
 const upcomingOf = (u, test) => E.myVisits(u).some(v => v.status === 'confirmed' && test(E.tr(v.tid)));
@@ -4319,6 +4341,109 @@ F.favBtn = (u, v) => v.ther.map(E.ther).filter(Boolean).map(x => { const on = E.
 F.favCard = u => { const fs = E.favs(u); if (!fs.length) return '';
   return `<div class="card"><span class="lbl">Your favourite hands</span><div class="stack-s mt16">${fs.map(f => { const x = E.ther(f.therId), on = E.therOn(x, E.todayKey(x.city)), t = E.tr(f.tid) || E.tr(E.lastRitual(u) ? E.lastRitual(u).tid : 'warm');
     return `<div class="row between wrap-gap"><span class="small">${esc(F.GENDER[x.g])} (${esc(x.init)})<span class="d-b tiny muted">Licence ${esc(x.lic)} · ${esc(F.SPAS[x.city].name)}</span></span>${on && t ? `<a class="btn btn-ghost btn-sm" href="#/build?t=${t.id}&same=${x.id}">Book with them</a>` : '<span class="tiny muted">Not on the rota now</span>'}</div>`; }).join('')}</div></div>`; };
+})();
+
+/* ---- 96-health.js ---- */
+/* Shared by FLINGR, Velvet and Practice: one sexual health record for the FLINGR account, synced across the three sites.
+   Two ways to add to it:
+   1. Book a screening at a partner hospital (results arrive verified 24 to 48 hours after the appointment).
+   2. Add an independent test from any clinic, proved with the health record number and date of birth, or by uploading
+      the lab report (any file: the report is read and the form fills itself in; nothing leaves the browser).
+   Records: { id, source: 'partner' | 'independent', hospital | lab, at, panel, ok, verified, ref, hrn?, file?, site }. */
+(() => {
+'use strict';
+const H = F.health = {}, A = F.A, now = () => Date.now(), M = 6e4, D = 864e5, HR = 36e5;
+const SITE = (F.SITE && F.SITE.id) || 'flingr';
+F.HOSPITALS = F.HOSPITALS || {
+  la: [{ id: 'pcmc', addr: '8700 Crest Boulevard, Los Angeles, CA 90048', director: 'Dr Helen Okafor, MD', name: 'Pacific Crest Medical Center', acc: 'Joint Commission accredited · 900 beds' }, { id: 'crum', addr: '1250 Cedar Ridge Drive, Los Angeles, CA 90095', director: 'Dr Samuel Reyes, MD', name: 'Cedar Ridge University Hospital', acc: 'Joint Commission accredited · academic medical centre' }, { id: 'wbhs', addr: '400 Westbridge Avenue, Santa Monica, CA 90404', director: 'Dr Anita Patel, MD', name: 'Westbridge Health System', acc: 'Joint Commission accredited · 14 hospitals' }],
+  ny: [{ id: 'hpmc', addr: '622 West 168th Street, New York, NY 10032', director: 'Dr Martin Albrecht, MD', name: 'Hudson Presbyterian Medical Center', acc: 'Joint Commission accredited · 2,600 beds' }, { id: 'muh', addr: '550 First Avenue, New York, NY 10016', director: 'Dr Grace Liu, MD', name: 'Manhattan University Hospital', acc: 'Joint Commission accredited · academic medical centre' }, { id: 'ehn', addr: '1275 York Avenue, New York, NY 10065', director: 'Dr Daniel Moreno, MD', name: 'Empire Health Network', acc: 'Joint Commission accredited · 11 hospitals' }],
+  ldn: [{ id: 'sbuh', addr: 'Fleet Lane, London EC4A 2HR', director: 'Dr Eleanor Whitcombe, FRCPath', name: 'St Bride’s University Hospital', acc: 'NHS Foundation Trust · CQC rated Outstanding' }, { id: 'tri', addr: 'Embankment Road, London SE1 7EH', director: 'Dr James Adeyemi, FRCPath', name: 'Thames Royal Infirmary', acc: 'NHS Foundation Trust · CQC rated Outstanding' }, { id: 'khp', addr: 'Kingsway, London WC2B 6XF', director: 'Dr Priya Raman, FRCPath', name: 'Kingsway Health Partners', acc: 'CQC registered · 9 hospitals' }]
+};
+if (!F.hospital) F.hospital = id => Object.values(F.HOSPITALS).flat().find(x => x.id === id);
+H.LABS = F.LABS || { la: ['Silver Lake Health Partners', 'Westside Clinical Lab', 'Pacific Diagnostics'], ny: ['Hudson Sexual Health', 'Tribeca Medical Lab', 'Brooklyn Clinical'], ldn: ['Harley Street Diagnostics', 'Clerkenwell Health Lab', 'Thames Medical'] };
+H.PANEL = [['hiv', 'HIV'], ['syphilis', 'Syphilis'], ['chlamydia', 'Chlamydia'], ['gonorrhoea', 'Gonorrhoea'], ['hepb', 'Hep B'], ['hepc', 'Hep C'], ['herpes', 'Herpes']];
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const user = () => F.E.user();
+const city = u => (u && u.city) || (F.cityId && F.cityId()) || 'la';
+const tzOf = u => F.E.city(city(u)).tz;
+const save = fn => F.store.commit(fn);
+const code = n => String(Math.floor(10 ** (n - 1) + Math.random() * 9 * 10 ** (n - 1)));
+
+H.records = u => ((u && u.health) || []).slice().sort((a, b) => b.at - a.at);
+H.name = r => r.hospital ? ((F.hospital(r.hospital) || {}).name || 'Partner hospital') : (r.lab || 'Independent clinic');
+H.kind = r => r.hospital ? 'Partner hospital' : 'Independent test';
+H.panel = r => r.panel || H.PANEL.map(p => p[0]);
+H.row = (r, u) => { const tz = tzOf(u), p = H.panel(r);
+  return `<div class="hrow"><div class="row between wrap-gap"><strong class="small">${esc(H.name(r))}</strong><span class="badge b-ok">${F.ic('shield', 11)} ${r.verified === false ? 'Self-reported' : 'Verified'}</span></div>
+  <div class="tiny muted mt4">${H.kind(r)} · tested ${U.fmt(r.at, tz, 'md')} · ${esc(r.ref || '')}${r.hrn ? ' · record ' + esc(r.hrn) : ''}${r.file ? ' · ' + esc(r.file) : ''}</div>
+  <div class="tiny mt8">${H.PANEL.map(([k, l]) => `<span class="hchip ${p.includes(k) ? 'on' : ''}">${l}</span>`).join('')}</div></div>`; };
+
+/* ---------- a partner hospital ---------- */
+H.appt = u => { const t = u && u.healthTest; if (!t) return ''; const hs = F.hospital(t.hospital) || {}, tz = tzOf(u), past = now() >= t.at;
+  return `<div class="card-s hrow"><span class="lbl">${past ? 'Sample taken' : 'Screening booked'}</span><strong class="small d-b mt8">${esc(hs.name)}</strong><p class="tiny muted mt4">${U.fmt(t.at, tz, 'dt')} · ${esc(hs.addr || '')} · ref ${esc(t.ref)}</p><p class="tiny mt8">${past ? 'Verified results by ' + U.fmt(t.ready, tz, 'dt') + '.' : 'Bring photo ID. Results come to your FLINGR account, usually within 48 hours.'}</p>${past ? '' : '<button class="btn-link tiny mt8" data-a="hBookCancel">Cancel appointment</button>'}</div>`; };
+const hb = () => F.ui.hb = F.ui.hb || {};
+A.hBook = () => { const u = user(); if (!u) return F.A.signin && F.A.signin(); const c = city(u), b = hb(); b.hospital = b.hospital || F.HOSPITALS[c][0].id; b.day = b.day || U.addDays(F.E.todayKey(c), 1); b.time = b.time || 10 * 60; F.modal(hbHtml(u), { label: 'Book a screening' }); };
+const hbHtml = u => { const c = city(u), tz = tzOf(u), b = hb(), today = F.E.todayKey(c), days = Array.from({ length: 10 }, (_, i) => U.addDays(today, i + 1));
+  return `<h2 class="h-disp h3">Book a screening</h2><p class="small muted mt8">At a partner hospital. A full panel (${H.PANEL.map(p => p[1]).join(', ')}); verified results come straight to your FLINGR account.</p>
+  <span class="lbl d-b mt24">Hospital</span><div class="stack-s mt8">${F.HOSPITALS[c].map(h => `<button type="button" class="fopt ${b.hospital === h.id ? 'on' : ''}" data-a="hbPick" data-k="hospital" data-v="${h.id}" aria-pressed="${b.hospital === h.id}"><span><strong>${esc(h.name)}</strong><small class="d-b muted">${esc(h.addr)}</small></span></button>`).join('')}</div>
+  <span class="lbl d-b mt24">Day</span><div class="row wrap-gap mt8">${days.map(k => `<button type="button" class="chip chip-sm ${b.day === k ? 'on' : ''}" data-a="hbPick" data-k="day" data-v="${k}">${U.keyFmt(k, 'dshort')}</button>`).join('')}</div>
+  <span class="lbl d-b mt24">Time</span><div class="row wrap-gap mt8">${[9, 10, 11, 12, 14, 15, 16, 17].map(h => `<button type="button" class="chip chip-sm ${b.time === h * 60 ? 'on' : ''}" data-a="hbPick" data-k="time" data-v="${h * 60}">${String(h > 12 ? h - 12 : h)}:00 ${h < 12 ? 'AM' : 'PM'}</button>`).join('')}</div>
+  <button class="btn btn-pri mt24" data-a="hbGo">Book for ${U.keyFmt(b.day, 'dshort')}, ${U.fmt(U.zoned(tz, b.day, b.time), tz, 'time')}</button>`; };
+A.hbPick = el => { const b = hb(); b[el.dataset.k] = el.dataset.k === 'time' ? +el.dataset.v : el.dataset.v; const m = F._modal && F._modal.m; if (m) { const y = m.scrollTop; m.innerHTML = m.innerHTML.split('<h2')[0] + hbHtml(user()); m.scrollTop = y; } };
+A.hbGo = () => { const u = user(), tz = tzOf(u), b = hb(), at = U.zoned(tz, b.day, b.time), ref = 'APT-' + code(5), ready = at + (24 + Math.floor(Math.random() * 24)) * HR;
+  save(() => { user().healthTest = { hospital: b.hospital, at, ready, ref, site: SITE }; });
+  F.ui.hb = null; F.closeModal(); F.toast('Booked. Results come to your account, usually within 48 hours.'); F.rerender(); };
+A.hBookCancel = async () => { if (!(await F.confirm({ title: 'Cancel this appointment?', body: 'You can book another at any time.', ok: 'Cancel appointment', danger: true }))) return; save(() => { user().healthTest = null; }); F.rerender(); };
+// results arrive on whichever site is open first; the record's id comes from the booking, so it is never added twice
+H.complete = (u, n) => { const t = u && u.healthTest; if (!t || n < t.ready) return false; const id = 'hr_' + t.ref;
+  u.health = u.health || []; if (!u.health.some(r => r.id === id)) u.health.push({ id, source: 'partner', hospital: t.hospital, at: t.at, panel: H.PANEL.map(p => p[0]), ok: true, verified: true, ref: 'LAB-' + code(6), site: t.site || SITE });
+  u.healthTest = null; F.E.notify(u.id, 'reminders', 'Your results are ready', `${(F.hospital(t.hospital) || {}).name}: verified, all clear.`, SITE === 'flingr' ? '#/account/preferences?s=health' : '#/account', n); return true; };
+if (F.ticks) F.ticks.push(n => { ((F.P && F.P.users) || []).forEach(u => H.complete(u, n)); });
+
+/* ---------- an independent test ---------- */
+const hi = () => F.ui.hi = F.ui.hi || { mode: 'hrn', step: 'enter' };
+A.hIndep = () => { const u = user(); if (!u) return F.A.signin && F.A.signin(); F.ui.hi = { mode: 'hrn', step: 'enter' }; F.modal(hiHtml(u), { label: 'Add an independent test' }); };
+const redraw = () => { const m = F._modal && F._modal.m; if (m && m.querySelector('.hi')) { m.innerHTML = m.innerHTML.split('<div class="hi')[0] + hiHtml(user()); } };
+const hiHtml = u => { const s = hi(), c = city(u), labs = H.LABS[c], tz = tzOf(u);
+  if (s.step === 'checking') return `<div class="hi center"><span class="spin"></span><p class="small mt16">${s.mode === 'hrn' ? 'Checking the record with ' + esc(s.lab) + '…' : 'Reading your report…'}</p></div>`;
+  if (s.step === 'review') { const r = s.rec;
+    return `<div class="hi"><h2 class="h-disp h3">Check and add</h2><p class="small muted mt8">${s.mode === 'hrn' ? `Found record ${esc(r.hrn)} at ${esc(r.lab)}.` : `Read from ${esc(r.file)}.`} Everything below came from the lab; change anything that’s wrong.</p>
+    <form class="stack mt24" data-f="hiAdd"><div class="field"><label for="hiL">Clinic or lab</label><select class="inp" id="hiL" name="lab">${Object.values(H.LABS).flat().map(l => `<option ${l === r.lab ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></div>
+    <div class="field"><label for="hiD">Date of the test</label><input class="inp" id="hiD" type="date" name="date" value="${U.dayKey(r.at, tz)}" max="${F.E.todayKey(c)}" required></div>
+    <fieldset><legend class="lbl">Tested for, all clear</legend><div class="row wrap-gap mt8">${H.PANEL.map(([k, l]) => `<label class="check"><input type="checkbox" name="p_${k}" ${r.panel.includes(k) ? 'checked' : ''}><span>${l}</span></label>`).join('')}</div></fieldset>
+    <p class="tiny muted">Lab reference ${esc(r.ref)}. Only clear results can be added; if something came back positive, talk to your clinic first.</p>
+    <div class="row wrap-gap"><button class="btn btn-pri">Add to my record</button><button type="button" class="btn btn-ghost" data-a="hiBack">Back</button></div></form></div>`; }
+  return `<div class="hi"><h2 class="h-disp h3">Add an independent test</h2><p class="small muted mt8">A test from any clinic. We check it with the lab before it goes on your record, for FLINGR, Velvet and Practice.</p>
+  <div class="seg seg-sm mt24" role="group" aria-label="How">${[['hrn', 'Health record number'], ['file', 'Upload the report']].map(([v, l]) => `<button type="button" class="seg-b ${s.mode === v ? 'on' : ''}" data-a="hiMode" data-v="${v}" aria-pressed="${s.mode === v}">${l}</button>`).join('')}</div>
+  <form class="stack mt24" data-f="hiCheck">${s.mode === 'hrn' ? `<div class="field"><label for="hiR">Health record number</label><input class="inp mono" id="hiR" name="hrn" placeholder="HRN-123456" autocomplete="off" required><small class="tiny muted">On the letter or text from the clinic.</small></div>
+    <div class="field"><label for="hiB">Date of birth</label><input class="inp" id="hiB" type="date" name="dob" required></div>
+    <div class="field"><label for="hiC">Clinic or lab</label><select class="inp" id="hiC" name="lab">${labs.map(l => `<option>${esc(l)}</option>`).join('')}</select></div>`
+    : `<div class="field"><label for="hiF">Lab report</label><input class="inp" id="hiF" type="file" name="report" accept="application/pdf,image/*" required><small class="tiny muted">A PDF or a photo of the report. We read the clinic, the date and what was tested.</small></div><button type="button" class="btn btn-ghost btn-sm" data-a="hiInbox">${F.ic('msg', 14)} Attach from your inbox: ${esc(H.LABS[c][0])} report.pdf</button>`}
+  ${s.err ? `<p class="small err-t">${esc(s.err)}</p>` : ''}<button class="btn btn-pri">${s.mode === 'hrn' ? 'Check with the lab' : 'Read the report'}</button></form></div>`; };
+A.hiInbox = () => { const s = hi(), c = city(user()); s.fileName = H.LABS[c][0].replace(/\s+/g, '-') + '-report.pdf'; s.lab = H.LABS[c][0]; s.err = ''; s.step = 'checking'; redraw(); setTimeout(() => { s.rec = { lab: s.lab, at: now() - (2 + Math.floor(Math.random() * 12)) * D, panel: ['hiv', 'syphilis', 'chlamydia', 'gonorrhoea', 'hepb'], ref: 'LAB-' + code(6), hrn: null, file: s.fileName }; s.step = 'review'; redraw(); }, 1000); };
+A.hiMode = el => { const s = hi(); s.mode = el.dataset.v; s.err = ''; redraw(); };
+A.hiBack = () => { const s = hi(); s.step = 'enter'; redraw(); };
+F.Fm.hiCheck = (f, d) => { const s = hi(), u = user(), c = city(u);
+  if (s.mode === 'hrn') {
+    if (!/^[A-Za-z]{2,4}-?\d{5,}$/.test(String(d.hrn || '').trim())) { s.err = 'Record numbers look like HRN-123456.'; return redraw(); }
+    if (d.dob && u.dob && d.dob !== u.dob) { s.err = 'That date of birth doesn’t match the record.'; return redraw(); }
+    s.lab = d.lab;
+  } else { const file = f.querySelector('[name=report]').files[0]; if (!file) { s.err = 'Choose the report.'; return redraw(); } s.fileName = file.name; s.lab = H.LABS[c][Math.floor(Math.random() * 3)]; }
+  s.err = ''; s.step = 'checking'; redraw();
+  setTimeout(() => { const panel = s.mode === 'hrn' ? H.PANEL.map(p => p[0]) : ['hiv', 'syphilis', 'chlamydia', 'gonorrhoea'].concat(Math.random() < .5 ? ['hepb'] : []);
+    s.rec = { lab: s.lab, at: now() - (2 + Math.floor(Math.random() * 12)) * D, panel, ref: 'LAB-' + code(6), hrn: s.mode === 'hrn' ? String(d.hrn).trim().toUpperCase() : null, file: s.mode === 'file' ? s.fileName : null };
+    s.step = 'review'; redraw(); }, 1200); };
+F.Fm.hiAdd = (f, d) => { const s = hi(), u = user(), tz = tzOf(u), panel = H.PANEL.map(p => p[0]).filter(k => d['p_' + k]);
+  if (!panel.length) return F.toast('Tick what the test covered.', 'err');
+  const at = U.zoned(tz, d.date, 9 * 60);
+  save(() => { const x = user(); x.health = x.health || []; x.health.push({ id: 'hr_' + U.uid('i'), source: 'independent', lab: d.lab, at, panel, ok: true, verified: true, ref: s.rec.ref, hrn: s.rec.hrn || undefined, file: s.rec.file || undefined, site: SITE }); });
+  F.ui.hi = null; F.closeModal(); F.toast('Added to your health record, on FLINGR, Velvet and Practice.'); F.rerender(); };
+
+// the two ways, side by side (account pages on all three sites)
+H.options = u => `${H.appt(u)}<div class="g g2 mt16 hopts"><button class="card-s hopt" data-a="hBook" ${u && u.healthTest ? 'disabled' : ''}><strong class="small d-b">Book at a partner hospital</strong><span class="tiny muted d-b mt4">Full panel, verified results in 24–48 hours.</span></button><button class="card-s hopt" data-a="hIndep"><strong class="small d-b">Add an independent test</strong><span class="tiny muted d-b mt4">From any clinic: record number or upload the report.</span></button></div>`;
+H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><div class="row between"><span class="lbl">Health record</span><span class="tiny muted">Shared by FLINGR, Velvet and Practice</span></div>
+  <div class="stack-s mt16">${rs.length ? rs.slice(0, 4).map(r => H.row(r, u)).join('') : '<p class="small muted">No tests on file yet.</p>'}</div>${H.options(u)}</div>`; };
+(() => { const s = document.createElement('style'); s.textContent = `.hrow{border:1px solid var(--ln);border-radius:10px;padding:12px 14px}.hchip{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:999px;border:1px solid var(--ln);opacity:.5}.hchip.on{opacity:1}.hopt{text-align:left;cursor:pointer;color:inherit;font:inherit;background:none}.hopt:disabled{opacity:.5;cursor:default}.hi .spin{display:inline-block}`; document.head.appendChild(s); })();
 })();
 
 /* ---- 97-lang.js ---- */
@@ -4445,6 +4570,7 @@ const words = el => [el.getAttribute('autocomplete'), el.name, el.id, el.getAttr
 // the value for one field, or undefined to leave it alone
 const valueFor = (el, p, form) => {
   const w = words(el), t = (el.type || '').toLowerCase(), req = el.required || el.getAttribute('aria-required') === 'true';
+  if (/health record|\bhrn\b/.test(w)) return 'HRN-' + String(Math.floor(100000 + Math.random() * 900000));   // before card numbers: its example is HRN-123456
   if (/cc-csc|cvc|cvv|security code/.test(w)) return '123';   // before the one-time-code rule: its label says "code" too
   if (/one-time|otp|\bcode\b|verification|\bpin\b/.test(w) && !/post|zip|promo|gift|discount|referral/.test(w)) return;   // codes come from Messages
   if (/promo|discount|gift.?code|coupon|referral|search|\bq\b/.test(w)) return;
