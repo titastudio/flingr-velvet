@@ -1,5 +1,5 @@
-/* VELVET by FLINGR: offline copy, build 4049300a41 */
-const C = 'fam-velvet-4049300a41';
+/* VELVET by FLINGR: offline copy, build 27fae9fc24 */
+const C = 'fam-velvet-27fae9fc24';
 self.addEventListener('install', e => { self.skipWaiting(); e.waitUntil(caches.open(C).then(c => c.addAll(['./', './manifest.webmanifest', './icon-192.png'])).catch(() => {})); });
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('fam-velvet-') && k !== C).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {
