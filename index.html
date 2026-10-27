@@ -162,7 +162,7 @@ legend{padding:0;margin-bottom:10px}
 .subnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--ln);margin-top:28px}.subnav::-webkit-scrollbar{display:none}
 .subnav a{flex:none;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px}.subnav a.on{color:var(--fg);border-bottom-color:var(--pri)}.subnav a:hover{color:var(--fg)}
 .acct-nav{display:flex;align-items:flex-end;gap:4px;margin-top:28px}.acct-nav .subnav{margin-top:0;flex:1;min-width:0}
-.acct-more{position:relative;flex:none}.acct-more summary{list-style:none;cursor:pointer;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;gap:6px;align-items:center}.acct-more summary::-webkit-details-marker{display:none}.acct-more[open] summary,.acct-more summary:hover{color:var(--fg)}
+.acct-more{position:relative;flex:none}.acct-more summary{list-style:none;cursor:pointer;min-height:44px;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;gap:6px;align-items:center}.acct-more summary::-webkit-details-marker{display:none}.acct-more[open] summary,.acct-more summary:hover{color:var(--fg)}
 .acct-more-m{position:absolute;right:0;top:100%;z-index:30;min-width:200px;background:var(--bg2,var(--bg));border:1px solid var(--ln);border-radius:12px;padding:6px;box-shadow:0 18px 40px rgba(0,0,0,.35)}.acct-more-m a{display:block;padding:10px 12px;border-radius:8px;font-size:14px}.acct-more-m a:hover{background:var(--ln)}
 .subnav .n{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--pri);color:var(--pri-fg);font-size:10px;text-align:center}
 
@@ -1065,10 +1065,12 @@ F.store = {
     F.E.invalidate(); write(); return how;
   },
   save() { if (F.resetting) return; write(); F.E.invalidate(); },
+  // another tab's write is spotted by its stamp (revision AND which tab wrote it): two tabs can reach the same revision
+  // number on their own, and comparing the number alone let a stale copy overwrite a newer sign-out or payment
   sync() {
     if (LS.blocked) return false; let changed = false;
-    try { const st = LS.get(SK() + '.rev'); if (!st || st !== F.S.rev + ':' + F.S.savedBy) { const s = JSON.parse(LS.get(SK()) || 'null'); if (valid(s) && s.rev !== F.S.rev) { F.S = repairS(s); changed = true; } } } catch (e) { }
-    try { const st = LS.get(PK + '.rev'); if (!st || st !== F.P.rev + ':' + F.P.savedBy) { const p = JSON.parse(LS.get(PK) || 'null'); if (p && Array.isArray(p.users) && p.rev !== F.P.rev) { F.P = repairP(p); changed = true; } } } catch (e) { }
+    try { const st = LS.get(SK() + '.rev'); if (!st || st !== F.S.rev + ':' + F.S.savedBy) { const s = JSON.parse(LS.get(SK()) || 'null'); if (valid(s) && (s.rev !== F.S.rev || s.savedBy !== F.S.savedBy)) { F.S = repairS(s); changed = true; } } } catch (e) { }
+    try { const st = LS.get(PK + '.rev'); if (!st || st !== F.P.rev + ':' + F.P.savedBy) { const p = JSON.parse(LS.get(PK) || 'null'); if (p && Array.isArray(p.users) && (p.rev !== F.P.rev || p.savedBy !== F.P.savedBy)) { F.P = repairP(p); changed = true; } } } catch (e) { }
     if (changed) F.E.invalidate(); return changed;
   },
   commit(fn) { F.store.sync(); const r = fn(F.S, F.P); F.store.save(); return r; },
@@ -3850,7 +3852,7 @@ V[''] = u => {
   const up = upcoming(u), next = up[0], live = next && next.status !== 'confirmed', m = E.memberOf(u) || E.memberSeat(u), last = E.lastRitual(u), ga = glowAreas(u), sh = E.sheet(u), c = F.cityId();
   const hero = next ? `<a class="card next ${live ? 'live' : ''}" href="#/account/visit/${next.id}"><div class="row between"><span class="lbl">${live ? F.VTONE[next.status][0] : 'Your next visit'}</span>${live ? '<span class="badge b-live"><i class="dot live"></i>Now</span>' : ''}</div><h2 class="h-disp h2 mt8">${esc(E.tr(next.tid).n)}</h2><p class="small muted mt4">${U.dur(next.dur)} · ${U.fmt(next.start, E.cityTz(next.cityId), 'dt')} · ${esc(F.SPAS[next.cityId].name)}</p><span class="btn btn-ghost btn-sm mt16">Visit details</span></a>`
     : last ? `<div class="card next"><span class="lbl">Book again</span><h2 class="h-disp h2 mt8">${esc(E.tr(last.tid).n)}</h2><p class="small muted mt4">${U.dur(last.dur)}${last.release ? ' · ' + F.RELEASE[last.release] : ''}${last.opts.oil ? ' · ' + esc(last.opts.oil) : ''}, as last time.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/build?t=${last.tid}&d=${last.dur}">Book it again</a><a class="btn-link tiny" href="#/menu">Or choose from the menu</a></div></div>`
-    : `<div class="card next"><span class="lbl">Nothing booked yet</span><h2 class="h-disp h2 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt4">Full body, warm oil, unhurried, and you choose how it ends.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/treatment/warm">Book it</a><a class="btn-link tiny" href="#/menu">Or see the whole menu</a></div></div>`;
+    : `<div class="card next"><span class="lbl">Nothing booked yet</span><h2 class="h-disp h2 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt16">Full body, warm oil, unhurried, and you choose how it ends.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/treatment/warm">Book it</a><a class="btn-link tiny" href="#/menu">Or see the whole menu</a></div></div>`;
   const zones = sh.marked;
   return { title: 'Account', html: `${F.vvTop(u)}${u.verified ? '' : `<div class="notice mb24">${F.ic('lock', 16)}<span>Verify your identity before your first visit. <button class="btn-link tiny" data-a="verifyId">Verify</button></span></div>`}
   <div class="ov2"><div class="stack">${hero}
@@ -4482,99 +4484,9 @@ H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><
 (() => { const s = document.createElement('style'); s.textContent = `.hrow{border:1px solid var(--ln);border-radius:10px;padding:12px 14px}.hchip{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:999px;border:1px solid var(--ln);opacity:.5}.hchip.on{opacity:1}.hopt{text-align:left;cursor:pointer;color:inherit;font:inherit;background:none}.hopt:disabled{opacity:.5;cursor:default}.hi .spin{display:inline-block}.hrow+.hrow{margin-top:0}.hdoc .pp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:14px 0;margin-top:20px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}.hdoc .pp-grid>div{display:flex;flex-direction:column;gap:4px}.hdoc .pp-tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}.hdoc .pp-tbl th{text-align:left;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px 8px 8px 0;border-bottom:1px solid #1C1916}.hdoc .pp-tbl td{padding:10px 8px 10px 0;border-bottom:1px dotted var(--ln2);vertical-align:top}.hdoc .pp-note{margin-top:16px;color:var(--mut);max-width:62ch}.hdoc .pp-m2{display:none}.hdoc .pp-ref{display:flex;flex-direction:column;align-items:flex-end}@media(max-width:640px){.hdoc .pp-grid{grid-template-columns:1fr 1fr}.hdoc .pp-m{display:none}.hdoc .pp-m2{display:block;margin-top:4px;font-size:11.5px;color:var(--mut)}.hdoc .pp-ref{align-items:flex-start}}`; document.head.appendChild(s); })();
 })();
 
-/* ---- 97-lang.js ---- */
-/* Shared by FLINGR, Velvet and Practice. Español and Français for the parts of the sites people use to get around:
-   navigation, buttons, tabs, form labels, the footer, the age check and the cookie bar. Text is swapped only when it
-   matches a label below exactly, so articles, profiles, names and prices stay as written. Choose the language in
-   "This browser" (footer); the choice is shared by the three sites (localStorage['flingr.a11y'].lang). */
-(() => {
-'use strict';
-const FAM = F.fam = F.fam || {};
-// English → [Español, Français]
-const D = {
-  'Skip to content': ['Ir al contenido', 'Aller au contenu'], 'Quick exit': ['Salida rápida', 'Sortie rapide'], 'This browser': ['Este navegador', 'Ce navigateur'],
-  'Cookie settings': ['Ajustes de cookies', 'Paramètres des cookies'], 'Inbox': ['Bandeja', 'Messages'], 'Sign out': ['Cerrar sesión', 'Se déconnecter'], 'Sign in': ['Iniciar sesión', 'Se connecter'],
-  'Book': ['Reservar', 'Réserver'], 'Escapes': ['Escapadas', 'Évasions'], 'Programs': ['Programas', 'Programmes'], 'Membership': ['Membresía', 'Abonnement'],
-  'Help': ['Ayuda', 'Aide'], 'Timetable': ['Horario', 'Planning'], 'How it works': ['Cómo funciona', 'Comment ça marche'], 'Skills': ['Habilidades', 'Compétences'],
-  'Terms': ['Términos', 'Conditions'], 'Privacy': ['Privacidad', 'Confidentialité'], 'Account': ['Cuenta', 'Compte'], 'Contact': ['Contacto', 'Contact'], 'Cookies': ['Cookies', 'Cookies'],
-  'Home': ['Inicio', 'Accueil'], 'Overview': ['Resumen', 'Aperçu'], 'Build a ritual': ['Crea tu ritual', 'Composer un rituel'], 'Menu': ['Menú', 'Menu'], 'Settings': ['Ajustes', 'Réglages'],
-  'Educators': ['Educadores', 'Éducateurs'], 'Journal': ['Revista', 'Journal'], 'Company': ['Empresa', 'Société'], 'Hosts': ['Anfitriones', 'Hôtes'], 'Email address': ['Correo electrónico', 'Adresse e-mail'],
-  'Subscribe': ['Suscribirse', 'S’abonner'], 'Trust': ['Confianza', 'Confiance'], 'Reset site': ['Reiniciar el sitio', 'Réinitialiser le site'], 'Wallet': ['Monedero', 'Portefeuille'],
-  'Visit': ['Visita', 'Visite'], 'Learn': ['Aprender', 'Apprendre'], 'Gift': ['Regalo', 'Cadeau'], 'Help & FAQ': ['Ayuda y preguntas', 'Aide et FAQ'], 'Add': ['Añadir', 'Ajouter'],
-  'Bookings': ['Reservas', 'Réservations'], 'Morning Menu': ['Menú de mañana', 'Menu du matin'], 'Safety & Trust': ['Seguridad y confianza', 'Sécurité et confiance'], 'About': ['Acerca de', 'À propos'],
-  'The menu': ['El menú', 'La carte'], 'All hosts': ['Todos los anfitriones', 'Tous les hôtes'], 'Plans & pricing': ['Planes y precios', 'Formules et tarifs'], 'Plan a trip': ['Planear un viaje', 'Préparer un voyage'],
-  'Gift cards': ['Tarjetas regalo', 'Cartes cadeaux'], 'Community Guidelines': ['Normas de la comunidad', 'Règles de la communauté'], 'Help Center': ['Centro de ayuda', 'Centre d’aide'],
-  '24/7 support': ['Asistencia 24/7', 'Assistance 24/7'], 'Press': ['Prensa', 'Presse'], 'Careers': ['Empleo', 'Carrières'], 'Become a host': ['Hazte anfitrión', 'Devenir hôte'], 'Refunds': ['Reembolsos', 'Remboursements'],
-  'Search': ['Buscar', 'Rechercher'], 'Browse': ['Explorar', 'Parcourir'], 'Saved hosts': ['Anfitriones guardados', 'Hôtes enregistrés'], 'Shop': ['Tienda', 'Boutique'], 'Touch sheet': ['Hoja de contacto', 'Fiche de contact'],
-  'Your visit': ['Tu visita', 'Votre visite'], 'The spas': ['Los spas', 'Les spas'], 'Front desk': ['Recepción', 'Accueil'], 'Visits': ['Visitas', 'Visites'], 'Studios': ['Estudios', 'Studios'],
-  'Safety and consent': ['Seguridad y consentimiento', 'Sécurité et consentement'], 'Adults only': ['Solo adultos', 'Réservé aux adultes'], 'Enter': ['Entrar', 'Entrer'],
-  'Lessons': ['Lecciones', 'Leçons'], 'Filter': ['Filtrar', 'Filtrer'], '(optional)': ['(opcional)', '(facultatif)'], 'City': ['Ciudad', 'Ville'], 'Month': ['Mes', 'Mois'], 'Day': ['Día', 'Jour'], 'Year': ['Año', 'Année'],
-  'More': ['Más', 'Plus'], 'Remove': ['Quitar', 'Retirer'], 'Browse hosts': ['Ver anfitriones', 'Voir les hôtes'], 'Therapist': ['Terapeuta', 'Thérapeute'], 'Everything': ['Todo', 'Tout'], 'Prices': ['Precios', 'Tarifs'],
-  'Become a member': ['Hazte miembro', 'Devenir membre'], 'Groups': ['Grupos', 'Groupes'], 'Also by FLINGR': ['También de FLINGR', 'Aussi par FLINGR'], 'Visit Velvet': ['Visitar Velvet', 'Visiter Velvet'], 'Visit Practice': ['Visitar Practice', 'Visiter Practice'],
-  'January': ['Enero', 'Janvier'], 'February': ['Febrero', 'Février'], 'March': ['Marzo', 'Mars'], 'April': ['Abril', 'Avril'], 'May': ['Mayo', 'Mai'], 'June': ['Junio', 'Juin'], 'July': ['Julio', 'Juillet'],
-  'August': ['Agosto', 'Août'], 'September': ['Septiembre', 'Septembre'], 'October': ['Octubre', 'Octobre'], 'November': ['Noviembre', 'Novembre'], 'December': ['Diciembre', 'Décembre'],
-  'Mon': ['Lun', 'Lun'], 'Tue': ['Mar', 'Mar'], 'Wed': ['Mié', 'Mer'], 'Thu': ['Jue', 'Jeu'], 'Fri': ['Vie', 'Ven'], 'Sat': ['Sáb', 'Sam'], 'Sun': ['Dom', 'Dim'],
-  'By entering you agree to our': ['Al entrar aceptas nuestros', 'En entrant, vous acceptez nos'], 'and': ['y', 'et'], 'Privacy Policy': ['Política de privacidad', 'Politique de confidentialité'], 'Cookie Policy': ['Política de cookies', 'Politique des cookies'],
-  'Time': ['Hora', 'Heure'], 'Morning': ['Mañana', 'Matin'], 'Travel': ['Viajes', 'Voyages'], 'Member card': ['Tarjeta de miembro', 'Carte de membre'], 'Preferences': ['Preferencias', 'Préférences'], 'Make default': ['Predeterminar', 'Par défaut'],
-  'Date': ['Fecha', 'Date'], 'Plan': ['Plan', 'Formule'], 'Find availability': ['Ver disponibilidad', 'Voir les disponibilités'], 'Tonight': ['Esta noche', 'Ce soir'], 'Most loved': ['Los favoritos', 'Les préférés'], 'New': ['Nuevo', 'Nouveau'],
-  'All escapes': ['Todas las escapadas', 'Toutes les évasions'], 'All articles': ['Todos los artículos', 'Tous les articles'], 'Health': ['Salud', 'Santé'], 'Not now': ['Ahora no', 'Pas maintenant'],
-  'Profile': ['Perfil', 'Profil'], 'Identity': ['Identidad', 'Identité'], 'Notifications': ['Notificaciones', 'Notifications'], 'Payment': ['Pago', 'Paiement'], 'Password': ['Contraseña', 'Mot de passe'], 'Security': ['Seguridad', 'Sécurité'], 'Devices': ['Dispositivos', 'Appareils'],
-  'Open': ['Abrir', 'Ouvrir'], 'Plans': ['Planes', 'Formules'], 'Step by step': ['Paso a paso', 'Étape par étape'], 'Extras': ['Extras', 'Options'], 'View': ['Ver', 'Voir'], 'Find a time': ['Buscar hora', 'Trouver un horaire'],
-  'Start building': ['Empezar', 'Commencer'], 'Release': ['Final', 'Final'], 'Body map': ['Mapa corporal', 'Carte du corps'], 'Front': ['Delante', 'Devant'], 'Back': ['Atrás', 'Retour'], 'Orders': ['Pedidos', 'Commandes'],
-  'Monthly': ['Mensual', 'Mensuel'], 'All skills': ['Todas las habilidades', 'Toutes les compétences'], 'All educators': ['Todos los educadores', 'Tous les éducateurs'], 'Browse skills': ['Ver habilidades', 'Voir les compétences'],
-  'Everyone': ['Todos', 'Tout le monde'], 'Women': ['Mujeres', 'Femmes'], 'Men': ['Hombres', 'Hommes'], 'Load more hosts': ['Más anfitriones', 'Plus d’hôtes'], 'Saved': ['Guardado', 'Enregistré'], 'Share': ['Compartir', 'Partager'],
-  'Compare': ['Comparar', 'Comparer'], 'Photos': ['Fotos', 'Photos'], 'Availability': ['Disponibilidad', 'Disponibilités'], 'Reviews': ['Opiniones', 'Avis'], 'Read more': ['Leer más', 'Lire la suite'], 'Show less': ['Ver menos', 'Voir moins'],
-  'Report this profile': ['Denunciar este perfil', 'Signaler ce profil'], 'Week': ['Semana', 'Semaine'], 'Evening': ['Tarde', 'Soirée'], 'Late': ['Noche', 'Tard'], 'Show in my time': ['Ver en mi hora', 'Afficher à mon heure'],
-  'Reserve': ['Reservar', 'Réserver'], 'Check availability': ['Ver disponibilidad', 'Vérifier les disponibilités'], 'Book a screening': ['Reservar una prueba', 'Réserver un dépistage'], 'Next booking': ['Próxima reserva', 'Prochaine réservation'],
-  'Latest notifications': ['Últimas notificaciones', 'Dernières notifications'], 'See all': ['Ver todo', 'Tout voir'], 'Full name': ['Nombre completo', 'Nom complet'], 'Email': ['Correo', 'E-mail'], 'Mobile': ['Móvil', 'Mobile'],
-  'Home city': ['Ciudad', 'Ville'], 'Emergency contact': ['Contacto de emergencia', 'Contact d’urgence'], 'Save profile': ['Guardar perfil', 'Enregistrer le profil'], 'Reminders': ['Recordatorios', 'Rappels'], 'Aftercare': ['Cuidados posteriores', 'Après-soin'],
-  'Offers': ['Ofertas', 'Offres'], 'Safety': ['Seguridad', 'Sécurité'], 'Discreet mode': ['Modo discreto', 'Mode discret'], 'Quiet hours': ['Horas de silencio', 'Heures calmes'], 'From': ['Desde', 'De'], 'To': ['Hasta', 'À'],
-  'Save notification settings': ['Guardar notificaciones', 'Enregistrer les notifications'], 'Add a payment method': ['Añadir método de pago', 'Ajouter un moyen de paiement'], 'Name': ['Nombre', 'Nom'], 'Billing address': ['Dirección de facturación', 'Adresse de facturation'],
-  'Save billing': ['Guardar facturación', 'Enregistrer la facturation'], 'Current password': ['Contraseña actual', 'Mot de passe actuel'], 'New password': ['Nueva contraseña', 'Nouveau mot de passe'], 'Change password': ['Cambiar contraseña', 'Changer le mot de passe'],
-  'Set a PIN': ['Crear un PIN', 'Définir un code PIN'], 'Sign out all other devices': ['Cerrar sesión en los demás', 'Déconnecter les autres appareils'], 'Sign out here': ['Cerrar sesión aquí', 'Se déconnecter ici'],
-  'Everywhere': ['En todas partes', 'Partout'], 'See the place': ['Ver el lugar', 'Voir le lieu'], 'Surprise me': ['Sorpréndeme', 'Surprenez-moi'], 'How it ends': ['Cómo termina', 'Comment ça se termine'],
-  'Your therapist': ['Tu terapeuta', 'Votre thérapeute'], 'Any': ['Cualquiera', 'Indifférent'], 'A woman': ['Una mujer', 'Une femme'], 'A man': ['Un hombre', 'Un homme'], 'Pressure': ['Presión', 'Pression'], 'Music': ['Música', 'Musique'],
-  'Warmth': ['Calor', 'Chaleur'], 'Choose a time': ['Elige una hora', 'Choisir un horaire'], 'Build your ritual': ['Crea tu ritual', 'Composez votre rituel'], 'For you': ['Para ti', 'Pour vous'], 'Coming up': ['Próximamente', 'À venir'],
-  'See the menu': ['Ver el menú', 'Voir la carte'], 'Your basket': ['Tu cesta', 'Votre panier'], 'Later': ['Después', 'Plus tard'], 'Homework': ['Tareas', 'Devoirs'], 'Choose a skill': ['Elige una habilidad', 'Choisir une compétence'],
-  'Standards': ['Estándares', 'Normes'], 'Cancel': ['Cancelar', 'Annuler'], 'Close': ['Cerrar', 'Fermer'], 'Continue': ['Continuar', 'Continuer'], 'Next': ['Siguiente', 'Suivant'], 'Done': ['Hecho', 'Terminé'], 'Skip': ['Saltar', 'Passer'],
-  'Save': ['Guardar', 'Enregistrer'], 'Confirm': ['Confirmar', 'Confirmer'], 'Accept all': ['Aceptar todo', 'Tout accepter'], 'Essential only': ['Solo esenciales', 'Essentiels uniquement'], 'Manage': ['Gestionar', 'Gérer'],
-  'Print': ['Imprimir', 'Imprimer'], 'Download': ['Descargar', 'Télécharger'], 'Add to calendar': ['Añadir al calendario', 'Ajouter au calendrier'], 'Show more': ['Ver más', 'Voir plus'], 'Clear all': ['Borrar todo', 'Tout effacer'],
-  'Checkout': ['Pagar', 'Paiement'], 'Pay now': ['Pagar ahora', 'Payer maintenant'], 'Your account': ['Tu cuenta', 'Votre compte'], 'Delete my account': ['Eliminar mi cuenta', 'Supprimer mon compte'], 'Undo': ['Deshacer', 'Annuler l’action'],
-  'Text size': ['Tamaño del texto', 'Taille du texte'], 'Contrast': ['Contraste', 'Contraste'], 'Language': ['Idioma', 'Langue'], 'Standard': ['Normal', 'Standard'], 'Larger': ['Grande', 'Plus grand'], 'Largest': ['Muy grande', 'Très grand'], 'Huge': ['Enorme', 'Énorme'],
-  'High contrast': ['Alto contraste', 'Contraste élevé'], 'Storage': ['Almacenamiento', 'Stockage'], 'Free space': ['Liberar espacio', 'Libérer de l’espace'], 'Move to another device': ['Pasar a otro dispositivo', 'Passer à un autre appareil'],
-  'Download a data file': ['Descargar archivo de datos', 'Télécharger un fichier de données'], 'Load a data file': ['Cargar archivo de datos', 'Charger un fichier de données'], 'Make a transfer code': ['Crear código de traspaso', 'Créer un code de transfert'],
-  'Load the code': ['Cargar el código', 'Charger le code'], 'Copy code': ['Copiar código', 'Copier le code'], 'App': ['App', 'Appli'],
-  'Book the same again': ['Reservar lo mismo otra vez', 'Réserver la même chose'], 'Best nights': ['Mejores noches', 'Meilleures soirées'], 'Running late?': ['¿Llegas tarde?', 'En retard ?'], 'Gift this ritual': ['Regalar este ritual', 'Offrir ce rituel'],
-  'Join the waitlist': ['Unirse a la lista de espera', 'Rejoindre la liste d’attente'], 'Certificate': ['Certificado', 'Certificat'], 'Weekly goal': ['Objetivo semanal', 'Objectif hebdomadaire'], 'Export notes': ['Exportar notas', 'Exporter les notes']
-};
-const IDX = { es: 0, fr: 1 };
-const lang = () => (FAM.prefs ? FAM.prefs().lang : 'en') || 'en';
-const swap = (n, L) => {
-  const v = n.nodeValue, t = v.trim(); if (!t) return;
-  if (L === 'en') { if (n.__en != null) { n.nodeValue = n.__en; n.__en = null; } return; }
-  const key = n.__en != null ? n.__en.trim() : t, row = D[key]; if (!row) return;
-  if (n.__en == null) n.__en = v;
-  n.nodeValue = n.__en.replace(key, row[IDX[L]]);
-};
-const SKIP = /^(SCRIPT|STYLE|TEXTAREA|INPUT|CODE|PRE)$/;
-FAM.translate = (root, all) => {
-  const L = lang(); if (!root) return; if (L === 'en' && !FAM._translated) return;
-  if (L !== 'en') FAM._translated = true;
-  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement && SKIP.test(n.parentElement.tagName) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
-  let n; while ((n = w.nextNode())) swap(n, L);
-  root.querySelectorAll && root.querySelectorAll('[placeholder]').forEach(el => { const p = el.getAttribute('placeholder'), o = el.dataset.enPh || p, m = o.match(/^(Search)(.*)$/);
-    if (L === 'en') { if (el.dataset.enPh) { el.setAttribute('placeholder', el.dataset.enPh); delete el.dataset.enPh; } return; }
-    if (m) { el.dataset.enPh = o; el.setAttribute('placeholder', D.Search[IDX[L]] + m[2]); } });
-  if (all) document.title = document.title;   // keeps the tab title as the site sets it
-};
-FAM.DICT = D;
-// new content (every render) is translated as it arrives
-try { new MutationObserver(ms => { if (lang() === 'en') return; for (const m of ms) m.addedNodes.forEach(x => { if (x.nodeType === 1) FAM.translate(x); else if (x.nodeType === 3) swap(x, lang()); }); }).observe(document.body, { childList: true, subtree: true }); } catch (e) { }
-})();
-
 /* ---- 97b-autofill.js ---- */
 /* Shared by FLINGR, Velvet and Practice. Saved info, like a browser's autofill: focus any field of a form and a small
-   "Saved info" suggestion opens under it; one click fills every EMPTY field of that form (nothing typed is overwritten):
+   quiet "Use saved …" line appears in the form; one click fills every EMPTY field of that form (nothing typed is overwritten):
    name, email, phone, date of birth, emergency contact, card, address, company and tax ID, a new password, and anything
    else the form requires (a choice, a date, a tick in the box you must agree to). Signed in, it uses your account; on
    a sign-up form it makes a new person with an email nobody has used. Escape or clicking elsewhere closes it. */
@@ -4688,57 +4600,51 @@ AF.fill = form => {
   return list.length;
 };
 
-/* ---------- the suggestion under the field ---------- */
-// not offered on chat boxes, searches, filters, promo and gift codes, or the Operations tools
-const SKIP = /^(cookies|filters|escFilter|helpSearch|heroFind|heroSearch|searchGo|msg|esMsg|say|stSay|stEscMsg|hostMsgs|tReply|stReply|opReply|rvReply|bkPromo|ecoPromo|rbPromo|promo|cardCode|redeem|clockTo|opImport|opsImport|opSettings|opEditHost|opNewHost|opCredit|opPromoNew|opResolve|journal|notes|stNote|addTrack|block|stBlock|hostPricing|hostProfile|hostGoal|extras|date|twoStep|pinUnlock|pinSet|weekly|trip|pname|name|stIn)$/;
-let box = null, cur = null;
+/* ---------- the saved-info line ---------- */
+// One quiet line inside the form, drawn in the site's own type and colours (never a floating panel, so it can't cover a
+// pop-up or the cookie bar). Pop-ups and the age check show it as they open; any other form shows it once a field in it
+// is focused. Not offered on chat boxes, searches, filters, promo and gift codes, or the Operations tools.
+const SKIP = /^(cookies|filters|escFilter|helpSearch|heroFind|heroSearch|searchGo|msg|esMsg|say|stSay|stEscMsg|hostMsgs|tReply|stReply|opReply|rvReply|bkPromo|ecoPromo|rbPromo|promo|cardCode|redeem|clockTo|opImport|opsImport|opSettings|opEditHost|opNewHost|opCredit|opPromoNew|opResolve|journal|notes|stNote|addTrack|block|stBlock|hostPricing|hostProfile|hostGoal|extras|date|twoStep|pinUnlock|pinSet|weekly|trip|pname|name|stIn|newsletter|news|subscribe)$/;
+const PERSONAL = ['name', 'email', 'phone', 'date of birth', 'card ending 4242', 'address', 'password', 'passcode', 'answers'];
 const css = () => { if (document.getElementById('afCss')) return; const s = document.createElement('style'); s.id = 'afCss';
-  s.textContent = `.af{position:fixed;z-index:900;min-width:240px;max-width:min(360px,calc(100vw - 24px));background:#fff;color:#1c1916;border-radius:10px;box-shadow:0 10px 32px rgba(0,0,0,.35),0 0 0 1px rgba(0,0,0,.08);padding:6px;font:14px/1.35 Inter,system-ui,-apple-system,sans-serif;text-align:left}
-.af-bar{position:static;max-width:none;width:100%;margin:0 0 4px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
-.af button{all:unset;box-sizing:border-box;display:flex;gap:10px;align-items:flex-start;width:100%;padding:9px 10px;border-radius:7px;cursor:pointer}.af button:hover,.af button:focus-visible{background:#eef1f6}
-.af svg{flex:none;margin-top:2px}.af b{display:block;font-weight:600}.af small{display:block;color:#5d636e;font-size:12.5px;margin-top:1px}.af .af-x{font-size:11px;color:#7c818a;padding:4px 10px 2px;border-top:1px solid #eceef2;margin-top:4px}`;
+  s.textContent = `.af{display:flex;justify-content:flex-end;margin:0 0 12px;min-height:0}.af[data-pos=after]{justify-content:center;margin:12px 0 0}
+.af button{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:5px 2px;cursor:pointer;color:inherit;opacity:.62;font:500 10.5px/1.2 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid transparent;transition:opacity .15s,border-color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.af button:hover,.af button:focus-visible{opacity:1;border-bottom-color:currentColor}.af button:focus-visible{outline:1px dashed currentColor;outline-offset:3px}
+.af svg{flex:none;opacity:.9}.af .af-who{opacity:.75}`;
   document.head.appendChild(s); };
-const ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b6fd8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M17 6l3 3M15 8l2 2"/></svg>';
-const hide = () => { if (box) { box.remove(); box = null; } cur = null; };
-const place = () => { if (!box || !cur) return; const r = cur.getBoundingClientRect(), z = parseFloat(document.documentElement.style.zoom) || 1; if (!r.width) return hide();
-  const below = r.bottom + 6, h = box.offsetHeight || 80, top = below + h > innerHeight * (1 / z) && r.top > h + 6 ? r.top - h - 6 : below;
-  box.style.left = Math.max(8, Math.min(r.left, innerWidth / z - box.offsetWidth - 8)) + 'px'; box.style.top = top + 'px'; };
-const show = el => {
-  const form = el.form || el.closest('form'); if (!form || SKIP.test(form.dataset.f || '') || form.dataset.nofill != null) return hide();
-  const plan = AF.plan(form), personal = ['name', 'email', 'phone', 'date of birth', 'card ending 4242', 'address', 'password', 'passcode', 'answers'];
-  if (!plan.list.length || !(plan.what.some(x => personal.includes(x)) || plan.list.some(([e]) => e.required))) return hide();
-  css(); if (!box) { box = document.createElement('div'); box.className = 'af'; box.setAttribute('role', 'listbox'); box.setAttribute('aria-label', 'Saved info'); document.body.appendChild(box);
-    box.addEventListener('mousedown', e => e.preventDefault());   // keep focus in the field
-    box.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || !cur) return; e.stopPropagation(); const f = cur.form || cur.closest('form'), n = AF.fill(f); hide(); if (n && F.toast) F.toast('Filled from your saved info.'); }); }
-  cur = el;
-  box.innerHTML = `<button type="button" role="option">${ICON}<span><b>${esc(plan.who)}</b><small>Fill ${esc(plan.what.slice(0, 4).join(', '))}</small></span></button><div class="af-x">Saved info on this browser</div>`;
-  place();
+const ICON = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3M17 6l3 3M15 8l2 2"/></svg>';
+const short = n => { const p = String(n || '').split(' '); return p.length > 1 && !/^(the|host|staff)$/i.test(p[0]) ? p[0] + ' ' + p[1][0] + '.' : n; };
+const offer = form => {
+  if (!form || SKIP.test(form.dataset.f || '') || form.dataset.nofill != null) return null;
+  const plan = AF.plan(form);
+  if (!plan.list.length || !(plan.what.some(x => PERSONAL.includes(x)) || plan.list.some(([e]) => e.required))) return null;
+  return plan;
+};
+const hideIn = form => { const d = form && form.querySelector(':scope > .af, .af[data-for]'); if (d) d.remove(); };
+const line = form => {
+  if (!form || form.querySelector('.af')) return;
+  const plan = offer(form); if (!plan) return;
+  css(); const d = document.createElement('div'); d.className = 'af'; d.setAttribute('role', 'group'); d.setAttribute('aria-label', 'Saved info');
+  const what = plan.what.length === 1 ? plan.what[0] : plan.what.length ? 'details' : 'form';
+  d.innerHTML = `<button type="button" title="Fill ${esc(plan.what.slice(0, 4).join(', '))}">${ICON}<span>Use saved ${esc(what)}</span>${plan.who && plan.what.some(x => ['name', 'email', 'password', 'passcode'].includes(x)) ? `<span class="af-who">· ${esc(short(plan.who))}</span>` : ''}</button>`;
+  d.querySelector('button').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const n = AF.fill(form); d.remove(); if (n && F.toast) F.toast('Filled from your saved info.'); });
+  // the age check: under the date of birth; everything else: at the top of the form, aligned right
+  const dob = form.querySelector('select[name=d]');
+  if (dob) { let row = dob; while (row.parentElement && row.parentElement !== form) row = row.parentElement; d.dataset.pos = 'after'; row.after(d); }
+  else form.prepend(d);
 };
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-document.addEventListener('focusin', e => { const el = e.target; if (el && el.matches && el.matches('form input, form select, form textarea') && fillable(el)) setTimeout(() => { if (document.activeElement === el) show(el); }, 30); });
-document.addEventListener('focusout', () => setTimeout(() => { if (!box) return; const a = document.activeElement; if (!a || !a.matches || !a.matches('form input, form select, form textarea')) hide(); }, 120));
-document.addEventListener('keydown', e => { if (!box) return; if (e.key === 'Escape') { e.stopPropagation(); hide(); } else if (e.key === 'ArrowDown' && document.activeElement === cur) { e.preventDefault(); const b = box.querySelector('button'); if (b) b.focus(); } else if (e.key === 'Enter' && box.contains(document.activeElement)) { e.preventDefault(); box.querySelector('button').click(); } }, true);
-document.addEventListener('input', e => { if (box && e.target === cur && cur.value) hide(); });
-document.addEventListener('mousedown', e => { if (box && !box.contains(e.target) && e.target !== cur) hide(); }, true);   // a click anywhere else closes it
-window.addEventListener('scroll', () => place(), true); window.addEventListener('resize', () => place());
-window.addEventListener('hashchange', hide);
-// a pop-up that opens with a form to fill (sign-in, a card, the three-question check) shows a small Saved info bar at
-// the top of the form, so it is there without covering anything
-const bar = form => { if (!form || form.querySelector('.af-bar') || SKIP.test(form.dataset.f || '') || form.dataset.nofill != null) return;
-  const plan = AF.plan(form), personal = ['name', 'email', 'phone', 'date of birth', 'card ending 4242', 'address', 'password', 'passcode', 'answers'];
-  if (!plan.list.length || !(plan.what.some(x => personal.includes(x)) || plan.list.some(([e]) => e.required))) return;
-  css(); const d = document.createElement('div'); d.className = 'af af-bar';
-  d.innerHTML = `<button type="button">${ICON}<span><b>Saved info · ${esc(plan.who)}</b><small>Fill ${esc(plan.what.slice(0, 4).join(', '))}</small></span></button>`;
-  d.querySelector('button').addEventListener('click', e => { e.preventDefault(); e.stopPropagation(); const n = AF.fill(form); d.remove(); hide(); if (n && F.toast) F.toast('Filled from your saved info.'); });
-  form.prepend(d); };
-try { new MutationObserver(ms => { if (!ms.some(m => [...m.addedNodes].some(n => n.nodeType === 1 && (n.matches('.modal, .sheet, form') || (n.querySelector && n.querySelector('form')))))) return;
-  setTimeout(() => document.querySelectorAll('.modal form, .sheet form, #gate form').forEach(bar), 200); }).observe(document.body, { childList: true, subtree: true }); } catch (e) { }
+document.addEventListener('focusin', e => { const el = e.target; if (el && el.matches && el.matches('form input, form select, form textarea') && fillable(el)) setTimeout(() => { if (document.activeElement === el) line(el.form || el.closest('form')); }, 30); });
+document.addEventListener('keydown', e => { if (e.key !== 'Escape') return; const a = document.activeElement, f = a && (a.form || (a.closest && a.closest('form'))); const d = f && f.querySelector('.af'); if (d) { e.stopPropagation(); d.remove(); } }, true);
+document.addEventListener('input', e => { const f = e.target && e.target.form; if (f && !offer(f)) hideIn(f); });
+try { new MutationObserver(ms => { if (!ms.some(m => [...m.addedNodes].some(n => n.nodeType === 1 && (n.matches('.modal, .sheet, form, #gate') || (n.querySelector && n.querySelector('form')))))) return;
+  setTimeout(() => document.querySelectorAll('.modal form, .sheet form, #gate form').forEach(line), 200); }).observe(document.body, { childList: true, subtree: true }); } catch (e) { }
 })();
 
 /* ---- 98-family.js ---- */
 /* Shared by FLINGR, Velvet and Practice (build.js copies it into each site, after the site's own code and before boot).
    Everything here works the same on the three sites, which share one origin and therefore one localStorage:
-   - display: text size, high contrast, language (English, Español, Français for the site's navigation and buttons)
+   - display: text size and high contrast
    - this browser: storage meter, free space, move everything to another device (a data file or a transfer code)
    - Operations → Health: storage, the error log (0-errlog.js), the installed app
    - native sharing with a copy fallback, installing the site as an app (manifest + sw.js beside index.html)
@@ -4783,18 +4689,16 @@ html.hc :focus-visible{outline:3px solid #FFD400!important;outline-offset:2px}
 `;
 const addCss = () => { if (document.getElementById('famCss')) return; const s = document.createElement('style'); s.id = 'famCss'; s.textContent = CSS; document.head.appendChild(s); };
 
-/* ---------- display: text size, contrast, language ---------- */
-const PREF0 = { z: 1, hc: false, lang: 'en' };
-FAM.prefs = () => { try { return Object.assign({}, PREF0, JSON.parse(get('flingr.a11y') || '{}')); } catch (e) { return Object.assign({}, PREF0); } };
+/* ---------- display: text size, contrast ---------- */
+const PREF0 = { z: 1, hc: false };
+FAM.prefs = () => { let p; try { p = Object.assign({}, PREF0, JSON.parse(get('flingr.a11y') || '{}')); } catch (e) { p = Object.assign({}, PREF0); } delete p.lang; return p; };   // the sites are English only (an old language choice is ignored)
 FAM.setPref = (k, v) => { const p = FAM.prefs(); p[k] = v; put('flingr.a11y')(JSON.stringify(p)); FAM.apply(); };
 FAM.SIZES = [[1, 'Standard'], [1.12, 'Larger'], [1.25, 'Largest'], [1.4, 'Huge']];
-FAM.LANGS = [['en', 'English'], ['es', 'Español'], ['fr', 'Français']];
 FAM.apply = () => {
   const p = FAM.prefs(), h = document.documentElement;
   h.style.zoom = p.z && +p.z !== 1 ? String(p.z) : '';
   h.classList.toggle('hc', !!p.hc);
-  h.lang = p.lang || 'en';
-  if (FAM.translate) FAM.translate(document.body, true);
+  h.lang = 'en';
 };
 
 /* ---------- storage ---------- */
@@ -4889,7 +4793,7 @@ const registerSw = () => { try { if ('serviceWorker' in navigator && /^https?:$/
 const chips = (act, cur, opts) => `<div class="row wrap-gap mt8">${opts.map(([v, l]) => `<button type="button" class="chip chip-sm ${String(cur) === String(v) ? 'on' : ''}" aria-pressed="${String(cur) === String(v)}" data-a="${act}" data-v="${v}">${html(l)}</button>`).join('')}</div>`;
 FAM.deviceHtml = () => { const p = FAM.prefs();
   return `<h2 class="h-disp h3">This browser</h2><p class="small muted mt8">Settings here apply to FLINGR, Velvet and Practice on this browser.</p>
-  <div class="fam-sec mt24"><span class="lbl">Text size</span>${chips('famZoom', p.z, FAM.SIZES)}<span class="lbl d-b mt16">Contrast</span>${chips('famHc', p.hc ? 1 : 0, [[0, 'Standard'], [1, 'High contrast']])}<span class="lbl d-b mt16">Language</span>${chips('famLang', p.lang, FAM.LANGS)}<p class="tiny muted mt8">Navigation, buttons and forms change language; articles and profiles stay in English.</p></div>
+  <div class="fam-sec mt24"><span class="lbl">Text size</span>${chips('famZoom', p.z, FAM.SIZES)}<span class="lbl d-b mt16">Contrast</span>${chips('famHc', p.hc ? 1 : 0, [[0, 'Standard'], [1, 'High contrast']])}</div>
   <div class="fam-sec"><span class="lbl">Storage</span><div id="famStore">${FAM.storageHtml()}</div></div>
   <div class="fam-sec"><span class="lbl">Move to another device</span><p class="small muted mt8">Your account, bookings, Wallet and settings live in this browser. Take them with you:</p>
     <div class="row wrap-gap mt16"><button class="btn btn-ghost btn-sm" data-a="famDownload">Download a data file</button><button class="btn btn-ghost btn-sm" data-a="famPickFile">Load a data file</button><input type="file" id="famFile" accept=".json,application/json" data-ch="famFile" hidden></div>
@@ -4902,9 +4806,8 @@ FAM.refreshDevice = () => { const s = document.getElementById('famStore'); if (s
 const redrawDevice = () => { const m = F._modal && F._modal.m; if (m && m.querySelector('#famStore')) { const y = m.scrollTop; m.innerHTML = m.innerHTML.split('<h2')[0] + FAM.deviceHtml(); m.scrollTop = y; idbLine(); } };
 A.famZoom = el => { FAM.setPref('z', +el.dataset.v); redrawDevice(); };
 A.famHc = el => { FAM.setPref('hc', el.dataset.v === '1'); redrawDevice(); };
-A.famLang = el => { FAM.setPref('lang', el.dataset.v); redrawDevice(); };
 FAM.footLink = () => `<button class="btn-link tiny" data-a="famDevice">This browser</button>`;
-FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">This browser</h2><p class="small muted mt8">Text size, contrast and language; storage; moving your account and bookings to another device; installing the app.</p><button class="btn btn-ghost btn-sm mt16" data-a="famDevice">Open</button></div>`;
+FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">This browser</h2><p class="small muted mt8">Text size and contrast; storage; moving your account and bookings to another device; installing the app.</p><button class="btn btn-ghost btn-sm mt16" data-a="famDevice">Open</button></div>`;
 
 /* ---------- Operations → Health ---------- */
 FAM.errors = () => (window.FLINGR_ERRLOG ? window.FLINGR_ERRLOG.read() : []);
@@ -4953,7 +4856,7 @@ FAM.elsewhereHtml = (q, rowFn) => { const xs = FAM.elsewhere(q); if (!xs.length)
 // The three sites share one account, Wallet and clock, so a reset covers all three: every change made on this browser
 // (new accounts, cards, Wallet, bookings, visits, lessons, messages, settings, the clock, uploaded photos) goes, and
 // everything that came with the sites (hosts, therapists, educators, the built-in accounts and their history) is back
-// as on day one. Display settings (text size, contrast, language) stay. It starts again at the age check.
+// as on day one. Display settings (text size, contrast) stay. It starts again at the age check.
 FAM.RESET_LINE = 'Removes everything you changed on this browser, on FLINGR, Velvet and Practice: new accounts, cards, Wallet, bookings, messages and settings. Everything that came with the sites, including the built-in accounts, comes back as it was on day one.';
 A.resetSite = async () => {
   if (!(await F.confirm({ title: 'Reset the whole site?', body: FAM.RESET_LINE + ' You’ll start again at the age check.', ok: 'Reset everything', danger: true }))) return;
