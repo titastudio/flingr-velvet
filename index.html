@@ -780,6 +780,15 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 @media (max-width:640px){.pgl li{grid-template-columns:minmax(0,1fr);gap:2px}}
 /* body map history (49-extras.js): the two maps side by side, also on phones */
 .mh-cmp{grid-template-columns:repeat(2,minmax(0,1fr))!important}.mh-cmp .bm-mini .bm{transform-origin:top center}
+/* the crowd and add-ons during a visit (51-more.js) */
+.vcrowd{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:12px 16px;border:1px solid var(--ln);margin-bottom:24px}
+.vcrowd a{color:var(--fg);text-decoration:none}.vcrowd a:hover,.vcrowd a:focus-visible{text-decoration:underline}
+.vcrowd .mono{display:inline-flex;align-items:center;gap:6px;letter-spacing:.06em;text-transform:uppercase}
+@media (max-width:640px){.vcrowd{flex-direction:column;align-items:flex-start;gap:6px}}
+.vslot,.vweek{display:flex;align-items:center;gap:6px}
+.vdur{border-top:1px solid var(--ln);padding-top:20px}
+.vdur .row{padding:8px 0}
+@media (max-width:400px){.xh-word{font-size:clamp(56px,18vw,80px)}}
 
 </style>
 <script>if(/^(#\/?)?$/.test(location.hash)){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='photos/site-hero.avif';l.fetchPriority='high';document.head.appendChild(l)}</script>
@@ -2793,7 +2802,7 @@ const countAt = (t, ms) => { if (ms < t.since) return 0; const n0 = Math.floor((
 const gen = (t, i) => {
   const at = slotAt(t, i), rating = ratingOf(t, i), lines = bank(t.kind)[rating] || BANK[rating], name = (F.SITE.reviewBank && F.SITE.reviewBank.names || NAMES)[U.hash(t.id + ':n' + i) % (F.SITE.reviewBank && F.SITE.reviewBank.names || NAMES).length];
   const map = Object.assign({ t: t.label, s: t.staff || '', c: t.city || '' }, F.SITE.reviewFill ? F.SITE.reviewFill(t, i) : {});
-  const rv = { id: t.id + ':' + i, target: t.id, at, rating, name, text: fill(lines[(U.hash(t.id) + i * 7) % lines.length], map), verified: true };
+  const rv = { id: t.id + ':' + i, target: t.id, at, rating, name, text: fill(lines[(U.hash(t.id) + i) % lines.length], map), verified: true };
   if (rating <= 3 && h01(t.id, i, 'rep') < (rating <= 2 ? .9 : .5)) { const rat = at + (6 + h01(t.id, i, 'rh') * 40) * 36e5; if (rat <= now()) rv.reply = { at: rat, by: (F.SITE.reviewBank && F.SITE.reviewBank.replyBy) || 'The ' + F.SITE.brand + ' team', text: fill((F.SITE.reviewBank && F.SITE.reviewBank.replies || REPLIES)[U.hash(rv.id + 'rp') % (F.SITE.reviewBank && F.SITE.reviewBank.replies || REPLIES).length], { n: name.split(' ')[0] }) }; }
   return rv;
 };
@@ -3450,7 +3459,7 @@ F.trFrom = (t, c) => { const a = E.trNow(t, t.d[0], c), b = E.trUsd(t, t.d[0]); 
 const durs = t => t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0]);
 // one treatment as a compact card
 F.trCC = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c);
-  return F.compact({ href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', title: esc(t.n), sub: esc(t.s), meta: `${durs(t)} · ${F.rvTxt('tr:' + t.id)}`, price: open ? F.trFrom(t, c) : '', tag: !open ? 'From ' + U.keyFmt(F.trRel(t), 'dshort') : se ? esc(se.name) : '' }); };
+  return F.compact({ href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', title: esc(t.n), sub: esc(t.s), meta: `${durs(t)} · ${F.rvTxt('tr:' + t.id)}${F.trOpen(t) && E.vvTrWeek ? ' · ' + E.vvTrWeek(t) + ' this week' : ''}`, price: open ? F.trFrom(t, c) : '', tag: !open ? 'From ' + U.keyFmt(F.trRel(t), 'dshort') : se ? esc(se.name) : '' }); };
 F.progCC = p => F.compact({ href: '#/program/' + p.id, key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45', title: esc(p.name), sub: esc(p.line), meta: `${U.plural(p.plan.length, 'visit')} · ${F.rvTxt('pg:' + p.id)}`, price: E.money(E.progPrice(p, F.cityId()), F.cityId()), tag: F.progOpen(p) ? '' : 'From ' + U.keyFmt(p.rel, 'dshort') });
 const cityChips = () => `<div class="chiprow">${F.CITIES.map(c => `<button class="chip chip-sm ${c.id === F.cityId() ? 'on' : ''}" data-a="setcity" data-c="${c.id}" aria-pressed="${c.id === F.cityId()}">${F.SPAS[c.id].name.replace('Velvet ', '')}</button>`).join('')}</div>`;
 F.cityChips = cityChips;
@@ -3471,7 +3480,7 @@ F.pages.home = {
     <div class="xs-f"><label for="vfC">Spa</label><select id="vfC" name="city">${F.CITIES.map(x => `<option value="${x.id}" ${x.id === c ? 'selected' : ''}>${esc(F.SPAS[x.id].name.replace('Velvet ', ''))}</option>`).join('')}</select></div>
     <div class="xs-f"><label for="vfG">Therapist</label><select id="vfG" name="g">${F.OPT.gender.map(g => `<option>${g}</option>`).join('')}</select></div><button class="btn btn-pri">Find a time ${F.ic('arrow', 14)}</button></form>
     <p class="live-l mt16"><i class="dot ${open ? 'live' : ''}"></i>${open ? `${esc(sp)} is open until 2am` : `${esc(sp)} opens at 10am`}</p></div></div></section>
-    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u)}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
+    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u)}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
     ${tonight.length ? `<div class="g g2 tn">${tonight.map(({ t, sl }) => `<a class="tn-c spot-on" href="#/build?t=${t.id}&d=${t.d[0]}&s=${sl.start}"><span class="tn-t mono">${U.fmt(sl.start, tz, 'time')}</span><span class="tn-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(t.d[0])} · from ${F.trFrom(t, c)}</small></span>${F.ic('arrow', 16)}</a>`).join('')}</div>` : `<p class="lead">${open ? 'Tonight is fully booked; late cancellations open up here first. Tomorrow opens at 10am, and the evening times go first.' : 'We open at 10am. The evening times go first.'}</p><a class="btn btn-pri mt24" href="#/build">Book for tomorrow</a>`}</div></section>
     <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="clist">${feat.map(F.trCC).join('')}</div>
     <div class="chiprow mt24">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
@@ -3530,7 +3539,7 @@ F.pages.treatment = {
   render(r) {
     const t = E.tr(r.params[0]); if (!t || t.hidden) return F.pages.notfound.render(r);
     const c = F.cityId(), u = E.user(), open = F.trOpen(t), se = open && E.trSeason(t, c), n = E.thersFor(t, c).filter(x => E.therOn(x, E.todayKey(c))).length, dur = t.d.includes((F.ui.trd || {})[t.id]) ? F.ui.trd[t.id] : t.d[0];
-    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}${(x => x ? ` <span class="nobr">· ${x}</span>` : '')(F.rvLine('tr:' + t.id))}`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
+    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}${(x => x ? ` <span class="nobr">· ${x}</span>` : '')(F.rvLine('tr:' + t.id))}${F.trOpen(t) && F.vvWeekLine ? F.vvWeekLine(t) : ''}`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
     ${F.detailBody(`<div>${F.secHead({ eyebrow: 'Minute by minute', lead: t.d.length > 1 ? `Shown for ${U.dur(t.d[0])}; the ${U.dur(t.d[1])} stretches every part.` : '' })}${F.timeline(t, t.d[0])}</div>
     <div>${F.secHead({ eyebrow: 'Guests say' })}${F.reviewBrief(F.vvT('tr:' + t.id))}</div>`, `${open ? `<div class="card dbook"><span class="lbl">Book</span><div class="row wrap-gap end mt8"><span class="h-disp dbook-p">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, dur, c))), c)}</span><span class="small muted">${E.memberPct(u) ? `<s>${E.money(E.cp(c, E.trNow(t, dur, c)), c)}</s> member price` : `members ${E.money(E.mprice(E.cp(c, E.trNow(t, dur, c))), c)}`}</span></div>
     ${t.d.length > 1 ? `<div class="fopts" role="group" aria-label="Length">${t.d.map(d => `<button class="fopt ${d === dur ? 'on' : ''}" data-a="trDur" data-t="${t.id}" data-v="${d}" aria-pressed="${d === dur}">${F.ic('clock', 15)}<span><strong>${U.dur(d)}</strong></span><span class="mono tiny">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, d, c))), c)}</span></button>`).join('')}</div>` : `<p class="small muted mt8">${U.dur(dur)}</p>`}
@@ -3689,6 +3698,7 @@ F.pages.build = {
       <div class="days mt16">${days.map((k, i) => `<button class="dayb ${k === b.key ? 'on' : ''} ${counts[i] ? '' : 'full'}" data-a="rbDay" data-v="${k}" aria-pressed="${k === b.key}"><small>${U.keyFmt(k, 'wd')}</small><b>${k.slice(8)}</b><i>${counts[i] ? counts[i] < 3 ? 'Last few' : '' : 'Full'}</i></button>`).join('')}</div>
       ${slots.length > 12 ? `<div class="seg seg-sm mt16" role="group" aria-label="Part of the day">${PARTS.filter(([k]) => groups[k].length).map(([k, l]) => `<button class="seg-b ${k === part ? 'on' : ''}" data-a="rbPart" data-v="${k}" aria-pressed="${k === part}">${l} · ${groups[k].length}</button>`).join('')}</div>` : ''}
       <div class="slots mt16">${slots.length ? (slots.length > 12 ? groups[part] : slots).map(x => { const dm = E.demand(c, x.start, t.id); return `<button class="chip ${x.start === b.start ? 'on' : ''} ${dm < 1 ? 'sl-q' : ''}" data-a="rbTime" data-v="${x.start}" aria-pressed="${x.start === b.start}">${U.fmt(x.start, tz, 'time')}${dm < 1 ? '<i class="sl-dot" aria-label="quiet hour, 10% less"></i>' : ''}</button>`; }).join('') : `<div class="notice">${F.ic('clock', 16)}<span>${E.waitFor(u, t.id, b.key, c) ? `You’re on the waitlist for ${U.keyFmt(b.key, 'date')}. If a guest cancels, you hear first.` : `${U.keyFmt(b.key, 'date')} is full. Guests do cancel late; join the waitlist and the first time that opens comes to you.`}</span></div>${E.waitFor(u, t.id, b.key, c) ? '' : `<button class="btn btn-ghost btn-sm mt16" data-a="rbWait">Join the waitlist</button>`}`}</div>
+      ${b.start && F.vvSlotCrowd ? F.vvSlotCrowd(t, c, b.start, tz) : ''}
       <p class="tiny muted mt16">Times in ${E.city(c).name} (${U.tzAbbr(tz)}). Open 10am to 2am. Prices follow the hour: quiet times <span class="sl-dot"></span> cost less, busy evenings up to a quarter more.${lateNote ? ' Late slots from 10pm open to everyone 48 hours ahead; members book them any time.' : ''}</p></div></div>
     <div class="costep ${b.start ? 'open' : 'locked'}" id="rb-pay">${head(5, 'Payment')}${b.start ? `<div class="costep-b stack">
       ${err ? `<div class="notice err">${F.ic('alert', 16)}<span>${esc(err)}</span></div>${!u.verified ? '<button class="btn btn-pri btn-sm" data-a="verifyId">Verify now</button>' : ''}` : ''}
@@ -3816,7 +3826,7 @@ const during = (v, t, u, tz) => {
     <ol class="phases mt24">${phases.map((p, i) => `<li class="${i < at ? 'done' : i === at ? 'now' : ''}"><strong>${p[1]}</strong><small class="d-b muted">${p[2]}</small></li>`).join('')}</ol>
     <ol class="mins mt32">${t.steps.map(([m, x], i) => `<li class="${i < step ? 'done' : i === step ? 'now' : ''}"><span class="mono">${m ? Math.round(m * scale) + ' min' : 'Start'}</span><p>${esc(x)}</p></li>`).join('')}</ol>
     ${v.status === 'in' && v.release === 'decide' ? `<div class="mt24"><span class="lbl">Decide now</span><div class="row wrap-gap mt8">${t.release.filter(x => x !== 'decide').map(x => `<button class="chip chip-sm ${v.releaseNow === x ? 'on' : ''}" data-a="vsRel" data-v="${v.id}" data-r="${x}" aria-pressed="${v.releaseNow === x}">${F.RELEASE[x]}</button>`).join('')}</div></div>` : ''}
-    ${v.status === 'in' ? `<div class="row wrap-gap mt32"><button class="btn btn-warn" data-a="vsStop" data-v="${v.id}">${F.ic('stop', 14)} Stop</button><span class="tiny muted">Say “stop”, or press it here; everything stops at once.</span></div>` : v.status === 'lounge' ? `<p class="small mt24">${v.stopped ? 'You stopped the ritual. Take all the time you need; someone will check on you.' : 'Warm towels, tea or a tonic. Stay as long as you like.'}</p>` : `<p class="small mt24">Your therapist will collect you from the lounge at ${U.fmt(v.start, tz, 'time')}.</p>`}</div></div>
+    ${v.status === 'in' ? `<div class="row wrap-gap mt32"><button class="btn btn-warn" data-a="vsStop" data-v="${v.id}">${F.ic('stop', 14)} Stop</button><span class="tiny muted">Say “stop”, or press it here; everything stops at once.</span></div>` : v.status === 'lounge' ? `<p class="small mt24">${v.stopped ? 'You stopped the ritual. Take all the time you need; someone will check on you.' : 'Warm towels, tea or a tonic. Stay as long as you like.'}</p>` : `<p class="small mt24">Your therapist will collect you from the lounge at ${U.fmt(v.start, tz, 'time')}.</p>`}${F.vvDuringAdd ? F.vvDuringAdd(v, t) : ''}</div></div>
     <aside class="stack"><div class="card-s"><div class="row between"><span class="small">Ritual card <span class="mono tiny muted">${v.no}</span></span><button class="btn-link tiny" data-a="vsCard" data-v="${v.id}">Open</button></div></div>${F.threadHtml(desk(v, u), { empty: 'Anything you need, the desk is a message away.' })}</aside></div>`;
 };
 A.vsRel = el => { F.store.commit(() => { const v = E.visit(el.dataset.v); v.releaseNow = el.dataset.r; v.history.push({ at: now(), note: 'Chose: ' + F.RELEASE[el.dataset.r] + '.' }); }); F.rerender(); };
@@ -4131,7 +4141,7 @@ const totals = c => { const b = bask(), sub = U.r2(Object.entries(b).filter(([id
 const qty = (id, q) => `<span class="qty"><button class="ibtn" data-a="bq" data-p="${id}" data-v="-1" aria-label="One fewer">${F.ic('minus', 14)}</button><span class="mono">${q}</span><button class="ibtn" data-a="bq" data-p="${id}" data-v="1" aria-label="One more">${F.ic('plus', 14)}</button></span>`;
 const addBtn = (x, label) => { const q = bask()[x.id] || 0; return q ? qty(x.id, q) : `<button class="btn btn-ghost btn-sm" data-a="bq" data-p="${x.id}" data-v="1">${F.ic('plus', 14)} ${label}</button>`; };
 const prod = x => { const c = F.cityId(), was = E.cp(c, x.usd), now_ = price(x, c);
-  return `<div class="card prod">${F.plate({ key: 'site/shop-' + x.id, art: F.SITE.art(x.id, 'boost'), cls: 'r11' })}<h3 class="prod-t mt16">${esc(x.n)}</h3>${x.body !== 'any' ? `<span class="badge b-ok mt8">${F.whoOf(x)}</span>` : ''}<p class="tiny muted mt4">${esc(x.s)}</p><div class="row between nowrap mt8"><span class="mono small">${now_ < was ? `<s class="muted">${E.money(was, c)}</s> ` : ''}${E.money(now_, c)}</span>${F.rvLine('shop:' + x.id)}</div><div class="prod-a mt16">${addBtn(x, 'Add')}</div></div>`; };
+  return `<div class="card prod">${F.plate({ key: 'site/shop-' + x.id, art: F.SITE.art(x.id, 'boost'), cls: 'r11' })}<h3 class="prod-t mt16">${esc(x.n)}</h3>${x.body !== 'any' ? `<span class="badge b-ok mt8">${F.whoOf(x)}</span>` : ''}<p class="tiny muted mt4">${esc(x.s)}</p><p class="tiny muted mt4"><i class="dot live"></i> ${E.vvShopWeek(x)} bought this week</p><div class="row between nowrap mt8"><span class="mono small">${now_ < was ? `<s class="muted">${E.money(was, c)}</s> ` : ''}${E.money(now_, c)}</span>${F.rvLine('shop:' + x.id)}</div><div class="prod-a mt16">${addBtn(x, 'Add')}</div></div>`; };
 // one row of kinds in view; who it's for and the order behind the Filter button
 const KIND = { oil50: 'oil', oilnu: 'oil', nuru: 'oil', candle: 'oil', wand: 'toy', pmass: 'toy', bead: 'toy', silk: 'toy' };
 const SK = [['', 'Everything'], ['oil', 'Oils and gels'], ['toy', 'Toys'], ['care', 'Care']], SW = [['', 'Anyone'], ['vulva', F.WHO.vulva], ['penis', F.WHO.penis]], SS = [['', 'Top rated'], ['lo', 'Price, low to high'], ['hi', 'Price, high to low']];
@@ -4382,6 +4392,57 @@ F.SITE.eveningAdopt = (u, g, ev) => F.store.commit(() => {
   const r = E.bookVisit(u, { tid: t.id, dur: g.dur, cityId, start: s.start, ther: s.ther, release: (t.release || []).includes('decide') ? 'decide' : (t.release || [null])[0], opts: {}, extras: [], note: 'One Evening · ' + ev.no, partner: t.pair ? 'Your partner' : null }, { prepaid: { money: g.amount, label: 'One Evening · ' + ev.no, cur: g.cur } });
   return r.ok ? { ok: true, ref: r.v.no, href: '#/account/visit/' + r.v.id, at: r.v.start } : { ok: false, reason: r.reason };
 });
+})();
+
+/* ---- 51-more.js ---- */
+/* Velvet, the crowd and more during a visit: rituals booked this week, how many rooms are free at a time you pick and
+   how many others are looking at it, therapists' day, what sells in the shop, the home page's live strip; and during a
+   visit, a tonic, another hour in the lounge, the rain shower or fifteen more minutes, charged as you go. Real visits
+   count first; the rest is worked out from the shared clock, so it moves as time passes. */
+(() => {
+'use strict';
+const E = F.E, A = F.A, S = () => F.S, now = () => Date.now(), M = 6e4, H = 36e5, D = 864e5;
+const hx = s => U.hash(String(s)), slot = mins => Math.floor(now() / (mins * M)), week = () => Math.floor(now() / (7 * D));
+const ago = ms => { const d = now() - ms; return d < H ? Math.max(1, Math.round(d / M)) + ' min ago' : Math.round(d / H) + (Math.round(d / H) === 1 ? ' hour ago' : ' hours ago'); };
+const live = ['confirmed', 'arrived', 'in', 'lounge', 'done'];
+
+/* ---------- the crowd ---------- */
+E.vvTrWeek = t => 6 + hx(t.id + week()) % 34 + S().visits.filter(v => v.tid === t.id && live.includes(v.status) && (v.createdAt || v.start) > now() - 7 * D).length;
+E.vvRoomsFree = (t, cityId, start, end) => { const tz = E.cityTz(cityId), rooms = F.ROOMS.filter(r => r[1] === t.room || r.kind === t.room); let free = 0; rooms.forEach(r => { const room = Array.isArray(r) ? { id: r[0], kind: r[1] } : r; const realBusy = S().visits.some(v => v.cityId === cityId && v.room === room.id && ['confirmed', 'arrived', 'in'].includes(v.status) && start < v.end && v.start < end); if (!realBusy && !E.simRoom(cityId, room, tz, start)) free++; }); return { free, all: rooms.length }; };
+E.vvLooking = (t, start) => hx(t.id + start + slot(10)) % 4;
+E.vvTodayCount = cityId => { const open = U.zoned(E.cityTz(cityId), E.todayKey(cityId), 600), hrs = Math.max(0, (now() - open) / H); return 6 + hx(cityId + E.todayKey(cityId)) % 12 + Math.round(Math.min(16, hrs) * 2.5); };
+E.vvShopWeek = x => 4 + hx(x.id + week()) % 26;
+E.vvFeed = (cityId, n = 3) => {
+  const sp = F.SPAS[cityId].name.replace('Velvet ', ''), out = [], ts = F.TREAT.filter(t => !t.hidden && F.trOpen(t));
+  for (let k = 0; k < 4; k++) { const s = slot(25) - k, t = ts[hx(cityId + s) % ts.length], at = s * 25 * M + hx(cityId + s + 'a') % (20 * M); if (at <= now()) out.push({ at, text: `${t.n} booked at ${sp}`, href: '#/treatment/' + t.id }); }
+  const x = F.SHOP[hx(cityId + slot(90)) % F.SHOP.length]; if (x) out.push({ at: slot(90) * 90 * M + hx(x.id) % (60 * M), text: `${x.n} ordered from the shop`, href: '#/shop' });
+  return out.filter(z => z.at <= now()).sort((a, b) => b.at - a.at).slice(0, n);
+};
+F.vvStrip = cityId => { const f = E.vvFeed(cityId, 3); return f.length ? `<div class="vcrowd mt24"><span class="tiny mono"><i class="dot live"></i>${E.vvTodayCount(cityId)} rituals booked today</span>${f.map(z => `<a class="tiny" href="${z.href}">${esc(z.text)} <span class="muted">· ${ago(z.at)}</span></a>`).join('')}</div>` : ''; };
+F.vvSlotCrowd = (t, cityId, start, tz) => { const rf = E.vvRoomsFree(t, cityId, start, start + t.d[0] * M), lk = E.vvLooking(t, start); return `<p class="tiny mt16 vslot"><i class="dot live"></i>${U.fmt(start, tz, 'time')}: ${rf.all > 1 ? `${rf.free} of ${rf.all} rooms free` : rf.free ? 'the room is free' : 'the room is held for you'}${lk >= 2 ? ` · ${lk} others looking at this time` : ''}</p>`; };
+F.vvWeekLine = t => `<span class="d-b tiny mt8 vweek"><i class="dot live"></i> Booked ${E.vvTrWeek(t)} times this week</span>`;
+
+/* ---------- during a visit ---------- */
+const DURING = [['tonic', 'A tonic from the bar', 'Brought to you in the lounge'], ['lounge', 'Another hour in the lounge', 'Stay longer, no rush'], ['shower', 'The two-person rain shower', 'After the ritual']];
+E.vvCanExtend = v => { if (v.status !== 'in' && v.status !== 'arrived') return false; const ts = (v.ther || []).map(E.ther).filter(Boolean); return ts.length && ts.every(th => E.therFree(th, v.end, v.end + 15 * M, v.id)); };
+E.vvAddDuring = (vid, id) => F.store.commit(() => {
+  const v = E.visit(vid), u = E.user(), n = now(); if (!v || !u || v.userId !== u.id || !['arrived', 'in', 'lounge'].includes(v.status)) return { ok: false, reason: 'Add-ons are for a visit in progress.' };
+  let usd, label;
+  if (id === 'ext15') { if (!E.vvCanExtend(v)) return { ok: false, reason: 'Your therapist has someone straight after. The lounge is yours as long as you like.' }; const t = E.tr(v.tid); usd = Math.round(E.trUsd(t, t.d[0]) / t.d[0] * 15); label = 'Fifteen more minutes'; }
+  else { const a = F.ADDONS.find(z => z[0] === id); if (!a || (v.extras || []).includes(id)) return { ok: false, reason: 'You already have that.' }; usd = a[2]; label = a[1]; }
+  const amt = E.cp(v.cityId, usd), ch = E.charge(u, v.cityId, amt, { useWallet: true }); if (!ch.ok) return ch;
+  ch.commit('Velvet · ' + label);
+  if (id === 'ext15') { v.end += 15 * M; v.dur += 15; } else v.extras = (v.extras || []).concat(id);
+  v.during = (v.during || []).concat({ id, label, amt, at: n }); v.history.push({ at: n, note: `Added: ${label} · ${E.money(amt, v.cityId, true)}` });
+  return { ok: true, label };
+});
+F.vvDuringAdd = (v, t) => {
+  if (!['arrived', 'in', 'lounge'].includes(v.status)) return '';
+  const opts = DURING.filter(([id]) => !(v.extras || []).includes(id) && (id !== 'shower' || t.pair || t.two || v.room === 'cp')), ext = E.vvCanExtend(v), c = v.cityId;
+  if (!opts.length && !ext) return '';
+  return `<div class="vdur mt32"><span class="lbl">Add to your visit</span><div class="stack-s mt8">${ext ? `<div class="row between wrap-gap"><span class="small">Fifteen more minutes <span class="tiny muted d-b">Your therapist is free after</span></span><button class="btn btn-ghost btn-sm" data-a="vvAdd" data-v="${v.id}" data-x="ext15">${E.money(E.cp(c, Math.round(E.trUsd(t, t.d[0]) / t.d[0] * 15)), c)}</button></div>` : ''}${opts.map(([id, l, s]) => `<div class="row between wrap-gap"><span class="small">${esc(l)} <span class="tiny muted d-b">${esc(s)}</span></span><button class="btn btn-ghost btn-sm" data-a="vvAdd" data-v="${v.id}" data-x="${id}">${E.money(E.cp(c, F.ADDONS.find(z => z[0] === id)[2]), c)}</button></div>`).join('')}</div>${(v.during || []).length ? `<p class="tiny muted mt8">Added: ${v.during.map(z => esc(z.label)).join(', ')}.</p>` : ''}</div>`;
+};
+A.vvAdd = el => { const r = E.vvAddDuring(el.dataset.v, el.dataset.x); if (!r.ok) return F.toast(r.reason, 'err'); F.toast(r.label + ': on its way.'); F.rerender(); };
 })();
 
 /* ---- 96-health.js ---- */
@@ -4767,7 +4828,6 @@ const html = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&
 const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
 const put = k => v => { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); return true; } catch (e) { return false; } };
 const toast = (m, k, a) => F.toast && F.toast(m, k, a);
-const user = () => { try { return F.E.user(); } catch (e) { return null; } };
 const fmtT = ms => { try { return new Date(ms).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return String(ms); } };
 
 /* ---------- where the sister sites live ---------- */
@@ -4961,7 +5021,7 @@ FAM.elsewhereHtml = (q, rowFn) => { const xs = FAM.elsewhere(q); if (!xs.length)
 // (new accounts, cards, Wallet, bookings, visits, lessons, messages, settings, the clock, uploaded photos) goes, and
 // everything that came with the sites (hosts, therapists, educators, the built-in accounts and their history) is back
 // as on day one. Display settings (text size, contrast) stay. It starts again at the age check.
-FAM.RESET_LINE = 'Removes everything you changed on this browser, on FLINGR, Velvet and Practice: new accounts, cards, Wallet, bookings, messages and settings. Everything that came with the sites, including the built-in accounts, comes back as it was on day one.';
+FAM.RESET_LINE = 'Removes everything you changed on this browser, on all three sites: accounts, cards, Wallet, bookings, messages and settings. The built-in accounts come back as they were on day one.';
 A.resetSite = async () => {
   if (!(await F.confirm({ title: 'Reset the whole site?', body: FAM.RESET_LINE + ' You’ll start again at the age check.', ok: 'Reset everything', danger: true }))) return;
   F.resetting = true;
