@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>VELVET by FLINGR · The sensual spa</title>
 <meta name="description" content="A sensual spa with an explicit menu: lingam, yoni and prostate rituals, Nuru, tantra, the Rosé brightening series, bridal countdowns and libido programs. Licensed therapists, your choice of release.">
+<meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#07040A">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="VELVET by FLINGR · The sensual spa">
 <meta property="og:description" content="A sensual spa with an explicit menu: lingam, yoni and prostate rituals, Nuru, tantra, the Rosé brightening series, bridal countdowns and libido programs. Licensed therapists, your choice of release.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://titastudio.github.io/flingr-velvet/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -157,7 +162,7 @@ legend{padding:0;margin-bottom:10px}
 .ticks{display:flex;flex-direction:column;gap:9px}.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:14px}.ticks .ic{flex:none;margin-top:3px;color:var(--pri)}
 .tl{position:relative;display:flex;flex-direction:column;gap:14px;padding-left:20px}.tl::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:1px;background:var(--ln2)}
 .tl li{position:relative}.tl li::before{content:"";position:absolute;left:-20px;top:6px;width:9px;height:9px;border-radius:50%;border:1px solid var(--ln2);background:var(--bg)}.tl li.done::before{background:var(--pri);border-color:var(--pri)}.tl li.now::before{background:var(--hi);border-color:var(--hi)}
-.acc{border-bottom:1px solid var(--ln)}.acc>summary{list-style:none;cursor:pointer;padding:16px 0;font-size:15px;gap:16px}.acc>summary::-webkit-details-marker{display:none}.acc[open]>summary .ic{transform:rotate(45deg)}.acc>summary .ic{transition:transform .2s;flex:none}.acc-b{padding:0 0 18px;color:var(--mut)}
+.acc{border-bottom:1px solid var(--ln)}.acc>summary{list-style:none;cursor:pointer;padding:16px 0;font-size:15px;gap:16px}.acc>summary.row{flex-wrap:nowrap}.acc>summary.row>span{min-width:0}.acc>summary::-webkit-details-marker{display:none}.acc[open]>summary .ic{transform:rotate(45deg)}.acc>summary .ic{transition:transform .2s;flex:none}.acc-b{padding:0 0 18px;color:var(--mut)}
 .lbl+.acc{margin-top:12px}
 .subnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--ln);margin-top:28px}.subnav::-webkit-scrollbar{display:none}
 .subnav a{flex:none;padding:12px 14px;font:500 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border-bottom:2px solid transparent;margin-bottom:-1px}.subnav a.on{color:var(--fg);border-bottom-color:var(--pri)}.subnav a:hover{color:var(--fg)}
@@ -291,7 +296,7 @@ legend{padding:0;margin-bottom:10px}
 @media (max-width:960px){
   :root{--gut:24px;--hdr:64px}
   .hnav{display:none}.mmb{display:inline-grid}
-  .split,.co,.help{grid-template-columns:minmax(0,1fr);gap:40px}.co-side{position:static;order:-1}.help-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none}.help-nav a{flex:none;border:1px solid var(--ln2);border-radius:999px}
+  .split,.co,.help{grid-template-columns:minmax(0,1fr);gap:40px}.co-side{position:static;order:-1}.co-side-end{order:1}.help-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none}.help-nav a{flex:none;border:1px solid var(--ln2);border-radius:999px}
   .g3,.g4,
   .ftr-grid{grid-template-columns:1fr 1fr}.ftr-grid>div:first-child{grid-column:1/-1}
   .settings,.inbox{grid-template-columns:minmax(0,1fr)}
@@ -431,6 +436,7 @@ body.locked .ck{visibility:hidden}   /* the cookie bar stays out of the way of a
 .narrow-l{max-width:760px}
 /* phone: the account tab row scrolls; a soft edge shows there is more */
 @media(max-width:640px){.acct-nav .subnav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.acct-more summary{padding:12px 8px}}
+.costep{scroll-margin-top:calc(var(--hdr) + 16px)}
 
 /* ============ shared kit: spacing scale, tab bar, sheets, compact lists, chips, reviews, search, hub ============ */
 :root{--s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:64px;
@@ -483,6 +489,7 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
   .bb-t{min-width:0;display:flex;flex-direction:column}.bb-t strong{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bb-t small{color:var(--mut);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .bookbar .btn{flex:none}
   body:has(.bookbar){padding-bottom:calc(var(--tabbar) + 68px)}
+  body:has(.bookbar) .dh-cta{display:none}   /* the booking bar already carries the same button */
   body:has(.bookbar) #toasts{bottom:calc(var(--tabbar) + 80px)}body:has(.bookbar) .totop{display:none}
 }
 
@@ -607,6 +614,20 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 @media (min-width:1024px){.dgrid{grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:56px;align-items:start}.dside{position:sticky;top:calc(var(--hdr) + 24px)}.dh-cta{display:none}.dh{padding:32px 0}.dh-ph .plate{aspect-ratio:4/3}.dbook .fopts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.dbook .fopt{padding:10px 12px;gap:8px}}
 @media (max-width:1023px){.dbook .dbook-go{display:none}}
 
+/* phones: 16px in fields so iOS does not zoom the page on focus; no grey flash on tap (every control has its own pressed state) */
+@media (hover:none) and (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),select,textarea{font-size:16px!important}}
+a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
+.nobr{white-space:nowrap}
+
+/* keyboard shortcuts sheet (shared/js/keys.js) */
+.kb{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border:1px solid var(--ln2);border-bottom-width:2px;border-radius:6px;font:500 12px/1 var(--f-mono);color:var(--fg)}
+.kb-list{display:flex;flex-direction:column}
+.kb-row{display:flex;align-items:center;gap:20px;padding:10px 0;border-top:1px solid var(--ln)}
+.kb-row:last-child{border-bottom:1px solid var(--ln)}
+.kb-k{display:flex;gap:6px;min-width:96px}
+.kb-link{display:none}
+@media (hover:hover) and (pointer:fine) and (min-width:1024px){.kb-link{display:inline}}
+
 /* ============ Velvet · amethyst silk, neon fuchsia and candle gold ============ */
 :root{
   --bg:#07040A;--bg2:#0D0811;--bg3:#040205;--fg:#FCEFF6;--mut:rgba(252,239,246,.68);--ln:rgba(252,239,246,.12);--ln2:rgba(252,239,246,.28);--card:rgba(255,255,255,.03);--spot:rgba(255,63,160,.16);
@@ -624,7 +645,7 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .hand-s{font:500 15px/1.45 var(--f-body);color:var(--fg)}.paper .hand-s{font:italic 400 19px/1.35 var(--f-it)}
 
 /* home */
-.opts-demo{display:flex;flex-direction:column;border-top:1px solid var(--ln2)}.od-r{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid var(--ln)}.od-r .hand-s{text-align:right}
+.opts-show{display:flex;flex-direction:column;border-top:1px solid var(--ln2)}.od-r{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid var(--ln)}.od-r .hand-s{text-align:right}
 
 /* cards */
 .prod{display:flex;flex-direction:column}.prod .plate{border-radius:var(--rs)}.prod>.row:last-child{margin-top:auto;padding-top:16px}
@@ -665,8 +686,6 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .ts-mini{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:center}.ts-mini .bm{max-width:200px}
 .rc-care{font-size:12.5px;color:#7A1E6E;border-left:2px solid #7A1E6E;padding-left:10px}
 .gr-areas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 24px}
-/* account overview */
-.acct-ov{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr)}.ov-main{min-width:0}
 
 /* the front desk */
 .wk-r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 14px;border:1px solid var(--ln);border-radius:var(--rs);background:var(--bg2)}
@@ -680,13 +699,12 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .ds-key{display:flex;gap:14px;flex-wrap:wrap}.ds-key span{display:inline-flex;align-items:center;gap:6px}.ds-key i{width:12px;height:12px;border-radius:3px;display:inline-block}.ds-key .sim{background:rgba(252,239,246,.2)}.ds-key .mem{background:var(--pri)}.ds-key .wk{background:var(--hi)}
 .ubar{height:6px;border-radius:3px;background:var(--ln);overflow:hidden;width:160px;max-width:100%}.ubar span{display:block;height:100%;background:var(--pri)}
 
-@media (max-width:1080px){.acct-ov{grid-template-columns:1fr 1fr}.ov-main{grid-column:1/-1}}
+@media (max-width:1080px){}
 @media (max-width:960px){.rc-g,.ts-top,.ts-mini{grid-template-columns:minmax(0,1fr)}.ts-fig .bm,.ts-mini .bm{margin:0 auto}.gr-areas{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){
   .lg-a{font-size:18px;letter-spacing:.1em}.lg-b{font-size:13px}
 
   .mins li{grid-template-columns:64px minmax(0,1fr);gap:12px}
-  .acct-ov{grid-template-columns:minmax(0,1fr)}
   .phases,.osteps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wk-r{flex-direction:column;align-items:stretch}
   .dk-st{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dk-st .stat .h-disp{font-size:26px}
@@ -698,10 +716,7 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 /* ---------- upgrade: menu, treatment, glow, couples, shop, spas, gift, account ---------- */
 .se-l{display:flex;gap:8px;align-items:flex-start;color:var(--hi)}.se-l .ic{flex:none;margin-top:3px}
 .vv-top{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
-/* membership, compact */
-.plans-c{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap,24px);max-width:860px}
-.pl-c{display:flex;flex-direction:column;gap:8px;padding:20px 22px;border:1px solid var(--ln);border-radius:var(--r);background:var(--card);transition:border-color .25s}.pl-c:hover,.pl-c.on{border-color:var(--pri)}
-.pl-p{margin-top:auto;padding-top:8px;font-size:18px}.pl-p small{font-size:12px}
+/* membership{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--card-gap,24px);max-width:860px}
 /* the timeline */
 .tlx{display:flex;gap:3px;height:44px;border-radius:var(--rs);overflow:hidden}
 .tlx-s{display:grid;place-items:center;min-width:28px;color:#1A0716;font:600 12px var(--f-mono)}
@@ -755,7 +770,7 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .ts-top.ts-pair{grid-template-columns:minmax(0,1fr)}.ts-pair .ts-fig{max-width:460px;margin:0 auto;width:100%}
 .pf-x{display:grid;place-items:center;color:#7A1E6E;font-size:12px}
 .ac .pf-line{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:center}
-@media (max-width:960px){.plans-c{grid-template-columns:minmax(0,1fr)}.pl-c{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px}.pl-c .pl-p{grid-row:1/4;grid-column:2;align-self:center;margin:0;padding:0}}
+@media (max-width:960px){}
 @media (max-width:760px){.ph-hide{display:none}}
 .xs-f select{min-height:44px}
 /* tap targets: the whole chip or payment row is the control */
@@ -973,7 +988,7 @@ F.SITE = {
 
 /* ---- 01-store.js ---- */
 /* Two stores live side by side in this browser:
-   - the site's own store (lessons, visits, memberships, the simulated world), one key per site;
+   - the site's own store (lessons, visits, memberships, the living world), one key per site;
    - the FLINGR passport, shared by every FLINGR site on this domain: who you are, how you pay, your Wallet and Reserve.
    Every change goes through commit(), which re-reads both first so another tab or another FLINGR site never gets overwritten. */
 (() => {
@@ -1097,7 +1112,7 @@ F.store = {
 
 /* ---- 02-engine.js ---- */
 /* The shared engine: cities and money, the signed-in member (from the passport), the Wallet and cards, notifications,
-   events, promo codes and the tick that runs the simulated world. Each site adds its own rules on top. */
+   events, promo codes and the tick that runs the living world. Each site adds its own rules on top. */
 (() => {
 'use strict';
 const E = F.E = {};
@@ -1327,7 +1342,7 @@ F.footer = () => {
   <div class="ftr-grid"><div><a href="#/" class="logo">${F.SITE.logo}</a><p class="small muted mt16">${f.blurb}</p>${famLinks().length ? `<div class="fam mt24"><span class="lbl">The FLINGR family</span><div class="fam-l mt8">${famLinks().map(x => `<a class="fam-a" href="${x.url}">${esc(x.name)}<small>${esc(x.line)}</small></a>`).join('')}</div></div>` : ''}</div>
   ${f.cols.map(([h, links]) => `<div><h4 class="eyebrow">${h}</h4>${links.map(([l, href]) => `<a href="${href}">${l}</a>`).join('')}</div>`).join('')}
   <div><h4 class="eyebrow">Help</h4><a href="#/help">Help & FAQ</a><a href="#/contact">Contact</a><p class="tiny muted mt16">24/7 line<br><button class="btn-link tiny" data-a="call" data-c="${c.id}">${c.phone}</button></p></div></div>
-  <div class="ftr-b"><span>© ${new Date(Date.now()).getUTCFullYear()} FLINGR Technologies, Inc. ${esc(F.SITE.brand)} is part of FLINGR.</span><span class="row wrap-gap"><button class="btn-link qx-link" data-a="quickExit" title="Or press Esc twice">Quick exit</button><button class="btn-link qx-link" data-a="resetSite">Reset site</button>${F.fam ? F.fam.footLink() : ''}<a href="#/legal/terms">Terms</a><a href="#/legal/privacy">Privacy</a><a href="#/legal/cookies">Cookies</a><button class="btn-link tiny" data-a="cookieSettings">Cookie settings</button></span></div></div>`;
+  <div class="ftr-b"><span>© ${new Date(Date.now()).getUTCFullYear()} FLINGR Technologies, Inc. ${esc(F.SITE.brand)} is part of FLINGR.</span><span class="row wrap-gap"><button class="btn-link qx-link" data-a="quickExit" title="Or press Esc twice">Quick exit</button><button class="btn-link qx-link" data-a="resetSite">Reset site</button><button class="btn-link qx-link kb-link" data-a="keys">Shortcuts</button>${F.fam ? F.fam.footLink() : ''}<a href="#/legal/terms">Terms</a><a href="#/legal/privacy">Privacy</a><a href="#/legal/cookies">Cookies</a><button class="btn-link tiny" data-a="cookieSettings">Cookie settings</button></span></div></div>`;
 };
 A.call = el => { const c = E.city(el.dataset.c || F.cityId()); F.modal(`<h2 class="h-disp h3">Call us</h2><p class="muted mt8">${esc(F.SITE.brand)} ${c.name} · open around the clock. You’ll speak to a person, not a menu.</p><a class="btn btn-pri mt24" href="tel:${c.phone.replace(/[^\d+]/g, '')}" data-a="closeModal" data-follow="1">${F.ic('phone', 16)} ${c.phone}</a><p class="tiny muted mt16">In an emergency call ${c.emergency}.</p>`, { cls: 'modal-sm', label: 'Call us' }); };
 
@@ -3136,7 +3151,7 @@ F.SITE.reviewables = u => E.myVisits(u).filter(v => v.status === 'done').map(v =
 /* ---- 30-engine.js ---- */
 /* Velvet: the engine. Shifts and licences, rooms and cleaning, free times, booking a ritual with its options and body map,
    the rules between treatments, series and programs, the Glow tracker, visits moving through the spa on their own, the shop,
-   walk-ins at the desk, and the simulated world. */
+   walk-ins at the desk, and the living world. */
 (() => {
 'use strict';
 const E = F.E, S = () => F.S, now = () => Date.now(), M = 6e4, H = 36e5, D = 864e5, Q = 15 * M;
@@ -3223,13 +3238,15 @@ E.bookVisit = (u, o, pay) => {
   if (!F.trOpen(t)) return { ok: false, reason: `${t.n} arrives on ${U.keyFmt(F.trRel(t), 'md')}.` };
   const c = E.contra(u, t, o.start); if (c) return { ok: false, reason: c };
   if (o.opts && o.opts.oil && !E.oilOk(u, o.opts.oil)) return { ok: false, reason: `${o.opts.oil} is ruled out by your touch sheet.` };
-  const end = o.start + o.dur * M, room = E.roomFree(cityId, t.room, o.start, end); if (!room) return { ok: false, reason: 'That room has just been taken. Pick another time.' };
+  const end = o.start + o.dur * M, room = E.roomFree(cityId, t.room, o.start, end) || (pay.prepaid ? F.ROOMS.find(r => r.kind === t.room) : null); if (!room) return { ok: false, reason: 'That room has just been taken. Pick another time.' };   // a One Evening ritual has its room kept for it
   const pool = (o.ther || []).map(E.ther).filter(x => x && E.therFree(x, o.start, end)), need = t.two ? 2 : 1;
   if (pool.length < need) { const alt = E.thersFor(t, cityId, o.opts && o.opts.gender).filter(x => E.therFree(x, o.start, end)); while (pool.length < need && alt.length) { const a = alt.shift(); if (!pool.includes(a)) pool.push(a); } }
+  if (pool.length < need && pay.prepaid) { const any = E.thersFor(t, cityId); while (pool.length < need && any.length) { const a = any.shift(); if (!pool.includes(a)) pool.push(a); } }
   if (pool.length < need) return { ok: false, reason: 'Our therapists are fully booked at that time.' };
   const pr = E.visitPrice(u, t, o.dur, cityId, o.extras, o.start);
   const v = { id: U.uid('vs'), no: U.orderNo('VV'), userId: u.id, tid: t.id, dur: o.dur, cityId, start: o.start, end, room: room.id, ther: pool.slice(0, need).map(x => x.id), release: o.release || null, opts: o.opts || {}, extras: o.extras || [], map: Object.assign({}, t.pair ? E.mutualMap(u) : E.myMap(u)), care: E.careNotes(u), callMe: E.sheet(u).name || null, safe: E.sheet(u).safe || null, note: o.note || '', partner: o.partner || null, status: 'confirmed', createdAt: now(), history: [], program: pay.program || null, guests: o.guests || 0 };
   if (pay.program) v.paid = { program: pay.program };
+  else if (pay.prepaid) v.paid = Object.assign({}, pay.prepaid);
   else { const promo = pay.promo ? E.promo(pay.promo, { kind: t.series && pay.series ? 'series' : 'visit', usd: E.toUsd(cityId, pr.total), amount: pr.total, cityId, u }) : null, amt = U.r2(pr.total - (promo && promo.ok ? promo.amount : 0)); const ch = F.takePayment(u, cityId, amt, t.n); if (!ch.ok) return ch; v.paid = { money: amt, label: ch.label, promo: promo && promo.ok ? promo.code : null, disc: pr.disc, base: pr.base, free: pr.free, full: U.r2(pr.base + pr.add), member: E.memberPct(u) ? U.r2(pr.disc + pr.free) : 0 }; }
   v.history.push({ at: now(), note: 'Booked.' }); S().visits.push(v);
   if (!v.program) E.myVisits(u).filter(x => x.program && x.id !== v.id && E.live(x) && overlaps(v.start - 30 * M, v.end + 30 * M, x.start, x.end)).forEach(x => E.autoMove(x, 'it clashed with ' + (u.prefs.discreet ? 'another visit' : t.n)));
@@ -3459,7 +3476,7 @@ F.pages.home = {
     <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="clist">${feat.map(F.trCC).join('')}</div>
     <div class="chiprow mt24">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
     <section class="sec-md sec-alt"><div class="wrap split"><div>${F.secHead({ eyebrow: 'Your ritual, your rules', title: 'Nothing is <span class="it">guessed</span> in the room', lead: 'Choose the release, the oil, the light and your therapist. Paint your body map once; it travels with every visit. Licensed hands only: never oral, never intercourse, and you stop anything with a word.' })}<a class="btn btn-pri" href="#/build">Start building</a></div>
-    <div class="opts-demo">${[['Release', F.RELEASE.edge], ['Oil', F.OPT.oil[1]], ['Light', F.OPT.light[0]], ['Therapist', 'A woman, in lingerie'], ['Body map', 'Genitals: yes · Anus: gently · Feet: avoid']].map(([k, v]) => `<div class="od-r"><span class="lbl">${k}</span><span class="hand-s">${esc(v)}</span></div>`).join('')}</div></div></section>
+    <div class="opts-show">${[['Release', F.RELEASE.edge], ['Oil', F.OPT.oil[1]], ['Light', F.OPT.light[0]], ['Therapist', 'A woman, in lingerie'], ['Body map', 'Genitals: yes · Anus: gently · Feet: avoid']].map(([k, v]) => `<div class="od-r"><span class="lbl">${k}</span><span class="hand-s">${esc(v)}</span></div>`).join('')}</div></div></section>
     ` };
   }
 };
@@ -3513,7 +3530,7 @@ F.pages.treatment = {
   render(r) {
     const t = E.tr(r.params[0]); if (!t || t.hidden) return F.pages.notfound.render(r);
     const c = F.cityId(), u = E.user(), open = F.trOpen(t), se = open && E.trSeason(t, c), n = E.thersFor(t, c).filter(x => E.therOn(x, E.todayKey(c))).length, dur = t.d.includes((F.ui.trd || {})[t.id]) ? F.ui.trd[t.id] : t.d[0];
-    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''} · ${F.rvLine('tr:' + t.id)}`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
+    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}${(x => x ? ` <span class="nobr">· ${x}</span>` : '')(F.rvLine('tr:' + t.id))}`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
     ${F.detailBody(`<div>${F.secHead({ eyebrow: 'Minute by minute', lead: t.d.length > 1 ? `Shown for ${U.dur(t.d[0])}; the ${U.dur(t.d[1])} stretches every part.` : '' })}${F.timeline(t, t.d[0])}</div>
     <div>${F.secHead({ eyebrow: 'Guests say' })}${F.reviewBrief(F.vvT('tr:' + t.id))}</div>`, `${open ? `<div class="card dbook"><span class="lbl">Book</span><div class="row wrap-gap end mt8"><span class="h-disp dbook-p">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, dur, c))), c)}</span><span class="small muted">${E.memberPct(u) ? `<s>${E.money(E.cp(c, E.trNow(t, dur, c)), c)}</s> member price` : `members ${E.money(E.mprice(E.cp(c, E.trNow(t, dur, c))), c)}`}</span></div>
     ${t.d.length > 1 ? `<div class="fopts" role="group" aria-label="Length">${t.d.map(d => `<button class="fopt ${d === dur ? 'on' : ''}" data-a="trDur" data-t="${t.id}" data-v="${d}" aria-pressed="${d === dur}">${F.ic('clock', 15)}<span><strong>${U.dur(d)}</strong></span><span class="mono tiny">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, d, c))), c)}</span></button>`).join('')}</div>` : `<p class="small muted mt8">${U.dur(dur)}</p>`}
@@ -3574,6 +3591,7 @@ const E = F.E, A = F.A, now = () => Date.now(), M = 6e4, H = 36e5, D = 864e5;
 /* ---------- the body map ---------- */
 const DEF_MAP = Object.fromEntries(F.ZONES.map(([k]) => [k, k === 'anus' ? 'gentle' : 'yes']));
 const ZL = Object.fromEntries(F.ZONES);
+const PARTS = [['day', 'Daytime'], ['eve', 'Evening'], ['late', 'Late']];
 E.myMap = u => { const m = u && F.S.maps.find(x => x.userId === u.id); return Object.assign({}, DEF_MAP, m ? m.z : {}); };
 // the zones a treatment is about; a touch ritual with a release also needs the genitals
 const NEEDS = { prostate: ['anus'], anal: ['anus'], breast: ['nipples'], rose_nip: ['nipples'], rose_back: ['anus'], buttfacial: ['buttocks'], pits: ['arms'], thighs: ['inner'], kegel: [], ingrown: [] };
@@ -3650,6 +3668,10 @@ F.pages.build = {
     const sel = (k, l, list) => `<div class="field"><label for="rb-${k}">${l}</label><select class="inp" id="rb-${k}" data-ch="rbOpt" data-k="${k}">${list.map(x => `<option ${b.opts[k] === x ? 'selected' : ''} ${k === 'oil' && !E.oilOk(u, x) ? 'disabled' : ''}>${esc(x)}${k === 'oil' && !E.oilOk(u, x) ? ' (ruled out by your sheet)' : ''}</option>`).join('')}</select></div>`;
     const seg = (k, l, list) => `<fieldset><legend class="lbl">${l}</legend><div class="seg seg-sm mt8" role="group">${list.map(x => `<button class="seg-b ${b.opts[k] === x ? 'on' : ''}" data-a="rbSeg" data-k="${k}" data-v="${esc(x)}" aria-pressed="${b.opts[k] === x}">${esc(x)}</button>`).join('')}</div></fieldset>`;
     const sameT = b.same && E.ther(b.same);
+    // a long day of times shows one part of the day at a time
+    const d0 = U.zoned(tz, b.key, 0), partOf = x => { const m = (x.start - d0) / 6e4; return m < 1020 ? 'day' : m < 1320 ? 'eve' : 'late'; };
+    const groups = { day: [], eve: [], late: [] }; slots.forEach(x => groups[partOf(x)].push(x));
+    const sp = slots.find(x => x.start === b.start), part = groups[b.part] && groups[b.part].length ? b.part : sp ? partOf(sp) : ['eve', 'day', 'late'].find(k => groups[k].length) || 'day';
     return { title: 'Build a ritual', html: `<section class="co-page"><div class="wrap"><a class="btn-link tiny" href="#/treatment/${t.id}">${F.ic('back', 12)} ${esc(t.n)}</a><div class="row between wrap-gap end mt16"><h1 class="h-disp h2">Build your ritual</h1><button class="btn btn-ghost btn-sm" data-a="rbSurprise">${F.ic('sparkle', 14)} Surprise me</button></div>
     <div class="co mt32"><div class="stack">
     <div class="costep done">${head(1, 'The ritual', esc(t.n) + ' · ' + U.dur(b.dur))}<div class="costep-b"><div class="field"><label for="rbT">Ritual</label><select class="inp" id="rbT" data-ch="rbT">${F.COLS.filter(x => x[0] !== 'occasion').map(([k, l]) => `<optgroup label="${l}">${F.TREAT.filter(x => x.c === k && !x.hidden).map(x => `<option value="${x.id}" ${x.id === t.id ? 'selected' : ''} ${F.trOpen(x) ? '' : 'disabled'}>${esc(x.n)}${F.trOpen(x) ? '' : ' (from ' + U.keyFmt(F.trRel(x), 'dshort') + ')'}</option>`).join('')}</optgroup>`).join('')}</select></div>
@@ -3657,7 +3679,7 @@ F.pages.build = {
     <div class="costep done">${head(2, 'Your choices', t.release ? F.RELEASE[b.release] : '')}<div class="costep-b stack">
       ${t.release ? `<fieldset><legend class="lbl">How it ends</legend><div class="row wrap-gap mt8">${t.release.map(x => `<button class="chip chip-sm ${b.release === x ? 'on' : ''}" data-a="rbRel" data-v="${x}" aria-pressed="${b.release === x}">${F.RELEASE[x]}</button>`).join('')}</div></fieldset>` : ''}
       ${seg('gender', 'Your therapist', F.OPT.gender)}${touch(t) && !t.attire ? seg('attire', 'They wear', F.OPT.attire) : t.attire ? `<p class="small muted">Your therapist is ${t.attire.toLowerCase()} for ${esc(t.n)}.</p>` : ''}
-      ${touch(t) ? `<div class="fgrid">${sel('oil', 'Oil', F.OPT.oil)}${sel('pressure', 'Pressure', F.OPT.pressure)}</div><div class="fgrid">${sel('light', 'Light', F.OPT.light)}${sel('music', 'Music', F.OPT.music)}</div>${sel('temp', 'Warmth', F.OPT.temp)}` : sel('music', 'Music', F.OPT.music)}
+      ${touch(t) ? `<details class="acc rb-room" data-d="rbroom"><summary class="row between"><span><span class="lbl d-b">The room</span><span class="small d-b mt4">${esc([b.opts.oil, b.opts.pressure + ' pressure', b.opts.light, b.opts.music, b.opts.temp].filter(Boolean).join(' · '))}</span></span>${F.ic('plus', 14)}</summary><div class="acc-b stack"><div class="fgrid">${sel('oil', 'Oil', F.OPT.oil)}${sel('pressure', 'Pressure', F.OPT.pressure)}</div><div class="fgrid">${sel('light', 'Light', F.OPT.light)}${sel('music', 'Music', F.OPT.music)}</div>${sel('temp', 'Warmth', F.OPT.temp)}</div></details>` : sel('music', 'Music', F.OPT.music)}
       <fieldset><legend class="lbl">Add to your visit${isMember ? ' <span class="muted">· one is free for members</span>' : ''}</legend><div class="row wrap-gap mt8">${F.ADDONS.filter(a => a[0] !== 'shower' || t.pair).map(([k, l, usd]) => `<label class="chk-chip"><input type="checkbox" data-ch="rbAdd" value="${k}" ${b.extras.includes(k) ? 'checked' : ''}><span>${esc(l)} · ${E.pm(usd, c)}</span></label>`).join('')}</div></fieldset>
       ${t.pair ? `<div class="field"><label for="rbP">Your partner’s first name <span class="muted">(for the desk)</span></label><input class="inp" id="rbP" data-c="rbField" data-k="partner" value="${esc(b.partner)}" maxlength="30" autocomplete="off"></div>` : ''}
       <div class="field"><label for="rbN">Anything your therapist should know <span class="muted">(optional)</span></label><textarea class="inp" id="rbN" rows="2" data-c="rbField" data-k="note" maxlength="300" placeholder="A sore shoulder, a first time, a word you like to hear">${esc(b.note)}</textarea></div></div></div>
@@ -3665,7 +3687,8 @@ F.pages.build = {
     <div class="costep ${b.start ? 'done' : 'open'}" id="rb-time">${head(4, 'Time', b.start ? U.fmt(b.start, tz, 'dt') + ' · ' + esc(F.SPAS[c].name) : '')}<div class="costep-b">${F.cityChips()}
       ${sameT ? `<div class="notice mt16">${F.ic('heart', 16)}<span>Only times when the same hands (${esc(sameT.init)}) are free. <button class="btn-link tiny" data-a="rbAny">Any licensed hands</button></span></div>` : `<details class="acc rb-hands mt16" data-d="rbh"><summary class="row between"><span class="small">Any licensed therapist, or choose specific hands</span>${F.ic('plus', 14)}</summary><div class="acc-b">${F.therPicker(t, b.dur)}</div></details>`}
       <div class="days mt16">${days.map((k, i) => `<button class="dayb ${k === b.key ? 'on' : ''} ${counts[i] ? '' : 'full'}" data-a="rbDay" data-v="${k}" aria-pressed="${k === b.key}"><small>${U.keyFmt(k, 'wd')}</small><b>${k.slice(8)}</b><i>${counts[i] ? counts[i] < 3 ? 'Last few' : '' : 'Full'}</i></button>`).join('')}</div>
-      <div class="slots mt16">${slots.length ? slots.map(x => { const dm = E.demand(c, x.start, t.id); return `<button class="chip ${x.start === b.start ? 'on' : ''} ${dm < 1 ? 'sl-q' : ''}" data-a="rbTime" data-v="${x.start}" aria-pressed="${x.start === b.start}">${U.fmt(x.start, tz, 'time')}${dm < 1 ? '<i class="sl-dot" aria-label="quiet hour, 10% less"></i>' : ''}</button>`; }).join('') : `<div class="notice">${F.ic('clock', 16)}<span>${E.waitFor(u, t.id, b.key, c) ? `You’re on the waitlist for ${U.keyFmt(b.key, 'date')}. If a guest cancels, you hear first.` : `${U.keyFmt(b.key, 'date')} is full. Guests do cancel late; join the waitlist and the first time that opens comes to you.`}</span></div>${E.waitFor(u, t.id, b.key, c) ? '' : `<button class="btn btn-ghost btn-sm mt16" data-a="rbWait">Join the waitlist</button>`}`}</div>
+      ${slots.length > 12 ? `<div class="seg seg-sm mt16" role="group" aria-label="Part of the day">${PARTS.filter(([k]) => groups[k].length).map(([k, l]) => `<button class="seg-b ${k === part ? 'on' : ''}" data-a="rbPart" data-v="${k}" aria-pressed="${k === part}">${l} · ${groups[k].length}</button>`).join('')}</div>` : ''}
+      <div class="slots mt16">${slots.length ? (slots.length > 12 ? groups[part] : slots).map(x => { const dm = E.demand(c, x.start, t.id); return `<button class="chip ${x.start === b.start ? 'on' : ''} ${dm < 1 ? 'sl-q' : ''}" data-a="rbTime" data-v="${x.start}" aria-pressed="${x.start === b.start}">${U.fmt(x.start, tz, 'time')}${dm < 1 ? '<i class="sl-dot" aria-label="quiet hour, 10% less"></i>' : ''}</button>`; }).join('') : `<div class="notice">${F.ic('clock', 16)}<span>${E.waitFor(u, t.id, b.key, c) ? `You’re on the waitlist for ${U.keyFmt(b.key, 'date')}. If a guest cancels, you hear first.` : `${U.keyFmt(b.key, 'date')} is full. Guests do cancel late; join the waitlist and the first time that opens comes to you.`}</span></div>${E.waitFor(u, t.id, b.key, c) ? '' : `<button class="btn btn-ghost btn-sm mt16" data-a="rbWait">Join the waitlist</button>`}`}</div>
       <p class="tiny muted mt16">Times in ${E.city(c).name} (${U.tzAbbr(tz)}). Open 10am to 2am. Prices follow the hour: quiet times <span class="sl-dot"></span> cost less, busy evenings up to a quarter more.${lateNote ? ' Late slots from 10pm open to everyone 48 hours ahead; members book them any time.' : ''}</p></div></div>
     <div class="costep ${b.start ? 'open' : 'locked'}" id="rb-pay">${head(5, 'Payment')}${b.start ? `<div class="costep-b stack">
       ${err ? `<div class="notice err">${F.ic('alert', 16)}<span>${esc(err)}</span></div>${!u.verified ? '<button class="btn btn-pri btn-sm" data-a="verifyId">Verify now</button>' : ''}` : ''}
@@ -3700,6 +3723,7 @@ A.rbSurprise = () => {
 };
 A.rbJump = () => { const el = $(rb().start ? '#rb-pay' : '#rb-time'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
 A.rbTime = el => { rb().start = +el.dataset.v; F.rerender(); };
+A.rbPart = el => { rb().part = el.dataset.v; F.rerender(); };
 A.rbAny = () => { const b = rb(); b.same = null; b.start = null; F.rerender(); };
 F.Fm.rbPromo = (f, d) => { rb().promo = String(d.code || '').trim().toUpperCase(); F.rerender(); };
 A.rbGo = async el => {
@@ -4246,7 +4270,7 @@ F.SITE.prefTags = u => { const sh = E.sheet(u), z = sh.z, tags = {}, add = (k, w
 const tagsOf = t => [t.c, t.id, 'id:' + t.id, t.body, t.pair ? 'pairs' : '', ...(t.release || [])].filter(Boolean);
 const fyItems = u => { const z = E.myMap(u), c = F.cityId(); return F.TREAT.filter(t => !t.hidden && F.trOpen(t) && !E.careBlock(u, t) && !E.mapClash(t, t.pair ? E.mutualMap(u) : z, (t.release || [])[0])).map(t => ({ t, id: t.id, title: t.n, sub: t.s, href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', meta: `${t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}`, price: F.trFrom(t, c), tags: tagsOf(t) })); };
 const fyScore = (x, p) => 2 + x.tags.reduce((a, k) => a + (p.tags[k] || 0), 0) + (F.rvRank('tr:' + x.id) - 4.6) * 4;
-F.forYouVV = u => [F.forYou(u, fyItems(u), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
+F.forYouVV = u => [F.digestCard(u), F.forYou(u, fyItems(u), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
 
 /* ---------- nudges: come back at the right interval ---------- */
 const upcomingOf = (u, test) => E.myVisits(u).some(v => v.status === 'confirmed' && test(E.tr(v.tid)));
@@ -4342,6 +4366,22 @@ F.favBtn = (u, v) => v.ther.map(E.ther).filter(Boolean).map(x => { const on = E.
 F.favCard = u => { const fs = E.favs(u); if (!fs.length) return '';
   return `<div class="card"><span class="lbl">Your favourite hands</span><div class="stack-s mt16">${fs.map(f => { const x = E.ther(f.therId), on = E.therOn(x, E.todayKey(x.city)), t = E.tr(f.tid) || E.tr(E.lastRitual(u) ? E.lastRitual(u).tid : 'warm');
     return `<div class="row between wrap-gap"><span class="small">${esc(F.GENDER[x.g])} (${esc(x.init)})<span class="d-b tiny muted">Licence ${esc(x.lic)} · ${esc(F.SPAS[x.city].name)}</span></span>${on && t ? `<a class="btn btn-ghost btn-sm" href="#/build?t=${t.id}&same=${x.id}">Book with them</a>` : '<span class="tiny muted">Not on the rota now</span>'}</div>`; }).join('')}</div></div>`; };
+})();
+
+/* ---- 50-evening.js ---- */
+/* Velvet's part of One Evening (shared/js/evening.js): the ritual paid for on FLINGR is booked here, prepaid, at the
+   time held for it (or the nearest free time that still ends before the night), with its room and therapist kept. */
+(() => {
+'use strict';
+const E = F.E, M = 6e4;
+F.SITE.eveningAdopt = (u, g, ev) => F.store.commit(() => {
+  const t = E.tr(g.item), cityId = g.city; if (!t) return { ok: false };
+  const tz = E.cityTz(cityId), key = U.dayKey(g.at, tz), latest = g.by ? g.by - g.dur * M : g.at;
+  const slots = E.slots({ tid: t.id, dur: g.dur, cityId, key, lead: -864e8 }).filter(s => s.start <= latest).sort((a, b) => Math.abs(a.start - g.at) - Math.abs(b.start - g.at));
+  const s = slots[0] || { start: g.at, ther: [] };
+  const r = E.bookVisit(u, { tid: t.id, dur: g.dur, cityId, start: s.start, ther: s.ther, release: (t.release || []).includes('decide') ? 'decide' : (t.release || [null])[0], opts: {}, extras: [], note: 'One Evening · ' + ev.no, partner: t.pair ? 'Your partner' : null }, { prepaid: { money: g.amount, label: 'One Evening · ' + ev.no, cur: g.cur } });
+  return r.ok ? { ok: true, ref: r.v.no, href: '#/account/visit/' + r.v.id, at: r.v.start } : { ok: false, reason: r.reason };
+});
 })();
 
 /* ---- 96-health.js ---- */
@@ -4484,6 +4524,45 @@ H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><
 (() => { const s = document.createElement('style'); s.textContent = `.hrow{border:1px solid var(--ln);border-radius:10px;padding:12px 14px}.hchip{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:999px;border:1px solid var(--ln);opacity:.5}.hchip.on{opacity:1}.hopt{text-align:left;cursor:pointer;color:inherit;font:inherit;background:none}.hopt:disabled{opacity:.5;cursor:default}.hi .spin{display:inline-block}.hrow+.hrow{margin-top:0}.hdoc .pp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:14px 0;margin-top:20px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}.hdoc .pp-grid>div{display:flex;flex-direction:column;gap:4px}.hdoc .pp-tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}.hdoc .pp-tbl th{text-align:left;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px 8px 8px 0;border-bottom:1px solid #1C1916}.hdoc .pp-tbl td{padding:10px 8px 10px 0;border-bottom:1px dotted var(--ln2);vertical-align:top}.hdoc .pp-note{margin-top:16px;color:var(--mut);max-width:62ch}.hdoc .pp-m2{display:none}.hdoc .pp-ref{display:flex;flex-direction:column;align-items:flex-end}@media(max-width:640px){.hdoc .pp-grid{grid-template-columns:1fr 1fr}.hdoc .pp-m{display:none}.hdoc .pp-m2{display:block;margin-top:4px;font-size:11.5px;color:var(--mut)}.hdoc .pp-ref{align-items:flex-start}}`; document.head.appendChild(s); })();
 })();
 
+/* ---- 97a-evening.js ---- */
+/* One Evening: a Velvet ritual, then a FLINGR night, then a Practice follow-up the next day, paid for in one checkout
+   on FLINGR (10% off the whole evening with All-Access). FLINGR books its own part at once; the Velvet and Practice parts
+   are paid for and held, and each site books its part (prepaid) the next time it's open on this browser. The evenings
+   live in localStorage['flingr.evening'], shared by the three sites on this domain. */
+(() => {
+'use strict';
+const KEY = 'flingr.evening', SITE = (F.SITE && F.SITE.id) || 'flingr';
+// [id, name, minutes, US dollars]; Practice lessons are Voice or Video, 45 minutes
+F.EVENING = {
+  pct: 10,
+  velvet: [['warm', 'Warm Oil Awakening', 60, 220], ['breast', 'Breast & Nipple Ritual', 45, 190], ['prostate', 'Prostate Release', 60, 280], ['yoni', 'Yoni Ritual', 90, 360], ['lingam', 'Lingam Ritual', 90, 340]],
+  practice: [['talk', 'Dirty Talk'], ['kiss', 'Kissing & Build-up'], ['massage', 'Erotic Massage'], ['aftercare', 'Aftercare'], ['longer', 'Last Longer']],
+  lesson: { voice: ['Voice', 69], video: ['Video', 69] }
+};
+const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } };
+const write = list => { try { localStorage.setItem(KEY, JSON.stringify(list.slice(-60))); return true; } catch (e) { return false; } };
+F.evening = {
+  read,
+  mine: uid => read().filter(x => x.uid === uid).sort((a, b) => b.createdAt - a.createdAt),
+  get: id => read().find(x => x.id === id) || null,
+  save: ev => { const l = read().filter(x => x.id !== ev.id); l.push(ev); return write(l); },
+  leg: (id, site, patch) => { const l = read(), ev = l.find(x => x.id === id); if (!ev) return; const g = ev.legs.find(x => x.site === site); if (g) Object.assign(g, patch); write(l); }
+};
+// Velvet and Practice: book what was paid for on FLINGR, once, the next time this site is open
+const adopt = () => {
+  if (SITE === 'flingr' || !F.SITE || !F.SITE.eveningAdopt || !F.E || !F.E.user || !F.S) return;
+  const u = F.E.user(); if (!u) return; let any = false;
+  F.evening.mine(u.id).forEach(ev => ev.legs.filter(g => g.site === SITE && g.status === 'held').forEach(g => {
+    let r = null; try { r = F.SITE.eveningAdopt(u, g, ev); } catch (e) { console.error(e); r = { ok: false }; }
+    if (r && r.ok) { F.evening.leg(ev.id, SITE, { status: 'booked', ref: r.ref, href: r.href, at: r.at || g.at, bookedAt: Date.now() }); any = true; }
+    else { F.store.commit(() => { F.E.walletTx(u, g.usd, 'One Evening · ' + ev.no + ' (couldn’t be fitted)', ev.id); F.E.notify(u.id, 'bookings', 'Part of your evening is refunded', `${g.name} couldn’t be fitted around your night, so ${U.money(g.usd, 'USD', true)} is back in your Wallet.`, '#/account/wallet', Date.now()); }); F.evening.leg(ev.id, SITE, { status: 'refunded' }); any = true; }
+  }));
+  if (any && F.rerender) F.rerender();
+};
+if (SITE !== 'flingr') { setTimeout(adopt, 900); setInterval(adopt, 30e3); window.addEventListener('storage', e => { if (e.key === KEY) adopt(); }); }
+F.eveningAdoptNow = adopt;
+})();
+
 /* ---- 97b-autofill.js ---- */
 /* Shared by FLINGR, Velvet and Practice. Saved info, like a browser's autofill: focus any field of a form and a small
    quiet "Use saved …" line appears in the form; one click fills every EMPTY field of that form (nothing typed is overwritten):
@@ -4492,7 +4571,7 @@ H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><
    a sign-up form it makes a new person with an email nobody has used. Escape or clicking elsewhere closes it. */
 (() => {
 'use strict';
-const AF = F.autofill = {};
+const AF = {};
 const DAY = 864e5;
 const CITY = {
   la: { city: 'Los Angeles', street: '1450 N Laurel Ave', zip: '90046', country: 'US', phone: '+1 (323) 555-0148' },
@@ -4641,6 +4720,34 @@ try { new MutationObserver(ms => { if (!ms.some(m => [...m.addedNodes].some(n =>
   setTimeout(() => document.querySelectorAll('.modal form, .sheet form, #gate form').forEach(line), 200); }).observe(document.body, { childList: true, subtree: true }); } catch (e) { }
 })();
 
+/* ---- 97c-keys.js ---- */
+/* Keyboard shortcuts on desktop, shared by FLINGR, Practice and Velvet: "?" opens the list; "g" then a letter goes
+   somewhere. Never while typing, never on phones (no keyboard), never over an open dialog. */
+(() => {
+'use strict';
+const SITE = (F.SITE && F.SITE.id) || 'flingr';
+const GO = {
+  flingr: [['h', 'Home', '/'], ['b', 'Bookings', '/account/bookings'], ['i', 'Inbox', '/account/inbox'], ['a', 'Account', '/account'], ['s', 'Hosts', '/hosts'], ['e', 'Escapes', '/escapes'], ['c', 'Afterhours', '/afterhours'], ['o', 'One Evening', '/evening']],
+  practice: [['h', 'Home', '/'], ['b', 'Lessons', '/account/lessons'], ['i', 'Inbox', '/account/inbox'], ['a', 'Account', '/account'], ['s', 'Skills', '/skills'], ['t', 'Timetable', '/timetable']],
+  velvet: [['h', 'Home', '/'], ['b', 'Visits', '/account/visits'], ['i', 'Inbox', '/account/inbox'], ['a', 'Account', '/account'], ['m', 'Menu', '/menu'], ['s', 'Shop', '/shop']]
+}[SITE] || [];
+const typing = t => t && (/INPUT|TEXTAREA|SELECT/.test(t.tagName) || t.isContentEditable);
+const kbd = k => `<kbd class="kb">${k}</kbd>`;
+const sheet = () => {
+  const rows = [['/', 'Search'], ['?', 'This list'], ['Esc', 'Close a window or menu'], ['Esc Esc', 'Quick exit: cover the page at once']].map(([k, l]) => [k.split(' ').map(kbd).join(' '), l]).concat(GO.map(([k, l]) => [kbd('g') + ' ' + kbd(k), l]));
+  F.modal(`<h2 class="h-disp h3">Keyboard shortcuts</h2><p class="small muted mt8">Press <strong>g</strong>, then a letter, to go straight to a page.</p><div class="kb-list mt24">${rows.map(([k, l]) => `<div class="kb-row"><span class="kb-k">${k}</span><span class="small">${l}</span></div>`).join('')}</div>`, { label: 'Keyboard shortcuts' });
+};
+let gAt = 0;
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey || typing(e.target) || document.getElementById('gate')) return;
+  if (e.key === '?') { if (F._modal) return; e.preventDefault(); sheet(); return; }
+  if (F._modal || F._drawer) return;
+  if (e.key === 'g' && !e.shiftKey) { gAt = Date.now(); return; }
+  if (gAt && Date.now() - gAt < 1200) { const hit = GO.find(x => x[0] === e.key.toLowerCase()); gAt = 0; if (hit) { e.preventDefault(); F.nav(hit[2]); } }
+});
+F.A.keys = () => sheet();
+})();
+
 /* ---- 98-family.js ---- */
 /* Shared by FLINGR, Velvet and Practice (build.js copies it into each site, after the site's own code and before boot).
    Everything here works the same on the three sites, which share one origin and therefore one localStorage:
@@ -4656,12 +4763,9 @@ const FAM = F.fam = F.fam || {}, A = F.A;
 const SITE = (F.SITE && F.SITE.id) || 'flingr';
 const NAMES = { flingr: 'FLINGR', velvet: 'Velvet', practice: 'Practice' }, DIRS = { flingr: 'flingr', velvet: 'flingr-velvet', practice: 'flingr-practice' };
 FAM.site = SITE; FAM.NAMES = NAMES;
-const q1 = s => document.querySelector(s);
 const html = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
 const put = k => v => { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); return true; } catch (e) { return false; } };
-const sget = k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } };
-const sput = (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) { } };
 const toast = (m, k, a) => F.toast && F.toast(m, k, a);
 const user = () => { try { return F.E.user(); } catch (e) { return null; } };
 const fmtT = ms => { try { return new Date(ms).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }); } catch (e) { return String(ms); } };
