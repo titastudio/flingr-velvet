@@ -66,7 +66,7 @@ legend{padding:0;margin-bottom:10px}
 .sec-alt{background:var(--bg2)}.sec-deep{background:var(--bg3)}
 .g{display:grid;gap:var(--card-gap)}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .al-start{align-items:start}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}.split.al-start{align-items:start}
 .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.row.nowrap{flex-wrap:nowrap}.row.between{justify-content:space-between}.row.end{align-items:flex-end}.wrap-gap{flex-wrap:wrap;gap:8px 12px}.jc{justify-content:center}
 .stack{display:flex;flex-direction:column;gap:20px}.stack-s{display:flex;flex-direction:column;gap:10px}
 .center{text-align:center}.d-b{display:block}
@@ -228,7 +228,7 @@ legend{padding:0;margin-bottom:10px}
 .mail summary{padding:14px 0}
 .wbal{font-size:clamp(40px,5vw,60px)}
 .pm-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ln)}.pm-row:last-child{border-bottom:0}.pm-main{display:flex;gap:12px;align-items:center}
-.pmi{width:44px;height:30px;border-radius:5px;border:1px solid var(--ln2);display:grid;place-items:center;font:700 9px var(--f-mono);flex:none}
+.pmi{width:44px;height:30px;border-radius:5px;border:1px solid var(--ln2);display:flex;align-items:center;justify-content:center;gap:1px;font:700 9px var(--f-mono);flex:none}.pmi-apple b{font:600 10px/1 var(--f-body);letter-spacing:-.01em}.pmi-paypal b{font-size:8px;letter-spacing:-.02em}
 .pm-types{display:flex;flex-direction:column;gap:8px}.pm-type{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--ln);border-radius:var(--rs);text-align:left}.pm-type>span{flex:1}.pm-type:hover{border-color:var(--ln2)}
 .pmethods{display:flex;flex-direction:column;gap:8px}.pm{position:relative;display:flex;gap:12px;align-items:center;min-height:48px;padding:12px 14px;border:1px solid var(--ln2);border-radius:var(--rs);cursor:pointer}
 /* the whole row is the radio: the real input covers it (invisible) and a drawn dot shows the choice */
@@ -239,7 +239,7 @@ legend{padding:0;margin-bottom:10px}
 .tblw{overflow-x:auto;border:1px solid var(--ln);border-radius:var(--rs)}
 .tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl th{font:500 10px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:12px 14px;border-bottom:1px solid var(--ln2);white-space:nowrap}.tbl td{padding:12px 14px;border-bottom:1px solid var(--ln);vertical-align:middle}.tbl tr:last-child td{border-bottom:0}.tbl td.num,.tbl th.num{text-align:right;font-family:var(--f-mono)}
 .stat{display:flex;flex-direction:column;gap:6px}.stat .h-disp{font-size:32px}
-.ops-in{max-width:360px;margin-left:auto;margin-right:auto;text-align:left}
+.ops-in{max-width:420px}
 
 /* checkout and plans */
 .co-page{padding:48px 0 96px;min-height:80vh}
@@ -247,7 +247,7 @@ legend{padding:0;margin-bottom:10px}
 .co-side{position:sticky;top:calc(var(--hdr) + 24px)}
 .sum .kv{font-size:14px}
 .plan-tools{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s4)}
-.plan-g{display:grid;grid-template-columns:repeat(var(--pn,4),minmax(0,1fr));gap:var(--card-gap);align-items:stretch;margin-top:var(--s5);max-width:900px}
+.plan-g{display:grid;grid-template-columns:repeat(var(--pn,4),minmax(0,1fr));gap:var(--card-gap);align-items:stretch;margin-top:var(--s5)}
 @media (max-width:640px){.plan-g{grid-template-columns:minmax(0,1fr);margin-top:var(--s4)}.plan-g>.plan.feat{order:-1}}
 .plan{display:flex;flex-direction:column;position:relative}.plan.feat{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri) inset}
 .plan-p{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.plan-p .h-disp{font-size:40px}
@@ -267,7 +267,17 @@ legend{padding:0;margin-bottom:10px}
 .help{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;align-items:start}.help-nav{display:flex;flex-direction:column;gap:2px;position:sticky;top:calc(var(--hdr) + 24px)}.help-nav a{padding:8px 12px;border-radius:var(--rs);font-size:14px;color:var(--mut)}.help-nav a.on,.help-nav a:hover{color:var(--fg);background:var(--card)}
 .help-s{display:flex;gap:8px}
 .jcard{display:block}.jcard:hover h3{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.gift-amt{font-size:64px}.gcard-big{min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;background:var(--bg3)}
+.jgrid>.jfeat{grid-column:span 2}.jgrid>.jfeat .plate{aspect-ratio:3/1}
+/* gift: the card sits at the top of its column (sticky on desktop); on phones card, then the form, then summary and payment */
+.gift-g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}.gift-l{position:sticky;top:calc(var(--hdr) + 24px)}.gift-f{display:flex;flex-direction:column;gap:var(--card-gap)}
+.gc{position:relative;aspect-ratio:1.586;width:100%;max-width:560px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;padding:clamp(18px,4.2%,30px);border-radius:18px;overflow:hidden;isolation:isolate;color:#fff;background:var(--bg3);border:1px solid var(--ln2);box-shadow:0 30px 70px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.12)}
+.gc::before,.gc::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+.gc-top,.gc-bot{display:flex;justify-content:space-between;align-items:center;gap:12px}.gc-logo{display:inline-flex;align-items:baseline;gap:6px;line-height:1;white-space:nowrap}
+.gc-k,.gc-bot{font:500 9.5px/1.3 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;opacity:.85}.gc-bot span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc-t{font:500 clamp(20px,3.1vw,30px)/1.08 var(--f-disp);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gc-a{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}.gc-amt{font:500 clamp(26px,4vw,40px)/1 var(--f-disp)}.gc-sub{font-size:12px;opacity:.8}
+.gc-msg{font-size:13.5px;line-height:1.4;opacity:.92;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.gc-ds .chip{gap:8px}.gc-sw{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid var(--ln2);background:var(--bg3)}
 
 /* paper documents */
 .paper{--fg:#1C1916;--mut:rgba(28,25,22,.62);--ln:rgba(28,25,22,.16);--ln2:rgba(28,25,22,.34);--card:rgba(28,25,22,.03);--bg:#FBFAF5;--bg2:#F1EEE5;position:relative;max-width:820px;margin:0 auto;padding:52px 56px 44px;background:#FBFAF5;color:#1C1916;border-radius:4px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
@@ -296,7 +306,7 @@ legend{padding:0;margin-bottom:10px}
 @media (max-width:960px){
   :root{--gut:24px;--hdr:64px}
   .hnav{display:none}.mmb{display:inline-grid}
-  .split,.co,.help{grid-template-columns:minmax(0,1fr);gap:40px}.co-side{position:static;order:-1}.co-side-end{order:1}.help-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none}.help-nav a{flex:none;border:1px solid var(--ln2);border-radius:999px}
+  .split,.co,.help,.gift-g{grid-template-columns:minmax(0,1fr);gap:40px}.gift-l{position:static}.gc{margin:0 auto}.co-side{position:static;order:-1}.co-side-end{order:1}.help-nav{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none}.help-nav a{flex:none;border:1px solid var(--ln2);border-radius:999px}.help-nav a.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
   .g3,.g4,
   .ftr-grid{grid-template-columns:1fr 1fr}.ftr-grid>div:first-child{grid-column:1/-1}
   .settings,.inbox{grid-template-columns:minmax(0,1fr)}
@@ -307,6 +317,7 @@ legend{padding:0;margin-bottom:10px}
   .cityb span{display:none}.cityb{padding:0 10px}
   .logo{font-size:22px}
   .g2,.g3,.g4,.fgrid{grid-template-columns:minmax(0,1fr)}
+  .jgrid>.jfeat{grid-column:auto}.jgrid>.jfeat .plate{aspect-ratio:3/2}
   .modal{padding:28px 20px}.paper{padding:28px 20px 24px}
   .phero{padding:48px 0 32px}
   .hscroll{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:80%;gap:14px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;margin-right:calc(-1 * var(--gut));padding-right:var(--gut);padding-bottom:4px}
@@ -342,8 +353,6 @@ legend{padding:0;margin-bottom:10px}
 .pcard{display:flex;flex-direction:column}.pcard-f{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:24px}.pcard .badge{align-self:flex-start}
 .person{display:flex;gap:14px;align-items:center}.pp-a{width:64px;flex:none}
 .rev{padding-bottom:16px;border-bottom:1px solid var(--ln)}
-.bk-g{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:48px;align-items:start}
-.bk-side{position:sticky;top:calc(var(--hdr) + 24px)}
 .stack-l{display:flex;flex-direction:column;gap:48px;min-width:0}
 .fopts{display:flex;flex-direction:column;gap:8px}.fopts-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
 .fopt{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--ln2);border-radius:var(--rs);text-align:left;background:var(--card);width:100%}.fopt>span:nth-child(2){flex:1;min-width:0}.fopt:hover{border-color:var(--fg)}.fopt.on{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri) inset}.fopt .ic{color:var(--pri);flex:none}.fopt[aria-disabled=true]{opacity:.5;pointer-events:none}
@@ -356,7 +365,7 @@ legend{padding:0;margin-bottom:10px}
 .next{display:block}.next.live{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri) inset}
 .lrow{display:grid;grid-template-columns:64px 18px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--ln);border-radius:var(--rs)}.lrow:hover{border-color:var(--ln2)}.lrow-d{display:flex;flex-direction:column}.lrow-d b{font:400 20px var(--f-disp)}.lrow-d small{font-size:11px;color:var(--mut)}.lrow .ic{color:var(--pri)}
 .prow{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--ln)}.prow:last-child{border-bottom:0}.prow .pstrip{margin-top:8px}
-@media (max-width:960px){.bk-g,.bd2{grid-template-columns:minmax(0,1fr)}.bk-side{position:static}}
+@media (max-width:960px){.bd2{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.lrow{grid-template-columns:52px minmax(0,1fr) auto}.lrow>.ic{display:none}}
 .stack>.btn-link,.stack-s>.btn-link{align-self:flex-start}
 @media (max-width:640px){.co-sum>.plate{display:none}.co-sum>.plate+*{margin-top:0}}
@@ -502,6 +511,7 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .cc:hover{border-color:var(--ln2)}.cc .plate{width:88px;max-height:110px;border-radius:calc(var(--r) - 4px);margin:0}
 .cc-b{display:flex;flex-direction:column;gap:2px;min-width:0}.cc-t{font:500 15px/1.3 var(--f-body);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .cc-s{font-size:13px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cc-m{font:500 10.5px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cc-n{display:flex;align-items:center;gap:6px;font-size:12px;line-height:1.4;color:var(--mut)}.cc-n .dot{width:6px;height:6px}
 .cc-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}.cc-p{font:500 13px var(--f-mono);white-space:nowrap}
 @media (max-width:380px){.cc{grid-template-columns:72px minmax(0,1fr) auto;gap:12px}.cc .plate{width:72px;max-height:90px}}
 /* show more */
@@ -589,9 +599,9 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 /* plan calculators: steppers, the result card with a bar per plan */
 .calc-l{display:flex;flex-direction:column;border-top:1px solid var(--ln)}.calc-r{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--ln)}.calc-r>span:first-child{display:flex;gap:12px;align-items:center;min-width:0}.calc-r .ic{color:var(--pri);flex:none}
 .step{display:inline-flex;align-items:center;gap:4px;flex:none}.step b{min-width:24px;text-align:center;font:500 16px var(--f-mono)}.step .ibtn{border:1px solid var(--ln2);width:44px;height:44px}.step .ibtn:disabled{opacity:.35}
-.calc-o{position:sticky;top:calc(var(--hdr) + 24px)}.calc-bars{display:flex;flex-direction:column;gap:10px}.calc-bars>div{display:grid;grid-template-columns:96px 1fr 72px;gap:12px;align-items:center}.calc-bars i{height:8px;border-radius:4px;background:var(--ln);overflow:hidden}.calc-bars b{display:block;height:100%;background:var(--hi);opacity:.6}.calc-bars b.mute{background:var(--ln2)}.calc-bars .on b{background:var(--pri);opacity:1}.calc-bars .on .small{color:var(--pri)}.calc-bars .mono{text-align:right}
+.calc-o{position:sticky;top:calc(var(--hdr) + 24px)}.calc-bars{display:flex;flex-direction:column;gap:10px}.calc-bars>div{display:grid;grid-template-columns:7.5em 1fr 72px;gap:12px;align-items:center}.calc-bars .small{white-space:nowrap}.calc-bars i{height:8px;border-radius:4px;background:var(--ln);overflow:hidden}.calc-bars b{display:block;height:100%;background:var(--hi);opacity:.6}.calc-bars b.mute{background:var(--ln2)}.calc-bars .on b{background:var(--pri);opacity:1}.calc-bars .on .small{color:var(--pri)}.calc-bars .mono{text-align:right}
 @media (max-width:960px){.calc-o{position:static}}
-@media (max-width:640px){.calc-bars>div{grid-template-columns:80px 1fr 64px}}
+@media (max-width:640px){.calc-bars>div{grid-template-columns:7.5em 1fr 64px;gap:10px}}
 /* the compact review block on detail pages */
 .rvb{display:flex;flex-direction:column;gap:var(--s4)}.rvb-h{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}.rvb-n{font-size:32px;line-height:1}
 .rvb-q{margin:0;padding-left:var(--s4);border-left:2px solid var(--ln2)}.rvb-q p{font-size:15px;line-height:1.5}.rvb-q cite{display:block;margin-top:4px;font-style:normal}.rvb .btn-link{align-self:flex-start}
@@ -648,7 +658,7 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .opts-show{display:flex;flex-direction:column;border-top:1px solid var(--ln2)}.od-r{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:16px 0;border-bottom:1px solid var(--ln)}.od-r .hand-s{text-align:right}
 
 /* cards */
-.prod{display:flex;flex-direction:column}.prod .plate{border-radius:var(--rs)}.prod>.row:last-child{margin-top:auto;padding-top:16px}
+.prod{display:flex;flex-direction:column}.prod .plate{border-radius:var(--rs)}
 .qty{display:inline-flex;align-items:center;gap:10px}.qty .mono{min-width:14px;text-align:center}
 
 /* treatment */
@@ -660,7 +670,7 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .bm{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:340px;margin:0 auto}.bm-f{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}.bm-f svg{width:100%;height:auto;display:block}
 .mz{stroke:#07040A;stroke-width:1;stroke-linejoin:round;transition:fill .2s}.mz[data-a]{cursor:pointer}.mz[data-a]:hover{stroke:var(--fg);stroke-width:1.2}
 .mz.z-yes{fill:rgba(246,201,135,.85)}.mz.z-gentle{fill:rgba(210,168,240,.7)}.mz.z-avoid{stroke:var(--err);stroke-dasharray:2 1.5}.bm-hl{stroke:var(--err);stroke-width:1.3;opacity:.8}
-.bm-key{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px}.bm-key span{display:inline-flex;align-items:center;gap:6px}.bm-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.bm-key{display:flex;justify-content:center;gap:14px;flex-wrap:nowrap;white-space:nowrap;margin-top:12px}.bm-key span{display:inline-flex;align-items:center;gap:6px}.bm-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
 .bm-key .z-yes{background:rgba(246,201,135,.85)}.bm-key .z-gentle{background:rgba(210,168,240,.7)}.bm-key .z-avoid{border:1px dashed var(--err);background:repeating-linear-gradient(45deg,var(--err) 0 1px,transparent 1px 4px)}
 .bm-mini .bm{max-width:220px}
 .paper .mz{stroke:#FBFAF5}.paper .mz.z-yes{fill:rgba(199,154,85,.75)}.paper .mz.z-gentle{fill:rgba(154,108,184,.6)}.paper .bm-key .z-yes{background:rgba(199,154,85,.75)}.paper .bm-key .z-gentle{background:rgba(154,108,184,.6)}
@@ -728,33 +738,41 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .thp{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:14px 16px;border:1px solid var(--ln);border-radius:var(--r);background:var(--card)}
 .thp-a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:500 20px var(--f-disp);background:radial-gradient(circle at 30% 30%,rgba(255,63,160,.45),rgba(90,18,114,.6));color:var(--fg)}
 .thp-b{min-width:0}.thp-t{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}.thp-t .chip{padding:0 10px}.thp-d{flex-basis:100%}
-.rv-l{display:inline-flex;align-items:center;min-height:32px}
+.rv-l{display:inline-flex;align-items:center;min-height:32px;border-bottom:0!important;text-decoration:none!important}.rv-l:hover .rline{color:var(--pri-h)}
 /* glow */
 .tscale{position:relative;height:12px;border-radius:6px;margin-top:10px;background:linear-gradient(90deg,var(--a),var(--b))}
 .tscale i{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;transform:translate(-50%,-50%);background:var(--fg);box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--fg)}
-.cc.gl-a{grid-template-columns:minmax(0,1fr) auto}.gl-a .tscale{margin-top:12px}
+.cc.gl-a{grid-template-columns:minmax(0,1fr) auto}.gl-a .tscale{margin-top:12px}.tscale-k{display:flex;justify-content:space-between;gap:12px;margin-top:6px}
 .gser .tscale{margin-top:16px}.accs .acc:first-child{border-top:1px solid var(--ln)}
 /* shop */
 .prod-t{font:500 15px/1.3 var(--f-body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .prod p.tiny{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.prod-a{margin-top:auto}.prod .qty{justify-content:space-between;width:100%}
+.prod-f{margin-top:auto;padding-top:12px;display:flex;flex-direction:column;gap:12px}.prod .qty{justify-content:space-between;width:100%}
 .cgrid2 .prod{padding:12px}
 
-.bund-l{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.bund-l{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}@media (min-width:961px){.bund-l{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.bund .cc-s{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}}
+/* the basket: a slim bar that stays under the header once something is in it */
+.bkbar{position:sticky;top:calc(var(--hdr) + 12px);z-index:20;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 8px 8px 22px;margin-bottom:32px;border:1px solid var(--pri);border-radius:999px;background:var(--pop-bg);box-shadow:0 18px 40px -20px rgba(255,63,160,.6)}.bkbar .row{gap:16px}
 .cart-l{padding-bottom:16px;border-bottom:1px solid var(--ln)}.cart-l .inp-sm{max-width:220px}
 /* spas */
 .spa{display:flex;flex-direction:column}
 .car{position:relative;margin:-4px}.car-t{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:0;border-radius:var(--rs)}.car-t::-webkit-scrollbar{display:none}
 .car-s{flex:0 0 100%;scroll-snap-align:start;margin:0;position:relative}.car-s figcaption{position:absolute;left:10px;bottom:10px;padding:4px 8px;border-radius:4px;background:rgba(7,4,10,.72);color:var(--fg)}
 .car-b{position:absolute;top:50%;transform:translateY(-50%);background:rgba(7,4,10,.7)!important;border:1px solid var(--ln2)}.car-p{left:8px}.car-n{right:8px}
-.rooms-now{padding:14px 16px;border:1px solid var(--ln);border-radius:var(--rs);background:var(--bg2)}.ok-t{color:var(--ok)}
-/* gift */
-.gift-seg+.sec-sm{padding-top:0}
-.gcard{padding:32px;border-radius:var(--r);border:1px solid var(--ln2);min-height:260px;display:flex;flex-direction:column;justify-content:flex-end;background:radial-gradient(120% 90% at 85% 0%,rgba(255,63,160,.35),transparent 60%),#0E0712}
-.gcard.gd-rose{background:radial-gradient(120% 100% at 80% 0%,#FF8CC8 0%,#B0186E 45%,#3A0A2E 100%)}
-.gcard.gd-gold{background:radial-gradient(120% 100% at 80% 0%,rgba(246,201,135,.75) 0%,#6A4A1E 50%,#140C05 100%);border-color:var(--hi)}
-.gcard-t{font-size:clamp(30px,4vw,44px);line-height:1.05}
-.paper .gcard{color:#FCEFF6}
+.rooms-now{padding:14px 16px;border:1px solid var(--ln);border-radius:var(--rs);background:var(--bg2)}.rn-free{color:var(--fg);font-weight:500}.spa-a{margin-top:auto;padding-top:24px}.sp-note{min-height:3.2em}
+/* gift cards: Noir (pinstripe and a fuchsia glow), Rosé (pink silk rings), Gold leaf (foil lettering and flakes) */
+.gc .lg-a{font-size:15px;letter-spacing:.2em}.gc .lg-b{font-size:13px;color:rgba(255,255,255,.75)}
+.gd-noir{background:radial-gradient(90% 120% at 100% 0%,rgba(255,63,160,.5),transparent 55%),radial-gradient(70% 90% at 0% 100%,rgba(142,31,149,.45),transparent 60%),#0E0712}
+.gc.gd-noir::before{background:repeating-linear-gradient(135deg,rgba(255,255,255,.055) 0 1px,transparent 1px 7px)}.gc.gd-noir .gc-amt{color:var(--pri-h)}
+.gd-rose{background:linear-gradient(135deg,#F06AAE 0%,#C2187A 48%,#5A0E45 100%);border-color:rgba(255,200,225,.5)}
+.gc.gd-rose::before{background:radial-gradient(circle at 12% 135%,transparent 0 40%,rgba(255,255,255,.16) 40.4% 41%,transparent 41.4% 50%,rgba(255,255,255,.12) 50.4% 51%,transparent 51.4% 60%,rgba(255,255,255,.08) 60.4% 61%,transparent 61.4%)}
+.gc.gd-rose::after{background:radial-gradient(110% 70% at 95% -10%,rgba(255,255,255,.4),transparent 55%)}
+.gd-gold{background:radial-gradient(80% 120% at 100% 0%,rgba(246,201,135,.38),transparent 55%),#170F07;border-color:rgba(246,201,135,.65)}
+.gc.gd-gold::before{background:radial-gradient(46px 30px at 86% 16%,rgba(246,201,135,.34),transparent 70%),radial-gradient(30px 22px at 8% 88%,rgba(246,201,135,.22),transparent 70%),radial-gradient(1.6px 1.6px at 12% 22%,rgba(252,226,170,.85),transparent) 0 0/170px 120px,radial-gradient(1px 1px at 38% 71%,rgba(252,226,170,.7),transparent) 0 0/170px 120px,radial-gradient(2.4px 1.4px at 63% 34%,rgba(252,226,170,.6),transparent) 0 0/170px 120px,radial-gradient(1.2px 1.2px at 84% 82%,rgba(252,226,170,.75),transparent) 0 0/170px 120px,radial-gradient(1px 1.8px at 27% 48%,rgba(252,226,170,.5),transparent) 30px 15px/130px 95px}
+.gc.gd-gold::after{background:linear-gradient(115deg,transparent 30%,rgba(255,236,190,.14) 46%,transparent 62%)}
+.gc.gd-gold .gc-t,.gc.gd-gold .gc-amt,.gc.gd-gold .lg-a{background:linear-gradient(100deg,#C2914A,#FBE3B0 38%,#D5A65C 62%,#F8DDA4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gc.gd-gold .gc-k,.gc.gd-gold .gc-bot,.gc.gd-gold .lg-b,.gc.gd-gold .gc-sub{color:#F6C987}
+.gc-sw.gd-gold{border-color:var(--hi)}
 /* calendar */
 .cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
 .cal-h{padding-bottom:4px}.cal-d{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:40px;border-radius:6px;font-size:12px;color:var(--mut)}
@@ -789,6 +807,19 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .vdur{border-top:1px solid var(--ln);padding-top:20px}
 .vdur .row{padding:8px 0}
 @media (max-width:400px){.xh-word{font-size:clamp(56px,18vw,80px)}}
+
+/* photo pills (a season, a release date, who a product is for) in the brand pink */
+.ptile .plate-cap span,.prod .plate-cap span{background:var(--pri);color:var(--pri-fg);backdrop-filter:none}
+/* studio-white product shots, toned to sit on the dark cards */
+.plate.pl-lt.has-img{filter:brightness(.8) saturate(.92)}.plate.pl-lt.has-img::after{display:block;content:"";background:radial-gradient(120% 100% at 50% 45%,transparent 40%,rgba(14,7,18,.6));opacity:1}
+/* couples: four rituals two by two; programs: a last card for any other date (hidden where two columns already come out even) */
+@media (min-width:1081px){.clist.cl-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cc-ask{border-style:dashed}.cc-ic{width:88px;height:72px;display:grid;place-items:center;color:var(--pri)}.cc-ask .cc-r{color:var(--mut)}
+@media (min-width:641px) and (max-width:1080px){.clist>.cc-ask{display:none}}
+@media (max-width:380px){.cc-ic{width:72px}}
+.yv-g .lbl .ic{color:var(--pri)}.yv-s{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}.yv-s>.plate{position:sticky;top:calc(var(--hdr) + 24px)}
+@media (max-width:960px){.yv-s{grid-template-columns:minmax(0,1fr)}.yv-s>.plate{position:static;aspect-ratio:4/3}}
+.gp .gc{margin-top:24px}
 
 </style>
 <script>if(/^(#\/?)?$/.test(location.hash)){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='photos/site-hero.avif';l.fetchPriority='high';document.head.appendChild(l)}</script>
@@ -919,7 +950,8 @@ const FMT = {
   wd: { weekday: 'short' },
   wdl: { weekday: 'long' }
 };
-U.fmt = (ms, tz = 'UTC', kind = 'dt') => { if (ms == null || !isFinite(ms)) return '—'; const k = tz + kind; if (!_fmt[k]) _fmt[k] = new Intl.DateTimeFormat('en-US', Object.assign({ timeZone: tz }, FMT[kind])); return _fmt[k].format(new Date(ms)); };
+// London reads the clock in 24 hours (14:30), the US cities in 12 (2:30 PM)
+U.fmt = (ms, tz = 'UTC', kind = 'dt') => { if (ms == null || !isFinite(ms)) return '—'; const k = tz + kind; if (!_fmt[k]) _fmt[k] = new Intl.DateTimeFormat('en-US', Object.assign({ timeZone: tz }, FMT[kind], tz === 'Europe/London' && FMT[kind].hour ? { hourCycle: 'h23' } : {})); return _fmt[k].format(new Date(ms)); };
 U.keyFmt = (key, kind = 'date') => U.fmt(U.zoned('UTC', key, 720), 'UTC', kind);
 U.tzAbbr = (tz, ms = Date.now()) => { try { const p = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' }).formatToParts(new Date(ms)).find(x => x.type === 'timeZoneName'); return p ? p.value : ''; } catch (e) { return ''; } };
 U.dur = m => { const h = Math.floor(m / 60), mm = m % 60; return h ? (h + ' hr' + (mm ? ' ' + mm + ' min' : '')) : mm + ' min'; };
@@ -972,11 +1004,13 @@ F.SITE = {
   meLinks: [['#/account', 'Overview'], ['#/account/visits', 'Visits'], ['#/account/glow', 'Glow tracker'], ['#/account/bodymap', 'Touch sheet'], ['#/account/membership', 'Membership'], ['#/account/settings', 'Settings']],
   accountTabs: [['', 'Overview'], ['visits', 'Visits'], ['bodymap', 'Touch sheet'], ['inbox', 'Inbox'], ['wallet', 'Wallet'], ['glow', 'Glow tracker', 'more'], ['membership', 'Membership', 'more'], ['orders', 'Shop orders', 'more'], ['settings', 'Settings', 'more'], ['privacy', 'Privacy', 'more']],
   opsTabs: [['', 'Today'], ['rooms', 'Rooms'], ['therapists', 'Therapists'], ['menu', 'Menu'], ['members', 'Members'], ['safety', 'Safety']],
-  tabs: [{ id: 'home', label: 'Home', href: '#/', icon: 'home', pages: ['home'] }, { id: 'menu', label: 'Menu', href: '#/menu', icon: 'list', pages: ['menu', 'treatment', 'glow', 'couples', 'programs', 'program', 'shop', 'spas'] }, { id: 'book', label: 'Book', href: '#/build', icon: 'cal', pages: ['build'] }, { id: 'inbox', label: 'Inbox', href: '#/account/inbox', icon: 'msg', badge: 'inbox' }, { id: 'account', label: 'Account', href: '#/account', icon: 'user', pages: ['account', 'visit'] }],
+  tabs: [{ id: 'home', label: 'Home', href: '#/', icon: 'home', pages: ['home'] }, { id: 'menu', label: 'Menu', href: '#/menu', icon: 'list', pages: ['menu', 'treatment', 'glow', 'couples'] }, { id: 'book', label: 'Book', href: '#/build', icon: 'cal', pages: ['build'] }, { id: 'inbox', label: 'Inbox', href: '#/account/inbox', icon: 'msg', badge: 'inbox' }, { id: 'account', label: 'Account', href: '#/account', icon: 'user', pages: ['account', 'visit'] }],
   rememberPages: ['menu', 'shop'], searchHint: 'rituals, programs, the shop',
+  giftDesigns: [['noir', 'Noir'], ['rose', 'Rosé'], ['gold', 'Gold leaf']], giftName: 'Velvet gift code', journalLead: 'Short reads from the spa: the rituals, the skin, and what to expect.',
   freshPages: ['treatment', 'program', 'article', 'visit'], livePages: ['account', 'visit', 'desk', 'ops'],
   family: [{ id: 'flingr', name: 'FLINGR', line: 'One night, properly arranged', url: URL.flingr }, { id: 'practice', name: 'Practice', line: 'Pleasure, properly taught', url: URL.practice }, { id: 'velvet', name: 'Velvet', line: 'The sensual spa', url: URL.velvet }],
-  venues: { la: { addr: '8410 Melrose Place, West Hollywood' }, ny: { addr: '22 Greene Street, SoHo' }, ldn: { addr: '7 Chiltern Street, Marylebone' } },
+  // the contact page reads each spa's one address, so every page writes it the same way
+  get venues() { return Object.fromEntries(Object.entries(F.SPAS).map(([k, x]) => [k, { addr: x.addr }])); },
   member: { pauseMax: 2, annualFree: 2, coupleMult: 1.7, foundingPct: 30, foundingCap: 500, foundingDays: 30, graceDays: 3 },
   // one membership, an add-on in plain money; paying per ritual is the default
   plans: [{ id: 'member', name: 'Velvet Membership', kicker: 'For regulars', usd: 39, pct: 20, blurb: 'Pays for itself with one ritual a month. The member price is shown next to every price.', perks: ['The member price on every ritual and program: 20% off', 'One add-on free every visit: the steam room, a tonic, the lounge or the rain shower', 'First pick of the late evening times, 10pm to 2am', 'A birthday ritual gift in your Wallet'] }],
@@ -987,8 +1021,8 @@ F.SITE = {
   promos: [{ code: 'FIRSTTOUCH', label: 'First visit', pct: 20, kinds: ['visit'], firstOnly: true, kindsMsg: 'This code is for treatments.' }, { code: 'ROSE6', label: 'Rosé series', pct: 10, kinds: ['series'], kindsMsg: 'This code is for a Rosé series.' }],
   topics: ['A visit', 'Membership', 'A series or program', 'An order', 'Payments', 'Something else'],
   who: 'the front desk', historyWord: 'visits', ticketReply: 'The front desk has replied by email and noted it on your file.',
-  footer: { blurb: 'The sensual spa. Licensed therapists, an explicit menu and your choice of release. West Hollywood, SoHo and Marylebone, 10am to 2am.', cols: [['Velvet', [['The menu', '#/menu'], ['Programs', '#/programs'], ['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Membership', '#/membership']]], ['Visit', [['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards and licensing', '#/standards'], ['Shop', '#/shop'], ['Gift', '#/gift'], ['Front desk', '#/desk']]]] },
-  autoList: ['Membership renewals, pauses and member prices', 'Therapist shifts, days off and new licences', 'Every room’s bookings, cleaning and turnover', 'Visits arriving, starting, resting and leaving', 'Walk-ins at the desk', 'Series reminders and the Glow tracker fading without upkeep', 'Shop orders from dispatch to delivery', 'Replies from the front desk'],
+  footer: { blurb: 'The sensual spa. Licensed therapists, an explicit menu and your choice of release. West Hollywood, SoHo and Marylebone, 10am to 2am.', cols: [['Velvet', [['The menu', '#/menu'], ['Programs', '#/programs'], ['Glow Lab', '#/glow'], ['Couples & occasions', '#/couples'], ['Membership', '#/membership']]], ['Visit', [['Your visit', '#/your-visit'], ['The spas', '#/spas'], ['Standards and licensing', '#/standards'], ['Shop', '#/shop'], ['Gift', '#/gift']]]] },
+  autoList: ['Membership renewals, pauses and member prices', 'Therapist shifts, days off and new licenses', 'Every room’s bookings, cleaning and turnover', 'Visits arriving, starting, resting and leaving', 'Walk-ins at the desk', 'Series reminders and the Glow tracker fading without upkeep', 'Shop orders from dispatch to delivery', 'Replies from the front desk'],
   art,
   // the bar across the top is for first-timers and the season, never membership (that lives on the membership page)
   announce: () => { const E = F.E; if (!E.launched()) return null; return F.vvBanner(F.cityId()) || { id: 'firsttouch', long: 'First visit? <strong>20% off</strong> with code <strong>FIRSTTOUCH</strong>.', short: '<strong>FIRSTTOUCH</strong>: 20% off', href: '#/menu', cta: 'See the menu' }; }
@@ -1185,7 +1219,7 @@ E.unread = u => E.myNotes(u).filter(n => !n.read).length;
 // Site promos: { code, label, pct | usd, minUsd, plans:[...], kinds:[...], firstOnly, until: 'YYYY-MM-DD' }
 E.promo = (code, ctx) => {
   const c = String(code || '').trim().toUpperCase(); if (!c) return null;
-  const p = (F.SITE.promos || []).find(x => x.code === c); if (!p) return { ok: false, reason: 'This code isn’t recognised.' };
+  const p = (F.SITE.promos || []).find(x => x.code === c); if (!p) return { ok: false, reason: 'This code isn’t recognized.' };
   if (p.until && E.todayKey('la') > p.until) return { ok: false, reason: 'This code has expired.' };
   if (p.from && E.todayKey('la') < p.from) return { ok: false, reason: 'This code isn’t live yet.' };
   if (p.kinds && !p.kinds.includes(ctx.kind)) return { ok: false, reason: p.kindsMsg || 'This code doesn’t apply here.' };
@@ -1265,7 +1299,9 @@ F.uc = u => { const p = F.avColors(); return p[U.hash((u && u.id) || '') % p.len
 F.stars = (n, s = 12) => `<span class="stars" role="img" aria-label="${n} out of 5">${[1, 2, 3, 4, 5].map(i => `<span class="${i <= Math.round(n) ? '' : 'off'}">${F.ic('star', s)}</span>`).join('')}</span>`;
 F.tone = t => `<span class="badge b-${t.tone}"><i class="dot ${t.tone}"></i>${esc(t.label)}</span>`;
 F.empty = (title, body, cta) => `<div class="empty"><div class="empty-mark">${F.ic(F.SITE.emptyIcon || 'moon', 26)}</div><h3 class="h-disp h4">${title}</h3><p class="muted">${body}</p>${cta || ''}</div>`;
-F.pageHead = ({ eyebrow, title, lead, extra = '', cls = '' }) => `<section class="phero ${cls}"><div class="wrap"><div class="eyebrow ln rv">${eyebrow}</div><h1 class="h-cond phero-t rv">${title}</h1>${lead ? `<p class="lead rv">${lead}</p>` : ''}${extra}</div></section>`;
+// the last two words of a heading stay together, so no line ends with one word alone (only spaces in text, never inside a tag)
+F.noOrphan = h => { const parts = String(h).split(/(<[^>]*>)/); for (let i = parts.length - 1; i >= 0; i--) { if (parts[i][0] === '<') continue; const j = parts[i].trimEnd().lastIndexOf(' '); if (j > -1) { parts[i] = parts[i].slice(0, j) + '&nbsp;' + parts[i].slice(j + 1); break; } } return parts.join(''); };
+F.pageHead = ({ eyebrow, title, lead, extra = '', cls = '' }) => `<section class="phero ${cls}"><div class="wrap"><div class="eyebrow ln rv">${eyebrow}</div><h1 class="h-cond phero-t rv">${F.noOrphan(title)}</h1>${lead ? `<p class="lead rv">${lead}</p>` : ''}${extra}</div></section>`;
 F.signedOut = (title, body, next) => `<section class="sec"><div class="wrap narrow center">${F.empty(title, body, `<button class="btn btn-pri mt24" data-a="signin" data-next="${esc(next || '')}">Sign in</button><p class="small muted mt16">New here? <button class="btn-link" data-a="signup" data-next="${esc(next || '')}">Create a FLINGR account</button></p>`)}</div></section>`;
 F.subnav = (items, cur, label = 'Sections') => `<nav class="subnav" aria-label="${label}">${items.map(([href, l, n]) => `<a href="${href}" class="${cur === href ? 'on' : ''}" ${cur === href ? 'aria-current="page"' : ''}>${l}${n ? ` <span class="n">${n}</span>` : ''}</a>`).join('')}</nav>`;
 F.kv = (k, v, cls = '') => `<div class="kv ${cls}"><span>${k}</span><span>${v}</span></div>`;
@@ -1507,7 +1543,7 @@ F.Fm.signup = (f, d) => {
 A.signout = () => { F.store.commit((s, p) => { if (F.onSignOut) F.onSignOut(s); p.session.userId = null; }); F.closeModal(true); F.closeMenus(); F.toast('You have been signed out.'); F.nav('/'); };
 A.verifyId = () => {
   F.modal(`<h2 class="h-disp h3">Verify your identity</h2><p class="muted mt8">Once, for every FLINGR site. Staff see that you are verified, never your documents.</p>
-  <form data-f="verify" class="stack mt24"><fieldset><legend class="lbl">Document</legend><div class="rgrid">${['Passport', 'Driving licence', 'National ID card'].map((x, i) => `<label class="rcard"><input type="radio" name="doc" value="${x}" ${i === 0 ? 'checked' : ''}><span>${x}</span></label>`).join('')}</div></fieldset>
+  <form data-f="verify" class="stack mt24"><fieldset><legend class="lbl">Document</legend><div class="rgrid">${['Passport', 'Driver’s license', 'National ID card'].map((x, i) => `<label class="rcard"><input type="radio" name="doc" value="${x}" ${i === 0 ? 'checked' : ''}><span>${x}</span></label>`).join('')}</div></fieldset>
   <div class="field"><label for="vC">Issuing country</label><select class="inp" id="vC" name="country"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>France</option><option>Germany</option><option>Australia</option></select></div>
   <p class="tiny muted">${F.ic('lock', 12)} Checked by our identity partner. Documents are deleted once you’re verified.</p>
   <button class="btn btn-pri btn-block">Start verification</button></form>`, { label: 'Verify identity' });
@@ -1640,7 +1676,7 @@ window.addEventListener('scroll', () => { const h = $('#hdr'); if (h) h.classLis
 
 /* ---------- pages every site has ---------- */
 F.pages.notfound = { render: (r, err) => ({ title: err ? 'Something went wrong' : 'Not found', html: `<section class="sec"><div class="wrap narrow center">${F.empty(err ? 'That page didn’t load' : 'This page isn’t here', err ? 'Please try again. If it keeps happening, call us and we’ll sort it out.' : 'It may have moved, or the link was mistyped.', `<a class="btn btn-pri mt24" href="#/">Back to the start</a>`)}</div></section>` }) };
-F.pages.legal = { render(r) { const d = F.CONTENT.legal[r.params[0]]; if (!d) return F.pages.notfound.render(r); return { title: d.title, html: `${F.pageHead({ eyebrow: 'Legal', title: esc(d.title), lead: 'Updated ' + esc(d.updated) })}<section class="sec-sm"><div class="wrap narrow legal">${F.acc(d.sections.map(([h, b], i) => [`<span id="sec-${i}">${i + 1}. ${esc(h)}</span>`, `<p>${esc(b)}</p>`]), { open: 0 })}<p class="tiny muted mt24">Questions about these terms? <a class="u" href="#/contact">Write to us</a>.</p></div></section>` }; } };
+F.pages.legal = { render(r) { const d = F.CONTENT.legal[r.params[0]]; if (!d) return F.pages.notfound.render(r); return { title: d.title, html: `${F.pageHead({ eyebrow: 'Legal', title: esc(d.title), lead: 'Updated ' + esc(d.updated) })}<section class="sec-sm"><div class="wrap"><div class="narrow-l legal">${F.acc(d.sections.map(([h, b], i) => [`<span id="sec-${i}">${i + 1}. ${esc(h)}</span>`, `<p>${esc(b)}</p>`]), { open: 0 })}<p class="tiny muted mt24">Questions about ${r.params[0] === 'terms' ? 'these terms' : 'this policy'}? <a class="u" href="#/contact">Write to us</a>.</p></div></div></section>` }; } };
 })();
 
 /* ---- 04-select.js ---- */
@@ -1769,7 +1805,9 @@ A.walletCur = el => { F.store.commit(() => { E.user().prefs.walletCur = el.datas
 
 /* ---------- methods ---------- */
 const BANK = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5M5 10v7m4.7-7v7m4.6-7v7M19 10v7M3.5 20h17"/></svg>';
-F.pmIcon = m => `<span class="pmi pmi-${m.type}" aria-hidden="true">${m.type === 'card' ? `<b>${{ Visa: 'VISA', Mastercard: 'MC', 'American Express': 'AMEX', Discover: 'DISC' }[m.brand] || 'CARD'}</b>` : m.type === 'bank' ? BANK : m.type === 'paypal' ? F.ic('wallet', 18) : F.ic('phone', 18)}</span>`;
+const APPLE = '<svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.2 1.8-3.3 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.6 2.2-1.6 2.7-.4 6.6 1.1 8.8.7 1.1 1.6 2.3 2.8 2.2 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 1.9-1.1 2.7-2.1.8-1.2 1.2-2.4 1.2-2.5 0 0-2.3-.9-2.5-3.6zM14.2 6.1c.6-.7 1-1.8.9-2.8-.9 0-1.9.6-2.6 1.3-.6.6-1 1.7-.9 2.7 1 .1 2-.5 2.6-1.2z"/></svg>';
+// every method is a small chip with its own mark, like a wallet: VISA, MC, Apple Pay, G Pay, PayPal, a bank
+F.pmIcon = m => `<span class="pmi pmi-${m.type}" aria-hidden="true">${m.type === 'card' ? `<b>${{ Visa: 'VISA', Mastercard: 'MC', 'American Express': 'AMEX', Discover: 'DISC' }[m.brand] || 'CARD'}</b>` : m.type === 'bank' ? BANK : m.type === 'paypal' ? '<b>PayPal</b>' : m.type === 'apple' ? `${APPLE}<b>Pay</b>` : '<b>G Pay</b>'}</span>`;
 F.pmSub = m => m.type === 'card' ? `•••• ${m.last4} · ${E.cardExpired(m) ? 'expired' : 'expires'} ${m.exp}` : m.type === 'paypal' ? esc(m.email || 'PayPal account') : 'Express checkout · •••• ' + m.last4;
 U.luhn = n => { let s = 0, alt = false; for (let i = n.length - 1; i >= 0; i--) { let d = +n[i]; if (alt) { d *= 2; if (d > 9) d -= 9; } s += d; alt = !alt; } return n.length >= 13 && s % 10 === 0; };
 E.cardBrand = n => /^3[47]/.test(n) ? 'American Express' : /^4/.test(n) ? 'Visa' : /^(5[1-5]|2[2-7])/.test(n) ? 'Mastercard' : /^6(011|5)/.test(n) ? 'Discover' : '';
@@ -1832,6 +1870,8 @@ F.payBlock = (u, cityId, amount, o = {}) => {
   ${rest > 0 ? `<fieldset class="${w > 0 ? 'mt16' : ''}"><legend class="lbl">${fromW ? 'Pay the remaining ' + E.money(rest, cityId, true) + ' with' : 'Pay with'}</legend><div class="pmethods">${u.methods.filter(m => !E.cardExpired(m)).map(m => `<label class="pm"><input type="radio" name="pm" value="${m.id}" data-ch="payMethod" ${p.method === m.id ? 'checked' : ''}>${F.pmIcon(m)}<span><strong>${esc(m.nick || m.brand)}</strong><small class="d-b muted">${F.pmSub(m)}</small></span></label>`).join('')}</div><button class="btn-link tiny mt8" data-a="addMethod">${F.ic('plus', 12)} Add a payment method</button></fieldset>` : `<div class="notice small">${F.ic('wallet', 16)}<span>Your Wallet covers the full amount.</span></div>`}
   ${o.note === false ? '' : `<p class="tiny muted mt16">${F.ic('lock', 11)} Your statement shows ${E.desc(cityId)}.${o.note ? ' ' + o.note : ''}</p>`}</div>`;
 };
+// the pay button names what the card is charged (the Wallet's share goes first), or says the Wallet covers it
+F.payCta = (u, cityId, amount, verb) => { const p = F.payState(u), w = E.walletIn(u, cityId), rest = U.r2(amount - (p.wallet && w > 0 ? Math.min(w, amount) : 0)); return rest > 0 ? `Pay ${E.money(rest, cityId, true)} and ${verb}` : `${verb[0].toUpperCase() + verb.slice(1)} with Wallet`; };
 F.C.payWallet = el => { F.ui.pay.wallet = el.checked; F.rerender(); };
 F.C.payMethod = el => { F.ui.pay.method = el.value; F.rerender(); };
 // Takes the money now (Wallet first, then the chosen method). Returns { ok, label, wallet, card } or { ok:false, reason }
@@ -1853,7 +1893,7 @@ F.Fm.topUp = async (f, d) => {
 };
 F.Fm.redeem = (f, d) => {
   const code = String(d.code || '').trim().toUpperCase(); if (!code) return;
-  const r = F.store.commit((s, p) => { p.gifts = p.gifts || []; const g = p.gifts.find(x => x.code === code); if (!g) return { ok: false, reason: 'That code isn’t recognised.' }; if (g.redeemedBy) return { ok: false, reason: 'That code has already been used.' }; g.redeemedBy = E.user().id; g.at = now(); E.walletTx(E.user(), g.usd, 'Gift code · ' + code); return { ok: true, usd: g.usd }; });
+  const r = F.store.commit((s, p) => { p.gifts = p.gifts || []; const g = p.gifts.find(x => x.code === code); if (!g) return { ok: false, reason: 'That code isn’t recognized.' }; if (g.redeemedBy) return { ok: false, reason: 'That code has already been used.' }; g.redeemedBy = E.user().id; g.at = now(); E.walletTx(E.user(), g.usd, 'Gift code · ' + code); return { ok: true, usd: g.usd }; });
   if (!r.ok) return F.toast(r.reason, 'err'); F.toast(`${F.wmoney(r.usd, E.user())} added from your gift.`); F.rerender();
 };
 })();
@@ -2030,7 +2070,7 @@ F.pages.join = {
     ${u.verified ? '' : `<div class="verline">${F.ic('lock', 18)}<div><strong>Verify your identity first</strong><div class="tiny muted">Once, for every FLINGR site.</div></div><button class="btn btn-pri btn-sm" data-a="verifyId">Verify now</button></div>`}
     <div class="card"><span class="lbl">Payment</span><div class="mt16">${F.payBlock(u, cityId, price, { note: `Renews ${j.cycle === 'year' ? 'every year' : 'every month'} on the same date. Cancel any time; member prices run to the end of the period.` })}</div></div>
     <label class="check"><input type="checkbox" id="joinOk"><span>I agree to the <a class="u" href="#/legal/terms" data-a="legalModal" data-k="terms">membership terms</a>: it renews automatically until I cancel, and I can pause up to ${M().pauseMax} months a year.</span></label>
-    <button class="btn btn-pri btn-lg btn-block" data-a="joinPay" data-p="${p.id}" ${u.verified ? '' : 'disabled'}>Pay ${E.money(price, cityId, true)} and join</button></div>
+    <button class="btn btn-pri btn-lg btn-block" data-a="joinPay" data-p="${p.id}" ${u.verified ? '' : 'disabled'}>${F.payCta(u, cityId, price, 'join')}</button></div>
     <aside class="co-side"><div class="card co-sum"><span class="lbl">${esc(p.kicker)}</span><h2 class="h-disp h3 mt8">${esc(p.name)}</h2><ul class="ticks mt16">${p.perks.map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul>
     <div class="sum mt24">${F.kv(j.cycle === 'year' ? 'Yearly' : 'Monthly', E.money(full, cityId, true))}${fo && price < full ? F.kv(`Founding price · ${M().foundingPct}% off for life`, '−' + E.money(full - price, cityId, true), 'kv-disc') : ''}${F.kv('Due today', E.money(price, cityId, true), 'kv-total')}</div>
     <p class="tiny muted mt16">Next charge ${U.fmt(E.periodEnd(Date.now(), j.cycle, tz), tz, 'md')}. Prices include ${E.city(cityId).taxLabel.toLowerCase()}.</p></div></aside></div></div></section>` };
@@ -2067,13 +2107,15 @@ A.retryRenew = async el => { F.busy(el, true, 'Trying'); await U.sleep(500); E.t
 (() => {
 const E = F.E, A = F.A;
 const st = () => F.ui.wc = F.ui.wc || Object.assign({}, F.SITE.calcStart || {});
+// what membership costs a month today, as the hero says it: the founding price while that offer is open
+F.memberFee = c => { const p = F.SITE.plans[0], fo = E.foundingOpen(), a = E.planPrice(p.id, { cycle: 'month', cityId: c, founding: fo }), full = E.planPrice(p.id, { cycle: 'month', cityId: c }); return fo && a < full ? `from ${E.money(a, c)} a month at the founding price` : `for ${E.money(full, c)} a month`; };
 F.worthCalc = c => {
   const rows = F.SITE.calcRows(c), s = st(), p = F.SITE.plans[0], cur = E.memberOf(E.user());
   const spend = rows.reduce((t, r) => t + (s[r.k] || 0) * r.price, 0), save = Math.round(spend * p.pct / 100), fee = E.planPrice(p.id, { cycle: 'month', cityId: c, founding: E.foundingOpen() }), net = save - fee, withM = spend - save + fee, max = Math.max(spend, withM) || 1;
   return `<div class="calc split al-start"><div>${F.secHead({ eyebrow: 'Is membership worth it?', title: 'How often <span class="it">do you book?</span>', lead: 'A typical month. We add it up at today’s prices, with and without the member price.' })}
   <div class="calc-l">${rows.map(r => `<div class="calc-r"><span>${r.icon ? F.ic(r.icon, 16) : ''}<span><strong class="small">${esc(r.label)}</strong><small class="muted d-b">${E.money(r.price, c)} each${r.sub ? ' · ' + esc(r.sub) : ''}</small></span></span><span class="step"><button class="ibtn" data-a="wcStep" data-k="${r.k}" data-d="-1" aria-label="Fewer: ${esc(r.label.toLowerCase())}" ${s[r.k] ? '' : 'disabled'}>${F.ic('minus', 14)}</button><b aria-live="polite">${s[r.k] || 0}</b><button class="ibtn" data-a="wcStep" data-k="${r.k}" data-d="1" aria-label="More: ${esc(r.label.toLowerCase())}" ${(s[r.k] || 0) >= 12 ? 'disabled' : ''}>${F.ic('plus', 14)}</button></span></div>`).join('')}</div></div>
   <div class="card calc-o"><span class="lbl">Each month</span><div class="h-disp h2 mt8">${spend ? (net > 0 ? `Save ${E.money(net, c)}` : 'Pay as you go') : '—'}</div>
-  <p class="small mt8">${!spend ? 'Add what you’d book in a typical month.' : net > 0 ? `Members save ${E.money(save, c)} on this; membership is ${E.money(fee, c)}.` : `At this pace membership would save ${E.money(save, c)} and cost ${E.money(fee, c)}, so paying per booking is cheaper.`}</p>
+  <p class="small mt8">${!spend ? 'Add what you’d book in a typical month.' : net > 0 ? `${E.money(save, c)} off at member prices, less ${E.money(fee, c)} for membership.` : `At this pace membership would save ${E.money(save, c)} and cost ${E.money(fee, c)}, so paying per booking is cheaper.`}</p>
   ${spend ? `<div class="calc-bars mt24"><div class="${net <= 0 ? 'on' : ''}"><span class="small">Pay as you go</span><i><b style="width:${Math.round(spend / max * 100)}%"></b></i><span class="mono tiny">${E.money(spend, c)}</span></div><div class="${net > 0 ? 'on' : ''}"><span class="small">Member</span><i><b style="width:${Math.round(withM / max * 100)}%"></b></i><span class="mono tiny">${E.money(withM, c)}</span></div></div>` : ''}
   ${cur ? `<p class="small mt24">${F.ic('check', 14)} You’re a member: member prices are already on.</p>` : net > 0 ? `<a class="btn btn-pri btn-block mt24" href="#/join/${p.id}">Become a member</a>` : ''}</div></div>`;
 };
@@ -2201,13 +2243,15 @@ const OV = F.OV = {};
 const ok = () => F.S.prefs.opsAt && now() - F.S.prefs.opsAt < 12 * H;
 F.pages.ops = {
   render(r) {
-    if (!ok()) return { title: 'Operations', html: `<section class="sec"><div class="wrap narrow center"><div class="eyebrow ln jc">Staff only</div><h1 class="h-cond h2 mt16">Operations</h1><form class="stack mt32 ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use the staff code</button><button class="btn btn-pri">Enter</button></form></div></section>` };
+    if (!ok()) return F.staffIn({ title: 'The back <span class="it">office.</span>', name: 'Operations' });
     const tabs = F.SITE.opsTabs.concat([['clock', 'Clock'], ['health', 'Health'], ['data', 'Data']]), tab = r.params[0] || '';
     if (!tabs.some(t => t[0] === tab) || !OV[tab]) return { redirect: '/ops' };
     return { title: 'Operations', html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div><div class="eyebrow">Operations · ${esc(F.SITE.brand)}</div><h1 class="h-cond acct-n">${esc(tabs.find(t => t[0] === tab)[1])}</h1><p class="tiny muted">Site time ${U.fmt(now(), F.city().tz, 'dt')} ${U.tzAbbr(F.city().tz)}${F.clock.offset() ? ' · moved forward ' + U.dur(Math.round(F.clock.offset() / 6e4)) : ''}</p></div><button class="btn btn-ghost btn-sm" data-a="opsOut">Leave</button></div>
     ${F.subnav(tabs.map(([k, l]) => ['#/ops' + (k ? '/' + k : ''), l]), '#/ops' + (tab ? '/' + tab : ''), 'Operations')}</div></section><section class="sec-sm"><div class="wrap">${OV[tab](r)}</div></section>` };
   }
 };
+// the staff sign-in, in the site's own page style (operations and the front desk)
+F.staffIn = ({ title, name, lead = `For ${esc(F.SITE.brand)} staff. Enter your staff code to go on.` }) => ({ title: name, html: `${F.pageHead({ eyebrow: 'Staff only', title, lead })}<section class="sec-sm"><div class="wrap"><form class="card stack ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use the staff code</button><button class="btn btn-pri">Enter</button></form></div></section>` });
 F.Fm.opsIn = (f, d) => { if (String(d.code || '').trim().toUpperCase() !== F.SITE.opsCode) return F.fieldErr(f, 'code', 'That code isn’t right.'); F.store.commit(s => { s.prefs.opsAt = now(); }); F.rerender(); };
 A.opsFill = () => F.fill($('form[data-f=opsIn]'), { code: F.SITE.opsCode });
 A.opsOut = () => { F.store.commit(s => { s.prefs.opsAt = 0; }); F.nav('/'); };
@@ -2249,7 +2293,7 @@ F.pages.help = {
     const list = CT().faq.filter(f => (!cat || f[0] === cat) && (!q || (f[1] + ' ' + f[2]).toLowerCase().includes(q)));
     return { title: 'Help', html: `${F.pageHead({ eyebrow: 'Help', title: 'Ask us <span class="it">anything.</span>', lead: 'Plain answers. If yours isn’t here, a person answers the phone around the clock.' })}
     <section class="sec-sm"><div class="wrap help"><nav class="help-nav" aria-label="Topics"><a class="${!cat ? 'on' : ''}" href="#/help">All topics</a>${cats.map(c => `<a class="${cat === c ? 'on' : ''}" href="#/help${U.q({ cat: c })}">${c}</a>`).join('')}</nav>
-    <div><form class="help-s" data-f="helpSearch"><label class="sr" for="hq">Search help</label><input class="inp" id="hq" name="q" value="${esc(r.q.q || '')}" placeholder="Search, for example “cancel” or “partner”"><button class="btn btn-pri btn-sm">Search</button></form>
+    <div><form class="help-s" data-f="helpSearch"><label class="sr" for="hq">Search help</label><input class="inp" id="hq" name="q" value="${esc(r.q.q || '')}" placeholder="Search help"><button class="btn btn-pri btn-sm">Search</button></form>
     ${list.length ? `<div class="mt24">${list.map(f => `<details class="acc"><summary class="row between"><span>${esc(f[1])}</span>${F.ic('plus', 14)}</summary><div class="acc-b small">${esc(f[2])}</div></details>`).join('')}</div>` : `<div class="mt32">${F.empty('Nothing matches that', 'Try a shorter word, or call us.')}</div>`}
     <div class="card mt32 row between wrap-gap"><div><h2 class="h-disp h4">Still need help?</h2><p class="small muted mt4">Call or write; we answer day and night.</p></div><span class="row nowrap"><button class="btn btn-ghost btn-sm" data-a="call">Call</button><a class="btn btn-pri btn-sm" href="#/contact">Write to us</a></span></div></div></div></section>` };
   }
@@ -2262,7 +2306,7 @@ F.pages.contact = {
     <section class="sec-sm"><div class="wrap split al-start"><form class="card stack" data-f="contact" novalidate><div class="fgrid"><div class="field"><label for="ctN">Name</label><input class="inp" id="ctN" name="name" value="${u ? esc(u.name) : ''}" required></div><div class="field"><label for="ctE">Email</label><input class="inp" id="ctE" name="email" type="email" value="${u ? esc(u.email) : ''}" required></div></div>
     <div class="field"><label for="ctT">About</label><select class="inp" id="ctT" name="topic">${(F.SITE.topics || ['A booking', 'Membership', 'Payments', 'Something else']).map(t => `<option>${t}</option>`).join('')}</select></div>
     <div class="field"><label for="ctM">Message</label><textarea class="inp" id="ctM" name="msg" rows="5" required></textarea></div><button class="btn btn-pri">Send</button></form>
-    <div class="stack">${F.CITIES.map(c => `<div class="card row between wrap-gap"><div><strong>${c.name}</strong><p class="small muted">${esc((F.SITE.venues && F.SITE.venues[c.id] && F.SITE.venues[c.id].addr) || '')}</p></div><button class="btn-link mono" data-a="call" data-c="${c.id}">${c.phone}</button></div>`).join('')}</div></div></section>` };
+    <div class="stack">${F.CITIES.map(c => `<div class="card ct-c"><strong>${c.name}</strong><p class="small muted mt4">${esc((F.SITE.venues && F.SITE.venues[c.id] && F.SITE.venues[c.id].addr) || '')}</p><button class="btn-link mono mt16" data-a="call" data-c="${c.id}">${c.phone}</button></div>`).join('')}</div></div></section>` };
   }
 };
 F.Fm.contact = (f, d) => {
@@ -2271,32 +2315,37 @@ F.Fm.contact = (f, d) => {
   f.innerHTML = `<div class="notice">${F.ic('check', 16)}<span>Sent. Your reference is <strong class="mono">${no}</strong>; we reply within the hour.</span></div>`;
 };
 // Gift codes are FLINGR-wide: bought here, spendable on any FLINGR site
+// the preview is a gift card at bank-card shape (1.586:1) in the chosen design; every line follows the form as it is typed
+F.giftCard = ({ design = '', title, amt, sub = '', msg = '', to = '', from = '' }) => `<div class="gc gd-${design}" aria-live="polite"><div class="gc-top"><span class="gc-logo">${F.SITE.logo}</span><span class="gc-k">Gift card</span></div><div class="gc-mid"><div class="gc-t">${esc(title)}</div><div class="gc-a"><span class="gc-amt">${amt}</span>${sub ? `<span class="gc-sub">${esc(sub)}</span>` : ''}</div></div><p class="gc-msg">${esc(msg || 'Your message appears here.')}</p><div class="gc-bot"><span>For ${esc(to || 'someone special')}</span><span>From ${esc(from)}</span></div></div>`;
+F.giftDesigns = (cur, act) => (F.SITE.giftDesigns || []).length ? `<div class="chiprow gc-ds mt16" role="group" aria-label="Design">${F.SITE.giftDesigns.map(([k, l]) => `<button type="button" class="chip chip-sm ${cur === k ? 'on' : ''}" data-a="${act}" data-k="design" data-v="${k}" aria-pressed="${cur === k}"><i class="gc-sw gd-${k}"></i>${l}</button>`).join('')}</div>` : '';
+const giftPrev = (g, c, u) => F.giftCard({ design: g.design, title: F.SITE.giftName || 'FLINGR gift code', amt: E.pm(g.usd, c), sub: 'Works on every FLINGR site', msg: g.msg, to: g.to, from: g.from || (u ? E.first(u) : 'you') });
 F.pages.gift = {
   render() {
-    const u = E.user(), g = F.ui.gift = F.ui.gift || { usd: 250 }, c = F.cityId();
-    return { title: 'Gift', html: `${F.pageHead({ eyebrow: 'Gift', title: F.SITE.giftTitle || 'Give them <span class="it">time.</span>', lead: F.SITE.giftLead || 'A FLINGR gift code adds to their Wallet. It never expires and works on every FLINGR site. What they spend it on stays private.' })}
-    <section class="sec-sm"><div class="wrap split al-start"><div class="card gcard-big"><span class="lbl">${esc(F.SITE.brand)} gift</span><div class="h-disp gift-amt mt16">${E.pm(g.usd, c)}</div><p class="small muted mt8">${esc(g.msg || 'Your message appears here.')}</p><p class="tiny muted mt16">${esc(g.to || 'To someone')} · from ${esc(g.from || (u ? E.first(u) : 'you'))}</p></div>
-    <form class="card stack" data-f="gift"><fieldset><legend class="lbl">Amount</legend><div class="row wrap-gap">${[100, 250, 500, 1000].map(v => `<button type="button" class="chip ${g.usd === v ? 'on' : ''}" data-a="giftAmt" data-v="${v}" aria-pressed="${g.usd === v}">${E.pm(v, c)}</button>`).join('')}</div></fieldset>
-    <div class="fgrid"><div class="field"><label for="gfT">To</label><input class="inp" id="gfT" name="to" value="${esc(g.to || '')}" data-c="giftField" data-k="to"></div><div class="field"><label for="gfE">Their email</label><input class="inp" id="gfE" name="email" type="email" value="${esc(g.email || '')}" data-c="giftField" data-k="email"></div></div>
-    <div class="field"><label for="gfM">Message <span class="muted">(optional)</span></label><textarea class="inp" id="gfM" name="msg" rows="3" maxlength="200" data-c="giftField" data-k="msg">${esc(g.msg || '')}</textarea></div>
-    ${u ? F.payBlock(u, c, E.cp(c, g.usd)) : ''}<button class="btn btn-pri">${u ? 'Pay ' + E.pm(g.usd, c, true) + ' and send' : 'Sign in to buy'}</button></form></div></section>` };
+    const u = E.user(), c = F.cityId(), g = F.ui.gift = F.ui.gift || { usd: 250, design: ((F.SITE.giftDesigns || [])[0] || [''])[0] }, amt = E.cp(c, g.usd);
+    return { title: 'Gift', html: `${F.pageHead({ eyebrow: 'Gift', title: F.SITE.giftTitle || 'Give them <span class="it">time.</span>', lead: F.SITE.giftLead || 'A FLINGR gift code adds to their Wallet. It never expires and works on every FLINGR site. What they spend it on stays private.', extra: F.SITE.giftExtra ? F.SITE.giftExtra() : '' })}
+    <section class="sec-sm"><div class="wrap gift-g"><div class="gift-l"><div class="gc-prev">${giftPrev(g, c, u)}</div>${F.giftDesigns(g.design, 'giftSet')}</div>
+    <form class="gift-f" data-f="gift"><div class="card stack"><fieldset><legend class="lbl">Amount</legend><div class="row wrap-gap">${[100, 250, 500, 1000].map(v => `<button type="button" class="chip ${g.usd === v ? 'on' : ''}" data-a="giftAmt" data-v="${v}" aria-pressed="${g.usd === v}">${E.pm(v, c)}</button>`).join('')}</div></fieldset>
+    <div class="fgrid"><div class="field"><label for="gfT">To</label><input class="inp" id="gfT" name="to" value="${esc(g.to || '')}" data-c="giftField" data-k="to" autocomplete="off"></div><div class="field"><label for="gfE">Their email</label><input class="inp" id="gfE" name="email" type="email" value="${esc(g.email || '')}" data-c="giftField" data-k="email"></div></div>
+    <div class="field"><label for="gfM">Message <span class="muted">(optional)</span></label><textarea class="inp" id="gfM" name="msg" rows="3" maxlength="140" data-c="giftField" data-k="msg">${esc(g.msg || '')}</textarea></div></div>
+    <div class="card stack"><span class="lbl">Summary</span><div class="sum">${F.kv('Gift code', E.money(amt, c, true))}${F.kv('Arrives', 'By email, straight away')}</div>${u ? F.payBlock(u, c, amt) : ''}<button class="btn btn-pri btn-block">${u ? F.payCta(u, c, amt, 'send') : 'Sign in to buy'}</button></div></form></div></section>` };
   }
 };
 A.giftAmt = el => { F.ui.gift.usd = +el.dataset.v; F.rerender(); };
-F.C.giftField = el => { F.ui.gift[el.dataset.k] = el.value; const prev = $('.gcard-big'); if (prev) { const g = F.ui.gift; prev.querySelector('p.small').textContent = g.msg || 'Your message appears here.'; } };
+A.giftSet = el => { F.ui.gift[el.dataset.k] = el.dataset.v; F.rerender(); };
+F.C.giftField = el => { F.ui.gift[el.dataset.k] = el.value; const p = $('.gc-prev'); if (p) p.innerHTML = giftPrev(F.ui.gift, F.cityId(), E.user()); };
 F.Fm.gift = async (f, d) => {
   const u = F.requireUser('/gift'); if (!u) return; F.clearErr(f);
   if (!d.to) return F.fieldErr(f, 'to', 'Who is it for?'); if (!U.validEmail(d.email)) return F.fieldErr(f, 'email', 'Enter their email.');
   const g = F.ui.gift, c = F.cityId(), amt = E.cp(c, g.usd), code = 'FLNG-' + U.code(4) + '-' + U.code(4), b = f.querySelector('button.btn-pri'); F.busy(b, true, 'Paying'); await U.sleep(600);
   const r = await F.store.atomic((s, p) => { const ch = F.takePayment(E.user(), c, amt, 'Gift code ' + code); if (!ch.ok) return ch; p.gifts = p.gifts || []; p.gifts.push({ code, usd: g.usd, to: d.to, email: d.email, msg: d.msg, from: E.user().id, at: now(), redeemedBy: null, site: F.SITE.id }); E.mail(E.user().id, 'email', 'Your gift is on its way', `${E.pm(g.usd, c, true)} for ${d.to}, code ${code}. Paid with ${ch.label}.`); return ch; });
   F.busy(b, false); if (!r.ok) return F.toast(r.reason, 'err');
-  F.ui.gift = { usd: 250 }; F.modal(`<div class="center"><div class="ok-mark">${F.ic('gift', 26)}</div><h2 class="h-disp h3 mt16">Sent to ${esc(d.to)}</h2><p class="muted mt8">They’ll get an email with the code <strong class="mono">${code}</strong>. It works on every FLINGR site and never expires.</p><button class="btn btn-pri mt24" data-a="closeModal">Done</button></div>`, { cls: 'modal-sm', label: 'Gift sent' }); F.rerender();
+  F.ui.gift = null; F.modal(`<div class="center"><div class="ok-mark">${F.ic('gift', 26)}</div><h2 class="h-disp h3 mt16">Sent to ${esc(d.to)}</h2><p class="muted mt8">They’ll get an email with the code <strong class="mono">${code}</strong>. It works on every FLINGR site and never expires.</p><button class="btn btn-pri mt24" data-a="closeModal">Done</button></div>`, { cls: 'modal-sm', label: 'Gift sent' }); F.rerender();
 };
 F.pages.journal = {
   render(r) {
     const cat = r.q.cat || '', all = CT().journal, cats = [...new Set(all.map(a => a.cat))], list = all.filter(a => !cat || a.cat === cat);
-    return { title: 'Journal', html: `${F.pageHead({ eyebrow: 'Journal', title: F.SITE.journalTitle || 'Notes, <span class="it">plainly.</span>' })}<section class="sec-sm"><div class="wrap"><div class="chiprow"><a class="chip ${!cat ? 'on' : ''}" href="#/journal">All</a>${cats.map(c => `<a class="chip ${cat === c ? 'on' : ''}" href="#/journal?cat=${encodeURIComponent(c)}">${c}</a>`).join('')}</div>
-    <div class="mt32">${F.showMore('journal' + cat, list, a => `<a class="jcard rv" href="#/journal/${a.slug}">${F.plate({ key: 'site/journal-' + a.slug, art: F.SITE.art(a.slug, 'journal'), cls: 'r32', cap: esc(a.cat) })}<div class="mono tiny muted mt16">${esc(a.cat)} · ${a.read} min · ${U.fmt(now() - a.ago * 864e5, 'UTC', 'md')}</div><h3 class="h-disp h4 mt8">${esc(a.title)}</h3><p class="small muted mt8">${esc(a.excerpt)}</p></a>`, { n: 4, cls: 'g g3 jgrid', more: 'More articles' })}</div></div></section>` };
+    return { title: 'Journal', html: `${F.pageHead({ eyebrow: 'Journal', title: F.SITE.journalTitle || 'Notes, <span class="it">plainly.</span>', lead: F.SITE.journalLead || '' })}<section class="sec-sm"><div class="wrap"><div class="chiprow"><a class="chip ${!cat ? 'on' : ''}" href="#/journal">All</a>${cats.map(c => `<a class="chip ${cat === c ? 'on' : ''}" href="#/journal?cat=${encodeURIComponent(c)}">${c}</a>`).join('')}</div>
+    <div class="mt32">${F.showMore('journal' + cat, list, (a, i) => `<a class="jcard rv${!i && list.length % 3 === 2 ? ' jfeat' : ''}" href="#/journal/${a.slug}">${F.plate({ key: 'site/journal-' + a.slug, art: F.SITE.art(a.slug, 'journal'), cls: 'r32', cap: esc(a.cat) })}<div class="mono tiny muted mt16">${esc(a.cat)} · ${a.read} min · ${U.fmt(now() - a.ago * 864e5, 'UTC', 'md')}</div><h3 class="h-disp h4 mt8">${esc(a.title)}</h3><p class="small muted mt8">${esc(a.excerpt)}</p></a>`, { n: 4, cls: 'g g3 jgrid', more: 'More articles' })}</div></div></section>` };
   }
 };
 F.pages.article = {
@@ -2438,7 +2487,7 @@ F.aaCard = () => {
 A.aaJoin = () => {
   const u = F.requireUser('/membership'); if (!u) return; const c = F.cityId(), price = E.cp(c, E.aaPrice()), own = E.memberOf(u);
   F.bottomSheet(() => `<p class="muted small">${U.list(Object.values(F.ALLACCESS.mids).map(m => m.name))}. Renews monthly; cancel any time from any FLINGR site.</p>${own && !own.allAccess ? `<p class="notice mt16">${F.ic('check', 16)}<span>Your membership here carries on as it is. When it ends, All-Access covers ${esc(F.SITE.brand)}.</span></p>` : ''}
-  <div class="mt24">${F.payBlock(E.user(), c, price)}</div><button class="btn btn-pri btn-block mt24" data-a="aaPay">Pay ${E.money(price, c, true)} and start</button>`, { label: 'All-Access', title: 'FLINGR All-Access', live: true });
+  <div class="mt24">${F.payBlock(E.user(), c, price)}</div><button class="btn btn-pri btn-block mt24" data-a="aaPay">${F.payCta(E.user(), c, price, 'start')}</button>`, { label: 'All-Access', title: 'FLINGR All-Access', live: true });
 };
 A.aaPay = async el => { F.busy(el, true, 'Paying'); await U.sleep(500); const r = await F.store.atomic(() => E.aaBuy(E.user())); F.busy(el, false); if (!r.ok) return F.toast(r.reason, 'err'); F.closeModal(); F.toast('All-Access is on, on every FLINGR site.'); F.rerender(); };
 A.aaCancel = async () => { const a = H.access(E.user().id); if (!(await F.confirm({ title: 'Cancel All-Access?', body: `It stays on until ${U.fmt(a.renews, F.city().tz, 'md')} on every FLINGR site.`, ok: 'Cancel renewal', danger: true }))) return; E.aaCancel(E.user()); F.toast('All-Access will end at the renewal date.'); F.rerender(); };
@@ -2555,8 +2604,8 @@ F.showMore = (id, items, render, { n = 6, nDesk = Infinity, more = 'Show more', 
   ${hp || hd ? `<div class="sm-more${hp ? ' sm-hp' : ''}${hd ? ' sm-hd' : ''}"><button class="btn btn-ghost btn-sm" data-a="showMore" data-id="${esc(id)}">${esc(more)} <span class="sm-n-p">(${hp})</span><span class="sm-n-d">(${hd})</span></button></div>` : ''}`;
 };
 A.showMore = el => { const id = el.dataset.id; F.ui.more[id] = true; const box = $(`[data-more="${id}"]`), w = el.closest('.sm-more'); if (!box) return; const first = $$('.sm-p,.sm-d', box).find(x => getComputedStyle(x).display === 'none'); $$('.sm-p,.sm-d', box).forEach(x => x.classList.remove('sm-p', 'sm-d')); if (w) w.remove(); const f = first && (first.matches(FOC) ? first : first.querySelector(FOC)); if (f) f.focus({ preventScroll: true }); F.say('More shown.'); };
-F.compact = ({ href, key = '', art = '', cls = 'r11', title, sub = '', meta = '', price = '', tag = '', act = '', data = '', full = false }) => {
-  const inner = `${F.plate({ key, art, cls: 'cc-ph ' + cls, full })}<span class="cc-b"><strong class="cc-t">${title}</strong>${sub ? `<span class="cc-s">${sub}</span>` : ''}${meta ? `<span class="cc-m">${meta}</span>` : ''}</span>${price || tag ? `<span class="cc-r">${price ? `<span class="cc-p">${price}</span>` : ''}${tag ? `<span class="badge">${tag}</span>` : ''}</span>` : ''}`;
+F.compact = ({ href, key = '', art = '', cls = 'r11', title, sub = '', meta = '', note = '', price = '', tag = '', act = '', data = '', full = false }) => {
+  const inner = `${F.plate({ key, art, cls: 'cc-ph ' + cls, full })}<span class="cc-b"><strong class="cc-t">${title}</strong>${sub ? `<span class="cc-s">${sub}</span>` : ''}${meta ? `<span class="cc-m">${meta}</span>` : ''}${note ? `<span class="cc-n">${note}</span>` : ''}</span>${price || tag ? `<span class="cc-r">${price ? `<span class="cc-p">${price}</span>` : ''}${tag ? `<span class="badge">${tag}</span>` : ''}</span>` : ''}`;
   return act ? `<button class="cc" data-a="${act}" ${data}>${inner}</button>` : `<a class="cc" href="${href}">${inner}</a>`;
 };
 
@@ -2732,7 +2781,7 @@ E.seasonAll = (cityId, y) => E.memo('season' + cityId + y, () => RULES.map(r => 
 E.season = (cityId = F.cityId(), ms = now()) => { const y = U.parts(E.city(cityId).tz, ms).y; return [].concat(E.seasonAll(cityId, y), E.seasonAll(cityId, y + 1)).filter(e => e.from <= ms && ms <= e.to).sort((a, b) => ORDER[a.kind] - ORDER[b.kind] || a.days - b.days); };
 E.seasonPct = (cityId, tags = [], ms = now()) => E.season(cityId, ms).filter(e => e.pct && (e.tags.includes('all') || e.tags.some(t => tags.includes(t)))).reduce((t, e) => t + e.pct, 0);
 E.seasonPrice = (usd, cityId, tags = [], ms = now()) => { const p = E.seasonPct(cityId, tags, ms); return p ? Math.round(usd * (1 + p / 100) / 5) * 5 : usd; };
-F.seasonBanner = (cityId = F.cityId()) => { const e = E.season(cityId).find(x => x.line && x.kind !== 'season'); return e ? { id: e.id + '-' + e.fromKey, long: esc(e.line), short: esc(e.name), href: e.href || null, cta: e.cta || 'See what’s on' } : null; };
+F.seasonBanner = (cityId = F.cityId()) => { const e = E.season(cityId).find(x => x.line && x.kind !== 'season'); return e ? { id: e.id + '-' + e.fromKey, long: esc(e.line), short: esc(e.name) + (e.pct < 0 ? `: <strong>${-e.pct}% off</strong>` : ''), href: e.href || null, cta: e.cta || 'See what’s on' } : null; };
 
 /* ---------- demand ---------- */
 const CURVE = [.3, .22, .14, .08, .05, .05, .08, .14, .24, .34, .42, .48, .55, .56, .58, .6, .66, .74, .86, .96, 1, .98, .84, .55];
@@ -2910,12 +2959,12 @@ const T = [
   ['watch', 'pairs', 'Watch', 'One of you receives, the other watches from the chaise. Then swap, if you like.', [60, 90], [340, 450], 'couples', 'touch', ['one', 'many', 'decide'], { body: 'any', pair: true, steps: [[0, 'One of you on the table, the other on the velvet chaise with a drink.'], [10, 'The ritual, slow and very visible.'], [45, 'Release in full view of the one watching. On the 90, you swap.']] }],
   ['learn', 'pairs', 'Learn on Each Other', 'Your therapist teaches you to give a lingam or yoni ritual, on your partner.', [90], [520], 'couples', 'touch', ['one', 'decide'], { body: 'any', pair: true, steps: [[0, 'Demonstration on your partner, step by step.'], [30, 'Your hands, guided: oil, strokes, pressure, rhythm.'], [60, 'You bring your partner to release, coached in a whisper.']] }],
   ['tantra2', 'pairs', 'Tantra for Two', 'Two hours of tantra for a couple: breath, touch and release together.', [120], [980], 'couples', 'touch', ['many', 'decide'], { body: 'any', two: true, pair: true, steps: [[0, 'Breathing face to face, then a full-body awakening for both.'], [60, 'Genital rituals side by side, in time with each other.'], [100, 'Releases together, then a held rest in the same blanket.']] }],
-  ['rose_vulva', 'glow', 'Rosé · Vulva', 'Brightening for the vulva and inner lips: a pinker, even tone over a series.', [45], [220], 'glow', 'glow', null, { area: 'vulva', series: [6, 14], body: 'vulva', steps: [[0, 'Cleanse and a gentle enzyme exfoliation.'], [15, 'A brightening peel of mild acids, painted on the outer lips and mound.'], [30, 'Neutralise, then a cooling, soothing mask.']] }],
+  ['rose_vulva', 'glow', 'Rosé · Vulva', 'Brightening for the vulva and inner lips: a pinker, even tone over a series.', [45], [220], 'glow', 'glow', null, { area: 'vulva', series: [6, 14], body: 'vulva', steps: [[0, 'Cleanse and a gentle enzyme exfoliation.'], [15, 'A brightening peel of mild acids, painted on the outer lips and mound.'], [30, 'Neutralize, then a cooling, soothing mask.']] }],
   ['rose_nip', 'glow', 'Rosé · Nipples', 'Areola and nipple brightening toward a softer, pinker tone.', [30], [160], 'glow', 'glow', null, { area: 'nipples', series: [6, 14], body: 'any', steps: [[0, 'Cleanse and soften.'], [10, 'Brightening serum and a gentle peel on the areolae.'], [20, 'A hydrating mask and SPF.']] }],
-  ['rose_him', 'glow', 'Rosé · Him', 'Penis and scrotum brightening for an even, lighter tone.', [45], [220], 'glow', 'glow', null, { area: 'him', series: [6, 14], body: 'penis', steps: [[0, 'Cleanse and a gentle exfoliation.'], [15, 'A brightening peel on the shaft and scrotum, timed to the minute.'], [30, 'Neutralise and soothe.']] }],
-  ['rose_back', 'glow', 'Rosé · Back Door', 'Anal and perianal brightening, discreet and thorough.', [30], [190], 'glow', 'glow', null, { area: 'back', series: [6, 14], body: 'any', steps: [[0, 'Cleanse and exfoliate.'], [10, 'A brightening peel around the anus and between the cheeks.'], [20, 'Neutralise and soothe.']] }],
-  ['pits', 'glow', 'Bright Pits', 'Smoother, even-toned underarms.', [30], [140], 'glow', 'glow', null, { area: 'pits', series: [6, 14], body: 'any', steps: [[0, 'Exfoliation.'], [10, 'Brightening peel.'], [20, 'Soothing mask.']] }],
-  ['thighs', 'glow', 'Smooth Thighs', 'Inner thighs and bikini line: smoother, even, no friction marks.', [45], [170], 'glow', 'glow', null, { area: 'thighs', series: [6, 14], body: 'any', steps: [[0, 'Exfoliation.'], [15, 'Brightening peel on the inner thighs and bikini line.'], [30, 'Soothing mask.']] }],
+  ['rose_him', 'glow', 'Rosé · Him', 'Penis and scrotum brightening for an even, lighter tone.', [45], [220], 'glow', 'glow', null, { area: 'him', series: [6, 14], body: 'penis', steps: [[0, 'Cleanse and a gentle exfoliation.'], [15, 'A brightening peel on the shaft and scrotum, timed to the minute.'], [30, 'Neutralize and soothe.']] }],
+  ['rose_back', 'glow', 'Rosé · Back door', 'Anal and perianal brightening, discreet and thorough.', [30], [190], 'glow', 'glow', null, { area: 'back', series: [6, 14], body: 'any', steps: [[0, 'Cleanse and exfoliate.'], [10, 'A brightening peel around the anus and between the cheeks.'], [20, 'Neutralize and soothe.']] }],
+  ['pits', 'glow', 'Rosé · Underarms', 'Underarm brightening for a smoother, even tone.', [30], [140], 'glow', 'glow', null, { area: 'pits', series: [6, 14], body: 'any', steps: [[0, 'Exfoliation.'], [10, 'Brightening peel.'], [20, 'Soothing mask.']] }],
+  ['thighs', 'glow', 'Rosé · Inner thighs', 'Inner thigh and bikini line brightening: even, no friction marks.', [45], [170], 'glow', 'glow', null, { area: 'thighs', series: [6, 14], body: 'any', steps: [[0, 'Exfoliation.'], [15, 'Brightening peel on the inner thighs and bikini line.'], [30, 'Soothing mask.']] }],
   ['vajacial', 'glow', 'Vajacial', 'A facial for the vulva: steam, extractions of ingrowns, a mask.', [45], [150], 'glow', 'glow', null, { body: 'vulva', steps: [[0, 'Warm steam and cleanse.'], [15, 'Ingrown hairs gently released.'], [30, 'A calming mask and serum.']] }],
   ['sackfacial', 'glow', 'Shaft & Sack Facial', 'A facial for the penis and scrotum: steam, exfoliation, a mask.', [45], [150], 'glow', 'glow', null, { body: 'penis', steps: [[0, 'Warm steam and cleanse.'], [15, 'Exfoliation and ingrowns.'], [30, 'Mask and serum.']] }],
   ['buttfacial', 'glow', 'Butt Facial', 'Exfoliate, extract, mask and smooth the buttocks.', [45], [140], 'glow', 'glow', null, { body: 'any', steps: [[0, 'Steam and cleanse.'], [15, 'Exfoliation and extractions.'], [30, 'Mask and firming massage.']] }],
@@ -2992,7 +3041,7 @@ F.CONTENT = {
     ['Your visit', 'Can I touch my therapist?', 'No. Velvet is for being looked after. Nuru is body to body, and that is the therapist’s touch, not yours.'],
     ['Your visit', 'What is the body map?', 'Paint where you’d like to be touched, gently, or not at all, on a front and back outline. It travels with every booking until you change it.'],
     ['Your visit', 'What should I bring?', 'Nothing. Robes, slippers, showers, towels and toiletries are here. Short nails are kind if you’re booking Learn on Each Other.'],
-    ['Glow', 'Does the Rosé series really change colour?', 'It brightens gradually over six sessions two weeks apart and needs upkeep to stay. Results vary with your skin; your Glow tracker shows your progress privately.'],
+    ['Glow', 'Does the Rosé series really change color?', 'It brightens gradually over six sessions two weeks apart and needs upkeep to stay. Results vary with your skin; your Glow tracker shows your progress privately.'],
     ['Glow', 'Can I wax and peel together?', 'Not on the same area within a week; laser needs four weeks without waxing first. The booking checks this for you.'],
     ['Firm & Boost', 'Is RF Tightening painful?', 'No. It feels warm. Give it two days before internal touch, and book the three sessions four weeks apart.'],
     ['Programs', 'How does the bridal countdown work?', 'Give us the wedding date and we book every session backwards from it, at evening times, with the right gaps between treatments.'],
@@ -3003,14 +3052,14 @@ F.CONTENT = {
     ['Booking', 'Does my FLINGR account work here?', 'Yes. One account, one Wallet, every FLINGR site.']
   ],
   legal: {
-    terms: { title: 'Terms of Service', updated: 'October 22, 2026', sections: [['Who we are', 'Velvet is a service of FLINGR Technologies, Inc. in the United States and FLINGR UK Ltd in the United Kingdom.'], ['Eligibility', 'You must be 18 or over, verified, and of legal age where you live.'], ['What a visit is', 'A visit buys a treatment, a room and a licensed therapist’s time. Touch is limited to hands, forearms, bodies (Nuru only) and toys. Never oral, never intercourse.'], ['Your consent', 'Your body map and choices at booking set the limits. You may stop at any moment. Your therapist may also stop at any moment.'], ['Conduct', 'No touching therapists. No recording. Anyone breaking these rules is asked to leave and isn’t refunded.'], ['Cancellations', 'Everything back more than 24 hours ahead, half between 24 and 4 hours, nothing inside 4 hours.'], ['Glow and Boost', 'Results vary. We don’t promise a particular colour or change. Follow the aftercare; tell us about any skin condition or medication before treatment.'], ['Membership', 'Memberships renew until cancelled and can be paused up to two months a year.']] },
+    terms: { title: 'Terms of Service', updated: 'October 22, 2026', sections: [['Who we are', 'Velvet is a service of FLINGR Technologies, Inc. in the United States and FLINGR UK Ltd in the United Kingdom.'], ['Eligibility', 'You must be 18 or over, verified, and of legal age where you live.'], ['What a visit is', 'A visit buys a treatment, a room and a licensed therapist’s time. Touch is limited to hands, forearms, bodies (Nuru only) and toys. Never oral, never intercourse.'], ['Your consent', 'Your body map and choices at booking set the limits. You may stop at any moment. Your therapist may also stop at any moment.'], ['Conduct', 'No touching therapists. No recording. Anyone breaking these rules is asked to leave and isn’t refunded.'], ['Cancellations', 'Everything back more than 24 hours ahead, half between 24 and 4 hours, nothing inside 4 hours.'], ['Glow, Firm & Boost', 'Results vary. We don’t promise a particular color or change. Follow the aftercare; tell us about any skin condition or medication before treatment.'], ['Membership', 'Memberships renew until cancelled and can be paused up to two months a year.']] },
     privacy: { title: 'Privacy Policy', updated: 'October 22, 2026', sections: [['What we keep', 'Your FLINGR account details, visits, choices, body map and Glow tracker.'], ['Who sees what', 'Your therapist sees your first name, your choices and your body map for that visit. Nobody sees your Glow tracker but you.'], ['Your rights', 'Download or clear your history from Account → Privacy.']] },
     cookies: { title: 'Cookie Policy', updated: 'October 22, 2026', sections: [['Essential', 'Sign-in, booking and security.'], ['Preferences', 'Your city and currency.'], ['Analytics', 'Aggregated, non-identifying usage, only if you agree.']] }
   },
   journal: [
-    { slug: 'why-velvet', cat: 'Velvet', title: 'Why Velvet', read: 3, ago: 0, excerpt: 'Most spas pretend. We put the whole menu on the wall.', body: [['p', 'Every city has massage parlours that hint and spas that refuse. Velvet is neither: a beautiful spa where sensual touch is the point, written plainly on the menu, done by licensed therapists.'], ['h', 'Your choices, in writing'], ['p', 'Before you arrive you choose your ritual, your release, your therapist’s gender and what they wear, your oil, your music and your light. You paint your body map. Nothing is guessed in the room.'], ['h', 'The line we hold'], ['p', 'Hands, forearms, bodies on Nuru, and toys. Never oral, never intercourse, never you touching the therapist. It’s what makes it possible to relax completely.']], cta: ['See the menu', '#/menu'] },
-    { slug: 'the-rose-series-honestly', cat: 'Glow', title: 'The Rosé series, honestly', read: 4, ago: 0, excerpt: 'What brightening can and can’t do, and why six sessions two weeks apart.', body: [['p', 'Intimate skin is naturally darker than the rest of you; that’s normal, and it’s fine. If you’d like it lighter and more even, a series of gentle peels can brighten it gradually.'], ['h', 'How it works'], ['p', 'Mild acids lift the top layers so newer, lighter skin comes through. Two weeks between sessions lets the skin settle. Six sessions is where most people see the change they wanted.'], ['h', 'Keeping it'], ['p', 'Results fade without upkeep: friction, hormones and time all darken skin again. Your Glow tracker shows it, privately, and reminds you when a maintenance session is due.']], cta: ['The Glow Lab', '#/glow'] },
-    { slug: 'edged-or-released', cat: 'Rituals', title: 'Edged, released, or denied', read: 3, ago: 0, excerpt: 'Choosing your release, and why the Edge Ritual is the most re-booked thing on the menu.', body: [['p', 'Every touch ritual lists its release options. “Release included” is the simple one. “Edged, then released” brings you to the brink and holds you there before letting go. “Edged and denied” sends you home buzzing.'], ['h', 'Decide in the room'], ['p', 'Not sure? Choose “decide in the room” and tell your therapist when you know.']] }
+    { slug: 'why-velvet', cat: 'Velvet', title: 'Why Velvet', read: 3, ago: 3, excerpt: 'Most spas pretend. We put the whole menu on the wall.', body: [['p', 'Every city has massage parlors that hint and spas that refuse. Velvet is neither: a beautiful spa where sensual touch is the point, written plainly on the menu, done by licensed therapists.'], ['h', 'Your choices, in writing'], ['p', 'Before you arrive you choose your ritual, your release, your therapist’s gender and what they wear, your oil, your music and your light. You paint your body map. Nothing is guessed in the room.'], ['h', 'The line we hold'], ['p', 'Hands, forearms, bodies on Nuru, and toys. Never oral, never intercourse, never you touching the therapist. It’s what makes it possible to relax completely.']], cta: ['See the menu', '#/menu'] },
+    { slug: 'the-rose-series-honestly', cat: 'Glow', title: 'The Rosé series, honestly', read: 4, ago: 12, excerpt: 'What brightening can and can’t do, and why six sessions two weeks apart.', body: [['p', 'Intimate skin is naturally darker than the rest of you; that’s normal, and it’s fine. If you’d like it lighter and more even, a series of gentle peels can brighten it gradually.'], ['h', 'How it works'], ['p', 'Mild acids lift the top layers so newer, lighter skin comes through. Two weeks between sessions lets the skin settle. Six sessions is where most people see the change they wanted.'], ['h', 'Keeping it'], ['p', 'Results fade without upkeep: friction, hormones and time all darken skin again. Your Glow tracker shows it, privately, and reminds you when a maintenance session is due.']], cta: ['The Glow Lab', '#/glow'] },
+    { slug: 'edged-or-released', cat: 'Rituals', title: 'Edged, released, or denied', read: 3, ago: 26, excerpt: 'Choosing your release, and why the Edge Ritual is the most re-booked thing on the menu.', body: [['p', 'Every touch ritual lists its release options. “Release included” is the simple one. “Edged, then released” brings you to the brink and holds you there before letting go. “Edged and denied” sends you home buzzing.'], ['h', 'Decide in the room'], ['p', 'Not sure? Choose “decide in the room” and tell your therapist when you know.']] }
   ]
 };
 const RULES = [
@@ -3060,7 +3109,7 @@ const DET = {
   express: ['Lunchtime, thirty minutes, straight to the point. Exactly what I needed.', 'No fuss, no small talk, hot towel and out the door.', 'Perfect between meetings. Discreet entrance, discreet statement.'],
   side: ['Two tables a hand’s reach apart; watching my partner melt was half the fun.', 'Champagne, candles and two very good therapists.', 'We each chose our own ending, and talked about it all the way home.'],
   watch: ['I watched from the chaise with a glass of wine. Then we swapped.', 'Very visible, very slow, and our anniversary will never be the same.', 'Watching someone you love being looked after like that is something else.'],
-  learn: ['I finally know what I’m doing. My partner says thank you.', 'Coached in a whisper, step by step; never awkward.', 'Short nails, as the page says. We practised at home the same night.'],
+  learn: ['I finally know what I’m doing. My partner says thank you.', 'Coached in a whisper, step by step; never awkward.', 'Short nails, as the page says. We practiced at home the same night.'],
   tantra2: ['Breathing face to face for the first ten minutes nearly undid us both.', 'Side-by-side rituals in time with each other. We finished within seconds of one another.', 'The held rest under one blanket at the end was the best part.'],
   rose_vulva: ['Slow, but by session four I could see a real difference.', 'The peel tingles for a minute, then the cooling mask makes up for it.', 'The tracker keeps me honest about upkeep.'],
   rose_nip: ['Softer, pinker tone after the series, exactly what I hoped for.', 'Quick, painless and very matter-of-fact.', 'Nice to have it done properly instead of guessing with home products.'],
@@ -3077,14 +3126,14 @@ const DET = {
   ingrown: ['Every bump released and calmed. My skin thanks them.', 'Quick and gentle; no redness the next day.'],
   steam: ['Twenty-five minutes of warm herbal steam and I walked out lighter.', 'The mugwort and rose smell lingers in the best way.', 'Tea and a rest afterwards. Very calming before a ritual.'],
   rf: ['Warm, not painful, and I noticed the difference within days.', 'More sensation and a firmer feeling after the second session.', 'Very clinical in the best sense: explained everything first.'],
-  kegel: ['Seeing my pelvic floor on a screen changed how I practise at home.', 'Coached by the numbers. My partner noticed within a month.'],
+  kegel: ['Seeing my pelvic floor on a screen changed how I practice at home.', 'Coached by the numbers. My partner noticed within a month.'],
   pelvic: ['A licensed pelvic therapist who explained every step. Life-changing for my pain.', 'Breathing and gentle internal release; I left lighter.', 'The home plan was clear and actually doable.'],
   stamina: ['Edging with someone calling my number from one to ten is weirdly effective.', 'The longest edge I’ve ever managed, then released. I last longer at home now.'],
   pulse: ['Nothing to recover from and the difference after the series is real.', 'Gentle pulses, twenty minutes, done. Firmer, faster, as promised.'],
   party: ['The Salon for my best friend’s last night single. Champagne, laughter, and three very good therapists.', 'Each of us on the velvet table in turn. Unforgettable send-off.']
 };
 const PDET = {
-  bride: ['Every session booked backwards from the wedding, at evening times. I didn’t have to think once.', 'Glowing, smooth and completely relaxed the night before the wedding.', 'The Learn on Each Other session was my fiancé’s favourite part, by far.'],
+  bride: ['Every session booked backwards from the wedding, at evening times. I didn’t have to think once.', 'Glowing, smooth and completely relaxed the night before the wedding.', 'The Learn on Each Other session was my fiancé’s favorite part, by far.'],
   groom: ['Smooth, bright and lasting longer by the big day, as advertised.', 'The stamina sessions paid off on the wedding night. Enough said.', 'My best man booked it for me. Best gift of the whole wedding.'],
   honeymoon: ['Smooth and glowing for the flight. Side by Side three days before was perfect.', 'The week before we flew, done properly, with no rushing.'],
   libido: ['Thirty days in and I wanted it again. I didn’t think that would happen.', 'Weekly rituals and steam; the Tantra in week three was the turning point.', 'Gentle, patient, and it worked better than anything else I tried.'],
@@ -3361,7 +3410,7 @@ F.ticks.push(n => {
       E.notify(u.id, 'bookings', u.prefs.discreet ? 'Thank you for visiting' : `How was ${t.n}?`, t.series ? `Session ${E.myVisits(u).filter(x => x.tid === t.id && x.status === 'done').length} of ${t.series[0]} done. The next can be booked from ${U.fmt(v.end + t.series[1] * D, E.cityTz(v.cityId), 'md')}.` : 'Your ritual is saved; book it again in one tap.', '#/account/visit/' + v.id, n, v.id);
     }
     // a therapist off sick within two days: hand over, or cancel with everything back
-    if (v.status === 'confirmed' && v.start - n < 48 * H && !v.checked) { v.checked = true; const tz = E.cityTz(v.cityId), key = spaDay(tz, v.start); v.ther.forEach((id, i) => { if (!E.therShift(E.ther(id), key)) { const alt = E.thersFor(t, v.cityId, v.opts.gender).find(x => !v.ther.includes(x.id) && E.therFree(x, v.start, v.end, v.id)); if (alt) { v.ther[i] = alt.id; v.history.push({ at: n, note: 'A different therapist will look after you.' }); E.notify(u.id, 'bookings', 'A change at Velvet', `Your therapist is off; another licensed therapist${v.opts.gender && v.opts.gender !== 'Any' ? ' (' + v.opts.gender.replace(/^A /, '').toLowerCase() + ')' : ''} will look after you. Cancel free if you’d rather.`, '#/account/visit/' + v.id, n, v.id); v.freeCancel = true; } else if (v.status === 'confirmed' && !(v.program && E.autoMove(v, 'your therapist is off that day'))) { E.cancelVisit(v, 'your therapist is off and nobody else with the same licence is free'); E.refund(u, v.cityId, E.cp(v.cityId, 40), 'Sorry from Velvet · ' + v.no, v.id); E.notify(u.id, 'bookings', 'Visit cancelled, on us', 'Everything is back in your Wallet, plus a little on us for the trouble.', '#/account/visits', n, v.id); } } }); }
+    if (v.status === 'confirmed' && v.start - n < 48 * H && !v.checked) { v.checked = true; const tz = E.cityTz(v.cityId), key = spaDay(tz, v.start); v.ther.forEach((id, i) => { if (!E.therShift(E.ther(id), key)) { const alt = E.thersFor(t, v.cityId, v.opts.gender).find(x => !v.ther.includes(x.id) && E.therFree(x, v.start, v.end, v.id)); if (alt) { v.ther[i] = alt.id; v.history.push({ at: n, note: 'A different therapist will look after you.' }); E.notify(u.id, 'bookings', 'A change at Velvet', `Your therapist is off; another licensed therapist${v.opts.gender && v.opts.gender !== 'Any' ? ' (' + v.opts.gender.replace(/^A /, '').toLowerCase() + ')' : ''} will look after you. Cancel free if you’d rather.`, '#/account/visit/' + v.id, n, v.id); v.freeCancel = true; } else if (v.status === 'confirmed' && !(v.program && E.autoMove(v, 'your therapist is off that day'))) { E.cancelVisit(v, 'your therapist is off and nobody else with the same license is free'); E.refund(u, v.cityId, E.cp(v.cityId, 40), 'Sorry from Velvet · ' + v.no, v.id); E.notify(u.id, 'bookings', 'Visit cancelled, on us', 'Everything is back in your Wallet, plus a little on us for the trouble.', '#/account/visits', n, v.id); } } }); }
   });
   s.orders.forEach(o => { const st = [['packed', 2 * H], ['shipped', D], ['delivered', 3 * D]]; st.forEach(([k, d]) => { if (!o.steps.some(x => x.s === k) && n >= o.at + d) { o.steps.push({ s: k, at: o.at + d }); o.status = k; if (k !== 'packed') E.notify(o.userId, 'bookings', k === 'shipped' ? 'Your order has shipped' : 'Your order was delivered', `${o.no}, in plain packaging${k === 'shipped' ? '; it arrives in about two days.' : '.'}`, '#/account/orders', o.at + d, o.id); } }); });
   // walk-ins nobody at the desk dealt with get seated (or turned away) by the desk itself
@@ -3406,7 +3455,7 @@ E.trSeason = (t, c) => E.vvSeason(c).find(e => e.pct && (e.tags.includes('all') 
 // a treatment's price today in USD: the menu price with the season applied
 E.trNow = (t, dur, c) => Math.round(E.trUsd(t, dur) * (1 + E.vvPct(tagsOf(t), c) / 100));
 // the banner: a holiday or one of Velvet's seasons (never the long background seasons)
-F.vvBanner = c => { const e = E.vvSeason(c).find(x => x.line && x.kind !== 'season'); return e ? { id: e.id + '-' + e.fromKey, long: e.line, short: esc(e.name), href: e.href || '#/menu', cta: e.cta || 'See what’s on' } : null; };
+F.vvBanner = c => { const e = E.vvSeason(c).find(x => x.line && x.kind !== 'season'); return e ? { id: e.id + '-' + e.fromKey, long: e.line, short: esc(e.name) + (e.pct < 0 ? `: <strong>${-e.pct}% off</strong>` : ''), href: e.href || '#/menu', cta: e.cta || 'See what’s on' } : null; };
 
 /* ---------- therapists retire as the years go by ---------- */
 F.THERAPISTS.forEach(t => { const h = U.hash(t.id + 'ret'); if (t.joined === '2025-01-01' && h % 6 === 0) t.left = `${2027 + h % 4}-${U.pad(1 + (h >>> 3) % 12)}-01`; });
@@ -3458,8 +3507,10 @@ F.trArt = (t, cls = 'r45') => F.plate({ key: 'site/t-' + t.id, art: F.SITE.art(t
 F.trFrom = (t, c) => { const a = E.trNow(t, t.d[0], c), b = E.trUsd(t, t.d[0]); return a < b ? `<s class="muted">${E.pm(b, c)}</s> ${E.pm(a, c)}` : E.pm(a, c); };
 const durs = t => t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0]);
 // one treatment as a compact card
+// studio-white product shots are toned down to sit on the dark cards
+F.LIGHT = new Set(['thighs', 'ingrown', 'tonic', 'wand', 'rosekit', 'candle']);
 F.trCC = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c);
-  return F.compact({ href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', title: esc(t.n), sub: esc(t.s), meta: `${durs(t)} · ${F.rvTxt('tr:' + t.id)}${F.trOpen(t) && E.vvTrWeek ? ' · ' + E.vvTrWeek(t) + ' this week' : ''}`, price: open ? F.trFrom(t, c) : '', tag: !open ? 'From ' + U.keyFmt(F.trRel(t), 'dshort') : se ? esc(se.name) : '' }); };
+  return F.compact({ href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45' + (F.LIGHT.has(t.id) ? ' pl-lt' : ''), title: esc(t.n), sub: esc(t.s), meta: `${durs(t)} · ${F.rvTxt('tr:' + t.id)}`, note: open && E.vvTrWeek ? `<i class="dot live"></i>${E.vvTrWeek(t)} booked this week` : '', price: open ? F.trFrom(t, c) : '', tag: !open ? 'From ' + U.keyFmt(F.trRel(t), 'dshort') : se ? esc(se.name) : '' }); };
 F.progCC = p => F.compact({ href: '#/program/' + p.id, key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45', title: esc(p.name), sub: esc(p.line), meta: `${U.plural(p.plan.length, 'visit')} · ${F.rvTxt('pg:' + p.id)}`, price: E.money(E.progPrice(p, F.cityId()), F.cityId()), tag: F.progOpen(p) ? '' : 'From ' + U.keyFmt(p.rel, 'dshort') });
 const cityChips = () => `<div class="chiprow">${F.CITIES.map(c => `<button class="chip chip-sm ${c.id === F.cityId() ? 'on' : ''}" data-a="setcity" data-c="${c.id}" aria-pressed="${c.id === F.cityId()}">${F.SPAS[c.id].name.replace('Velvet ', '')}</button>`).join('')}</div>`;
 F.cityChips = cityChips;
@@ -3500,8 +3551,8 @@ const okP = (t, p) => { const u = t.usd[0]; return !p || (p === 'lo' ? u < 200 :
 const okW = (t, w) => !w || (w === 'two' ? t.pair : !t.pair && (t.body === w || t.body === 'any'));
 const sortBy = (l, s) => s === 'price' ? l.sort((a, b) => a.usd[0] - b.usd[0]) : s === 'dur' ? l.sort((a, b) => a.d[0] - b.d[0]) : s === 'rating' ? l.sort((a, b) => F.rvStats('tr:' + b.id).avg - F.rvStats('tr:' + a.id).avg) : F.ranked(l);
 // a portrait photo card: name, one line, length and price
-F.trTile = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c); return `<a class="ptile" href="#/treatment/${t.id}">${F.trArt(t, 'r45')}<span class="ptile-b"><strong class="ptile-t">${esc(t.n)}</strong><span class="ptile-s">${esc(t.s)}</span><span class="ptile-m"><span class="muted">${durs(t)}</span><span class="mono">${open ? F.trFrom(t, c) : 'From ' + U.keyFmt(F.trRel(t), 'dshort')}</span></span>${se ? `<span class="tag">${esc(se.name)}</span>` : ''}</span></a>`; };
-F.progTile = p => `<a class="ptile" href="#/program/${p.id}">${F.plate({ key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45' })}<span class="ptile-b"><strong class="ptile-t">${esc(p.name)}</strong><span class="ptile-s">${esc(p.line)}</span><span class="ptile-m"><span class="muted">${U.plural(p.plan.length, 'visit')}</span><span class="mono">${E.money(E.progPrice(p, F.cityId()), F.cityId())}</span></span>${F.progOpen(p) ? '' : `<span class="tag">From ${U.keyFmt(p.rel, 'dshort')}</span>`}</span></a>`;
+F.trTile = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c); return `<a class="ptile" href="#/treatment/${t.id}">${F.plate({ key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45' + (F.LIGHT.has(t.id) ? ' pl-lt' : ''), cap: se ? esc(se.name) : '' })}<span class="ptile-b"><strong class="ptile-t">${esc(t.n)}</strong><span class="ptile-s">${esc(t.s)}</span><span class="ptile-m"><span class="muted">${durs(t)}</span><span class="mono">${open ? F.trFrom(t, c) : 'From ' + U.keyFmt(F.trRel(t), 'dshort')}</span></span></span></a>`; };
+F.progTile = p => `<a class="ptile" href="#/program/${p.id}">${F.plate({ key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45', cap: F.progOpen(p) ? '' : 'From ' + U.keyFmt(p.rel, 'dshort') })}<span class="ptile-b"><strong class="ptile-t">${esc(p.name)}</strong><span class="ptile-s">${esc(p.line)}</span><span class="ptile-m"><span class="muted">${U.plural(p.plan.length, 'visit')}</span><span class="mono">${E.money(E.progPrice(p, F.cityId()), F.cityId())}</span></span></span></a>`;
 F.pages.menu = {
   render(r) {
     const q = r.q, col = F.COL[q.c] ? q.c : 'touch', link = o => '/menu' + U.q(Object.assign({ c: col, d: q.d, p: q.p, w: q.w, s: q.s }, o)), to = k => v => ({ q: link({ [k]: v }) });
@@ -3552,7 +3603,7 @@ F.pages.treatment = {
 
 /* ---------- Glow Lab ---------- */
 // a tone scale from where an area starts to where six sessions take it, with your level marked
-const scale = (k, lv) => `<div class="tscale" style="--a:${F.AREAS[k][1]};--b:${E.glowTone(k, 6)}">${lv != null ? `<i style="left:${(lv / 6 * 100).toFixed(1)}%"></i>` : ''}</div>`;
+const scale = (k, lv) => `<div class="tscale" style="--a:${F.AREAS[k][1]};--b:${E.glowTone(k, 6)}">${lv != null ? `<i style="left:${(lv / 6 * 100).toFixed(1)}%"></i>` : ''}</div><div class="tscale-k tiny muted"><span>Start</span><span>After six sessions</span></div>`;
 // the next session a series can take, and its first free time
 E.glowNext = (u, k) => { const t = F.TREAT.find(x => x.area === k && x.series && !x.laser), c = F.cityId(), g = E.glow(u, k); if (!t || !F.trOpen(t)) return null;
   if (E.myVisits(u).some(v => v.tid === t.id && v.status === 'confirmed')) return { t, booked: E.myVisits(u).find(v => v.tid === t.id && v.status === 'confirmed') };
@@ -3564,29 +3615,41 @@ F.pages.glow = { render: () => { const u = E.user(), c = F.cityId(), mine = u ? 
   return { title: 'Glow Lab', html: `${F.pageHead({ eyebrow: 'Glow Lab', title: 'The Rosé <span class="it">series.</span>', lead: 'Brightening for intimate skin: six sessions two weeks apart, and a private tracker that books the next one for you.' })}
   <section class="sec-sm"><div class="wrap">${se ? `<p class="small se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : ''}
   ${mine.length ? `<div class="${se ? 'mt24' : ''}">${F.secHead({ eyebrow: 'Your series', action: '<a class="btn-link" href="#/account/glow">Tracker</a>' })}<div class="g g2">${mine.map(([k, g]) => { const nx = E.glowNext(u, k), t = nx && nx.t; return `<div class="card gser"><div class="row between"><strong class="h-disp h4">${F.AREAS[k][0]}</strong><span class="mono tiny">level ${g.level} of 6</span></div>${scale(k, g.level)}<div class="series mt16">${Array.from({ length: 6 }, (_, i) => `<i class="${i < g.n ? 'on' : ''}"></i>`).join('')}</div><p class="small mt8">${U.plural(g.n, 'session')} · last ${U.fmt(g.last, 'UTC', 'md')}</p>${!t ? '' : nx.booked ? `<p class="small mt16">${F.ic('check', 12)} Next: ${U.fmt(nx.booked.start, E.cityTz(nx.booked.cityId), 'dt')}</p>` : nx.sl ? `<a class="btn btn-pri btn-sm mt16" href="#/build?t=${t.id}&s=${nx.sl.start}">Book ${U.fmt(nx.sl.start, E.cityTz(c), 'dt')}</a>` : `<a class="btn btn-ghost btn-sm mt16" href="#/build?t=${t.id}">Choose a time</a>`}</div>`; }).join('')}</div></div>` : ''}
-  <div class="${mine.length || se ? 'mt48' : ''}">${F.secHead({ eyebrow: 'Six areas', lead: 'Where each area starts, and where six sessions usually take it.' })}<div class="clist">${Object.entries(F.AREAS).map(([k, [n]]) => { const t = F.TREAT.find(x => x.area === k && x.series && !x.laser); return `<a class="cc gl-a" href="#/treatment/${t.id}"><span class="cc-b"><strong class="cc-t">${n}</strong><span class="cc-s">${esc(t.n)} · ${U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}</span>${scale(k)}</span><span class="cc-r"><span class="cc-p">${F.trFrom(t, c)}</span></span></a>`; }).join('')}</div></div>
-  <div class="mt48">${F.secHead({ eyebrow: 'Smooth and groomed' })}${F.showMore('glow-g', F.ranked(['brazil', 'manzil', 'laser', 'vajacial', 'sackfacial', 'buttfacial', 'ingrown', 'thighs'].map(E.tr)), F.trCC, { n: 8, more: 'More grooming' })}</div>
+  <div class="${mine.length || se ? 'mt48' : ''}">${F.secHead({ eyebrow: 'Six areas', lead: 'Each bar runs from a typical starting tone to where six sessions usually take it.' })}<div class="clist">${Object.entries(F.AREAS).map(([k, [n]]) => { const t = F.TREAT.find(x => x.area === k && x.series && !x.laser); return `<a class="cc gl-a" href="#/treatment/${t.id}"><span class="cc-b"><strong class="cc-t">${n}</strong><span class="cc-s">${esc(t.n)} · ${U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}</span>${scale(k)}</span><span class="cc-r"><span class="cc-p">${F.trFrom(t, c)}</span></span></a>`; }).join('')}</div></div>
+  <div class="mt48">${F.secHead({ eyebrow: 'Smooth and groomed' })}${F.tileGrid(F.ranked(['brazil', 'manzil', 'laser', 'vajacial', 'sackfacial', 'buttfacial', 'ingrown'].map(E.tr)), F.trTile)}</div>
   <div class="mt48 accs">${F.acc([['What it does', 'Mild acid peels lift the darker top layers so lighter skin comes through. Results build over the series and vary with your skin.'], ['What it needs', 'Two weeks between sessions and no waxing on the same area within a week; laser needs four weeks without waxing. The booking checks the rules for you.'], ['Keeping it', 'Results fade without upkeep: every two months without a session the tracker drops a level, and reminds you before it does.']], { name: 'glow' })}</div></div></section>` }; } };
 
 /* ---------- couples, programs ---------- */
 F.pages.couples = { render: () => { const u = E.user();
   return { title: 'Couples & occasions', html: `${F.pageHead({ eyebrow: 'Couples & occasions', title: 'For two, <span class="it">or more.</span>', lead: 'Side by side, watching from the chaise, learning on each other, or the Salon for a last night single.' })}
-  <section class="sec-sm"><div class="wrap"><div class="clist">${F.ranked(['side', 'watch', 'learn', 'tantra2'].map(E.tr)).map(F.trCC).join('')}</div>
+  <section class="sec-sm"><div class="wrap"><div class="clist cl-2">${F.ranked(['side', 'watch', 'learn', 'tantra2'].map(E.tr)).map(F.trCC).join('')}</div>
   <div class="mt48 split al-start"><div>${F.secHead({ eyebrow: 'Two touch sheets, one map', lead: 'Each of you paints a map. For rituals together we only go where you both said yes; anywhere one of you said gently stays gentle, and anywhere either of you said avoid is off.' })}${u ? `<button class="btn btn-ghost" data-a="mapOpen" data-who="partner">${E.partner(u) ? 'Change your partner’s map' : 'Add your partner’s map'}</button>` : '<button class="btn btn-ghost" data-a="signin">Sign in to add both maps</button>'}</div>
   ${u ? `<div class="card">${F.mutualCard(u)}</div>` : ''}</div>
-  <div class="mt48">${F.secHead({ eyebrow: 'Occasions', action: '<a class="btn-link" href="#/programs">How programs work</a>' })}${F.showMore('cp-occ', F.PROGS, F.progCC, { n: 4, more: 'More occasions' })}</div></div></section>` }; } };
+  <div class="mt48">${F.secHead({ eyebrow: 'Occasions', lead: 'Give us the date; we book every visit around it.' })}${F.showMore('cp-occ', F.PROGS.length % 3 ? F.PROGS.concat(0) : F.PROGS, x => x ? F.progCC(x) : F.progAsk(), { n: 4, more: 'More occasions' })}<a class="btn-link mt24" href="#/programs">How programs work</a></div></div></section>` }; } };
+// a last card for a date that isn't on the list
+F.progAsk = () => `<a class="cc cc-ask" href="#/contact"><span class="cc-ic">${F.ic('cal', 22)}</span><span class="cc-b"><strong class="cc-t">Another date in mind?</strong><span class="cc-s">We’ll plan one around it.</span></span><span class="cc-r">${F.ic('arrow', 16)}</span></a>`;
 F.pages.programs = { render: () => { const u = E.user(), mine = u ? F.S.programs.filter(x => x.userId === u.id && x.status !== 'ended') : [];
   return { title: 'Programs', html: `${F.pageHead({ eyebrow: 'Programs', title: 'Counted <span class="it">for you.</span>', lead: 'Give us a date. We book every session around it, with the right gaps between treatments, at 10% off the menu.' })}
-  <section class="sec-sm"><div class="wrap">${mine.length ? `${F.secHead({ eyebrow: 'Your calendar' })}${F.progCal(u)}` : ''}<div class="clist ${mine.length ? 'mt48' : ''}">${F.PROGS.map(F.progCC).join('')}</div>
+  <section class="sec-sm"><div class="wrap">${mine.length ? `${F.secHead({ eyebrow: 'Your calendar' })}${F.progCal(u)}` : ''}<div class="clist ${mine.length ? 'mt48' : ''}">${F.PROGS.map(F.progCC).join('')}${F.PROGS.length % 3 ? F.progAsk() : ''}</div>
   <div class="mt48 accs">${F.acc([['If something clashes', 'Book anything else over a program visit and we move the program visit to the nearest free evening for you, with the same gaps kept. If a therapist is off, the visit moves rather than cancels.'], ['Pausing', 'Forward programs (the resets and Postpartum Return) pause for one or two weeks from your Visits page; every later visit moves with them. Countdowns to a date can’t pause, but each visit can be moved.'], ['If we can’t fit a visit', 'Anything we can’t book is refunded to your Wallet straight away, and listed for you to book yourself.']], { name: 'pg' })}</div></div></section>` }; } };
-F.pages.membership = { render: () => { const c = F.cityId(), u = E.user(), sv = F.savingsLine(u); return { title: 'Membership', html: `${F.pageHead({ eyebrow: 'Membership', title: 'Pay per ritual, <span class="it">or join.</span>', lead: `Paying per ritual is the default. Membership is a simple add-on: ${F.SITE.plans[0].pct}% off every ritual, one add-on free each visit, for ${E.pm(F.SITE.plans[0].usd, c)} a month. Pause or cancel any time.` })}
+F.pages.membership = { render: () => { const c = F.cityId(), u = E.user(), sv = F.savingsLine(u); return { title: 'Membership', html: `${F.pageHead({ eyebrow: 'Membership', title: 'Pay per ritual, <span class="it">or join.</span>', lead: `Paying per ritual is the default. Membership is a simple add-on: ${F.SITE.plans[0].pct}% off every ritual, one add-on free each visit, ${F.memberFee(c)}. Pause or cancel any time.` })}
   <section class="sec-sm"><div class="wrap">${sv ? `<div class="card-s mb24">${sv}</div>` : ''}${F.planGrid(c)}</div></section>
   <section class="sec-sm sec-alt"><div class="wrap">${F.worthCalc(c)}</div></section>
   <section class="sec-sm"><div class="wrap"><div class="accs">${F.acc(F.CONTENT.faq.filter(x => x[0] === 'Membership').map(x => [x[1], esc(x[2])]), { name: 'mem' })}</div><div class="mt48">${F.aaCard()}</div></div></section>` }; } };
 
 /* ---------- your visit, standards ---------- */
-F.pages.yourvisit = { render: () => ({ title: 'Your visit', html: `${F.pageHead({ eyebrow: 'Your visit', title: 'From the door <span class="it">to the lounge.</span>', lead: 'What happens, in order, so there are no surprises.' })}<section class="sec-sm"><div class="wrap narrow"><ol class="mins">${[['Before', 'Build your ritual and paint your body map. We remind you the day before, discreetly.'], ['Arrive', 'Fifteen minutes early. The desk greets you by first name only; nobody else in reception.'], ['Shower', 'Private shower, robe, slippers. Lockers with your own code.'], ['Consult', 'Two minutes with your therapist: the body map, the release, anything new.'], ['Ritual', 'Exactly as you chose. Say “stop” or your word at any moment and everything stops.'], ['Lounge', 'Warm towels, tea or a tonic, as long as you like (an hour extra if you added it).'], ['After', 'Your aftercare sheet, your visit saved, and a nudge when it’s the right time to come back.']].map(([m, x]) => `<li><span class="mono">${m}</span><p>${x}</p></li>`).join('')}</ol></div></section>` }) };
-F.pages.standards = { render: () => ({ title: 'Standards', html: `${F.pageHead({ eyebrow: 'Standards', title: 'Licensed, <span class="it">and it shows.</span>', lead: 'Every therapist holds a Licensed Intimate Therapist credential for what they practise. Glow therapists are licensed aestheticians; pelvic therapists are licensed pelvic health practitioners.' })}<section class="sec-sm"><div class="wrap split al-start"><ul class="ticks">${['Licence numbers are printed on every receipt.', 'Touch rituals by touch-licensed therapists only; internal work and RF by pelvic practitioners.', 'Gloves for every internal touch. Fresh linen and a full clean between every guest.', 'No photos, no profiles, no tipping pressure: tips are pooled and shared.', 'A therapist may stop at any time; so may you.', 'Every room has a call button to the desk.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul><div class="card"><span class="lbl">Therapists on the licence register</span><div class="h-disp h1 mt8">${F.THERAPISTS.filter(t => E.therOn(t, E.todayKey('la'))).length}</div><p class="small muted mt8">Across West Hollywood, SoHo and Marylebone. Touch, Glow and pelvic licences.</p></div></div></section>` }) };
+const VISIT = [['The day before', 'Your ritual, body map and therapist are set. A discreet reminder arrives; nothing names the ritual.'], ['15 min before', 'Arrive. The desk greets you by first name only, and nobody else waits in reception.'], ['Shower', 'A private shower, robe and slippers. Your locker opens with your own code.'], ['2 min', 'A short consult with your therapist: your body map, the release, anything new today.'], ['The ritual', 'Exactly as you chose it. Say “stop” or your word at any moment and everything stops.'], ['The lounge', 'Warm towels, tea or a tonic, as long as you like.'], ['That evening', 'Your aftercare sheet, your visit saved, and a nudge when it’s time to come back.']];
+F.pages.yourvisit = { render: () => { const c = F.cityId(), sp = F.SPAS[c], city = F.city();
+  return { title: 'Your visit', html: `${F.pageHead({ eyebrow: 'Your visit', title: 'From the door <span class="it">to the lounge.</span>', lead: 'What happens, in order, so there are no surprises.' })}
+  <section class="sec-sm"><div class="wrap"><div class="g g3 yv-g">
+  <div class="card"><span class="lbl">${F.ic('clock', 14)} Arrive</span><h2 class="h-disp h4 mt16">Fifteen minutes early</h2><p class="small muted mt8">Time to shower and settle. Arrive late and the ritual still ends on time.</p></div>
+  <div class="card"><span class="lbl">${F.ic('check', 14)} Bring</span><h2 class="h-disp h4 mt16">Nothing at all</h2><p class="small muted mt8">Robes, slippers, towels, showers and toiletries are here. On a first visit, bring the ID you verified with.</p></div>
+  <div class="card"><span class="lbl">${F.ic('pin', 14)} ${esc(city.name)}</span><h2 class="h-disp h4 mt16">${esc(sp.name)}</h2><p class="small mt8">${esc(sp.addr)}</p><p class="small muted mt4">${esc(sp.note)}</p><button class="btn-link mono mt16" data-a="call" data-c="${c}">${city.phone}</button></div></div></div></section>
+  <section class="sec-sm sec-alt"><div class="wrap split al-start yv-s"><div>${F.secHead({ eyebrow: 'Step by step', title: 'How a visit <span class="it">runs</span>' })}<ol class="mins">${VISIT.map(([m, x]) => `<li><span class="mono">${m}</span><p>${x}</p></li>`).join('')}</ol></div>${F.plate({ key: 'site/spa-' + c, art: F.SITE.art(c, 'room'), cls: 'r45', cap: esc(sp.name) })}</div></section>
+  <section class="sec-sm"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Aftercare' })}<ul class="ticks">${['Drink water; warm oil and steam dehydrate.', 'After a Glow peel: no hot baths, sun or scented products for 48 hours.', 'After waxing: nothing tight and no exercise for a day.', 'After RF: two days before internal touch.', 'Anything feels wrong? Call the desk, day or night.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul></div>
+  <div>${F.secHead({ eyebrow: 'House rules' })}<ul class="ticks">${['Licensed hands only: never oral, never intercourse.', 'You don’t touch your therapist.', 'No phones in the rooms; lockers have chargers.', 'Either of you can stop at any time.', 'Tips are optional, pooled and shared.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul></div></div></section>
+  <section class="sec-sm sec-alt"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Questions', title: 'Before you <span class="it">book</span>' })}<div class="btn-row"><a class="btn btn-pri" href="#/build">Build a ritual</a><a class="btn btn-ghost" href="#/help">All questions</a></div></div><div class="accs">${F.acc(F.CONTENT.faq.filter(x => x[0] === 'Your visit' && !/bring/.test(x[1])).concat(F.CONTENT.faq.filter(x => /cancel/.test(x[1]))).map(x => [x[1], esc(x[2])]), { name: 'yv' })}</div></div></section>` }; } };
+F.pages.standards = { render: () => ({ title: 'Standards', html: `${F.pageHead({ eyebrow: 'Standards', title: 'Licensed, <span class="it">and it shows.</span>', lead: 'Every therapist holds a Licensed Intimate Therapist credential for what they practice. Glow therapists are licensed aestheticians; pelvic therapists are licensed pelvic health practitioners.' })}<section class="sec-sm"><div class="wrap split al-start"><ul class="ticks">${['License numbers are printed on every receipt.', 'Touch rituals by touch-licensed therapists only; internal work and RF by pelvic practitioners.', 'Gloves for every internal touch. Fresh linen and a full clean between every guest.', 'No photos, no profiles, no tipping pressure: tips are pooled and shared.', 'A therapist may stop at any time; so may you.', 'Every room has a call button to the desk.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul><div class="card"><span class="lbl">Therapists on the license register</span><div class="h-disp h1 mt8">${F.THERAPISTS.filter(t => E.therOn(t, E.todayKey('la'))).length}</div><p class="small muted mt8">Across West Hollywood, SoHo and Marylebone. Touch, Glow and pelvic licenses.</p></div></div></section>` }) };
 F.Fm.vFind = (f, d) => { if (d.city && d.city !== F.cityId()) F.store.commit(s => { s.prefs.city = d.city; }); F.ui.rb = null; F.nav(`/build?t=${d.t}&g=${encodeURIComponent(d.g || 'Any')}`); };
 })();
 
@@ -3705,7 +3768,7 @@ F.pages.build = {
       ${isMember ? `<p class="small">${F.ic('check', 14)} Member price${pr.free ? ' and a free add-on' : ''}: ${E.money(U.r2(pr.disc + pr.free), c, true)} less.</p>` : `<p class="small muted">Members would pay ${E.money(memberWould, c, true)} for this visit. <a class="u" href="#/membership">About membership</a></p>`}
       ${`<form class="promo row nowrap" data-f="rbPromo"><label class="sr" for="rbPr">Promo code</label><input class="inp inp-sm" id="rbPr" name="code" value="${esc(b.promo)}" placeholder="Promo code" autocomplete="off"><button class="btn btn-ghost btn-sm">Apply</button></form>${promo && !promo.ok ? `<p class="ferr">${esc(promo.reason)}</p>` : ''}`}
       ${due > 0 ? F.payBlock(u, c, due) : ''}
-      <button class="btn btn-pri btn-lg btn-block" data-a="rbGo" ${err ? 'disabled' : ''}>Pay ${E.money(due, c, true)} and book</button><p class="tiny muted">Cancel more than 24 hours ahead for everything back; half back from 24 to 4 hours.</p></div>` : ''}</div></div>
+      <button class="btn btn-pri btn-lg btn-block" data-a="rbGo" ${err ? 'disabled' : ''}>${F.payCta(u, c, due, 'book')}</button><p class="tiny muted">Cancel more than 24 hours ahead for everything back; half back from 24 to 4 hours.</p></div>` : ''}</div></div>
     <aside class="co-side ph-hide"><div class="card co-sum">${F.trArt(t, 'r169')}<h2 class="h-disp h3 mt16">${esc(t.n)}</h2><p class="small muted mt8">${U.dur(b.dur)}${t.pair ? ' · for two' : ''}</p><div class="sum mt16">${t.release ? F.kv('Release', F.RELEASE[b.release]) : ''}${F.kv('Therapist', (t.two ? 'Two, ' : '') + (b.opts.gender === 'Any' ? 'any gender' : b.opts.gender.toLowerCase()) + (touch(t) ? ', ' + (b.opts.attire || '').toLowerCase() : ''))}${touch(t) ? F.kv('Oil', esc(b.opts.oil)) : ''}${F.kv('When', b.start ? U.fmt(b.start, tz, 'dt') : '—')}${F.kv('Where', esc(F.SPAS[c].name))}
       ${F.kv(esc(t.n), E.money(pr.base, c, true))}${pr.disc ? F.kv(isMember ? 'Member price' : 'Reserve price', '−' + E.money(pr.disc, c, true), 'kv-disc') : ''}${pr.add ? F.kv('Add-ons', E.money(pr.add, c, true)) : ''}${pr.free ? F.kv('A free add-on', '−' + E.money(pr.free, c, true), 'kv-disc') : ''}${promo && promo.ok ? F.kv(esc(promo.label), '−' + E.money(promo.amount, c, true), 'kv-disc') : ''}${F.kv('Total', E.money(due, c, true), 'kv-total')}</div></div></aside></div></div></section>
     ${F.bookBar({ title: esc(t.n), sub: b.start ? U.fmt(b.start, tz, 'dt') : U.dur(b.dur), price: E.money(due, c, true), btn: { label: b.start ? 'Pay and book' : 'Choose a time', a: 'rbJump' } })}` };
@@ -3758,7 +3821,7 @@ F.pages.program = {
       ${p.party ? `<div class="field"><label for="pgG">Guests, including the one getting married</label><select class="inp" id="pgG" data-ch="pgGuests">${[3, 4, 5, 6].map(n => `<option value="${n}" ${st.guests === n ? 'selected' : ''}>${n} guests</option>`).join('')}</select></div>` : ''}
       ${p.postpartum ? `<label class="check"><input type="checkbox" data-ch="pgPP" ${st.pp ? 'checked' : ''}><span>It’s been at least twelve weeks since the birth, and my doctor is happy.</span></label>` : ''}
       <div class="sum">${F.kv('Menu price', '<s>' + E.money(full, c, true) + '</s>')}${price < list ? F.kv('Program', '<s>' + E.money(list, c, true) + '</s>') + F.kv('Member price', E.money(price, c, true), 'kv-total') : F.kv('Program', E.money(price, c, true), 'kv-total')}</div>${F.payBlock(u, c, price)}
-      <button class="btn btn-pri btn-block" data-a="pgGo" ${u.verified ? '' : 'disabled'}>Pay ${E.money(price, c, true)} and book</button>${u.verified ? '' : '<button class="btn-link tiny" data-a="verifyId">Verify your identity first</button>'}<p class="tiny muted">Every visit can be moved later. Anything we can’t fit is refunded to your Wallet for you to book yourself.</p></div>`}</div>`)}
+      <button class="btn btn-pri btn-block" data-a="pgGo" ${u.verified ? '' : 'disabled'}>${F.payCta(u, c, price, 'book')}</button>${u.verified ? '' : '<button class="btn-link tiny" data-a="verifyId">Verify your identity first</button>'}<p class="tiny muted">Every visit can be moved later. Anything we can’t fit is refunded to your Wallet for you to book yourself.</p></div>`}</div>`)}
     ${open ? F.bookBar({ title: esc(p.name), price: E.money(price, c), btn: { label: 'Book it', a: 'pgJump' } }) : ''}` };
   }
 };
@@ -3783,7 +3846,7 @@ A.pgGo = async el => {
 const E = F.E, A = F.A, now = () => Date.now(), M = 6e4, H = 36e5, D = 864e5;
 E.early = v => v.extras.includes('steam') ? 45 : 15;
 F.VTONE = { confirmed: ['Booked', 'ok'], arrived: ['Arrived', 'live'], in: ['In the room', 'live'], lounge: ['In the lounge', 'live'], done: ['Done', 'mute'], cancelled: ['Cancelled', 'mute'] };
-const therLine = v => { const ts = v.ther.map(E.ther).filter(Boolean); return ts.length ? ts.map(x => `${F.GENDER[x.g]} (${esc(x.init)}) · licence ${x.lic}`).join('<br>') : '—'; };
+const therLine = v => { const ts = v.ther.map(E.ther).filter(Boolean); return ts.length ? ts.map(x => `${F.GENDER[x.g]} (${esc(x.init)}) · license ${x.lic}`).join('<br>') : '—'; };
 const desk = (v, u) => E.thread('desk:' + v.cityId, u.id, { name: F.SPAS[v.cityId].name, role: 'Front desk', color: '#FF3FA0', id: 'desk-' + v.cityId });
 // the card your therapist reads before you walk in
 F.ritualCard = v => { const t = E.tr(v.tid), tz = E.cityTz(v.cityId), z = v.map || E.myMap(E.userById(v.userId)), o = v.opts || {};
@@ -3851,8 +3914,8 @@ A.vsReceipt = el => {
   const v = E.visit(el.dataset.v), t = E.tr(v.tid), c = v.cityId, base = (v.paid || {}).base || E.cp(c, E.trUsd(t, v.dur)), adds = v.extras.map(x => { const a = F.ADDONS.find(y => y[0] === x); return { name: a[1], amount: E.cp(c, a[2]) }; }), p = v.paid || {};
   const lines = [{ name: t.n, sub: U.dur(v.dur) + ' · ' + U.fmt(v.start, E.cityTz(c), 'dt') + (p.program ? ' · part of a program' : p.migrated ? ' · paid before prices moved to money' : ''), amount: p.money != null ? base : null }].concat(adds.map(a => ({ name: a.name, amount: p.program ? null : a.amount })));
   const disc = []; if (p.money != null) { if (p.disc) disc.push({ label: p.member ? 'Member price' : 'Reserve price', amount: p.disc }); if (p.free) disc.push({ label: 'A free add-on', amount: p.free }); const promo = p.migrated ? 0 : U.r2(base - (p.disc || 0) - (p.free || 0) + adds.reduce((s, a) => s + a.amount, 0) - p.money); if (promo > .005) disc.push({ label: 'Promo ' + (p.promo || ''), amount: promo }); }
-  const total = p.money != null ? p.money : p.add || 0, licences = v.ther.map(E.ther).filter(Boolean).map(x => x.lic).join(', ');
-  F.openPaper(F.receipt({ no: v.no, title: t.n, cityId: c, at: v.createdAt, lines, sub: p.money != null ? U.r2(base + adds.reduce((s, a) => s + a.amount, 0)) : null, discounts: disc, total, paid: p.label || (p.program ? 'your program' : null), extra: `<p class="small mt8">Licensed therapist${v.ther.length > 1 ? 's' : ''}: ${licences}.</p>` }), 'Receipt');
+  const total = p.money != null ? p.money : p.add || 0, licenses = v.ther.map(E.ther).filter(Boolean).map(x => x.lic).join(', ');
+  F.openPaper(F.receipt({ no: v.no, title: t.n, cityId: c, at: v.createdAt, lines, sub: p.money != null ? U.r2(base + adds.reduce((s, a) => s + a.amount, 0)) : null, discounts: disc, total, paid: p.label || (p.program ? 'your program' : null), extra: `<p class="small mt8">Licensed therapist${v.ther.length > 1 ? 's' : ''}: ${licenses}.</p>` }), 'Receipt');
 };
 /* ---------- changes ---------- */
 A.vsCancel = async el => {
@@ -3936,7 +3999,7 @@ const pos = (dayStart, a, b) => { const l = Math.max(0, (a - dayStart) / span), 
 const simRuns = (c, room, tz, d0) => { const out = []; let run = null; for (let x = d0; x < d0 + span; x += Q) { if (E.simRoom(c, room, tz, x)) { if (run && x % E.RB) run[1] = x + Q; else out.push(run = [x, x + Q]); } else run = null; } return out; };
 F.pages.desk = {
   render(r) {
-    if (!staff()) return F.pages.ops.render({ params: [], q: {} });
+    if (!staff()) return F.staffIn({ title: 'Front <span class="it">desk.</span>', name: 'Front desk', lead: 'Today’s rooms, walk-ins and arrivals. For Velvet staff: enter your staff code.' });
     const c = F.cityId(), tz = E.cityTz(c), n = now(), day = E.spaDay(tz, n), d0 = U.zoned(tz, day, F.OPEN.from), sp = F.SPAS[c];
     const visits = F.S.visits.filter(v => v.cityId === c && v.status !== 'cancelled' && v.end > d0 && v.start < d0 + span);
     const wk = E.walkinsFor(c, day).map(w => ({ w, st: E.walkState(w) })), waiting = wk.filter(x => !x.st && x.w.at <= n), handled = wk.filter(x => x.st), seated = handled.filter(x => x.st.seated);
@@ -3954,7 +4017,7 @@ F.pages.desk = {
       ${handled.length ? `<span class="lbl mt24">Earlier</span><div class="stack-s mt8">${handled.slice().sort((a, b) => b.st.at - a.st.at).map(({ w, st }) => `<div class="kv small"><span>${esc(w.name)} · ${esc(E.tr(w.tid).n)}<small class="d-b muted">${st.seated ? `Seated ${U.fmt(st.start, tz, 'time')} in ${esc(F.ROOMS.find(x => x.id === st.room).name)} with ${esc(E.ther(st.ther).init)}` : 'Turned away'}${st.by === 'auto' ? ' · by the team' : ''}</small></span>${F.tone({ label: st.seated ? 'Seated' : 'Away', tone: st.seated ? 'ok' : 'mute' })}</div>`).join('')}</div>` : ''}</div>
     <div class="card"><span class="lbl">Members in today</span>${live.length ? `<div class="stack-s mt16">${live.map(v => `<div class="wk-r"><div><strong class="small">${esc(E.first(E.userById(v.userId)))} · ${esc(E.tr(v.tid).n)}</strong><small class="d-b muted">${U.fmt(v.start, tz, 'time')} · ${esc(F.ROOMS.find(x => x.id === v.room).name)} · ${F.VTONE[v.status][0]}</small></div><div class="row nowrap">${v.status === 'confirmed' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="arrived">Check in</button>` : v.status === 'arrived' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="in">Start</button>` : v.status === 'in' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="lounge">To the lounge</button>` : '<span class="tiny muted">Resting</span>'}</div></div>`).join('')}</div>` : '<p class="small muted mt16">No members booked here today.</p>'}</div></div>
     <div class="card"><div class="row between wrap-gap"><span class="lbl">Day sheet</span><span class="ds-key tiny muted"><span><i class="sim"></i>Booked guest</span><span><i class="mem"></i>Member</span><span><i class="wk"></i>Walk-in</span></span></div><div class="ds-w mt16"><div class="ds"><div class="ds-r ds-h"><span class="ds-l"></span><div class="ds-t">${hours.map((h, i) => `<span class="ds-hr" style="left:${(i / hours.length * 100).toFixed(3)}%">${h === 0 ? '12a' : h < 12 ? h + 'a' : h === 12 ? '12p' : h - 12 + 'p'}</span>`).join('')}</div></div>${rooms}</div></div></div>
-    <div class="card"><span class="lbl">On shift today · ${ths.length}</span><div class="tblw mt16"><table class="tbl"><thead><tr><th>Therapist</th><th>Licence</th><th>Shift</th><th>Now</th></tr></thead><tbody>${ths.map(({ t, sh }) => `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(q => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[q]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="mono small nw">${sh} · ${String(E.SHIFT[sh][0] / 60 % 24).padStart(2, '0')}:00–${String(E.SHIFT[sh][1] / 60 % 24).padStart(2, '0')}:00</td><td>${busyNow(t)}</td></tr>`).join('')}</tbody></table></div></div></div></section>` };
+    <div class="card"><span class="lbl">On shift today · ${ths.length}</span><div class="tblw mt16"><table class="tbl"><thead><tr><th>Therapist</th><th>License</th><th>Shift</th><th>Now</th></tr></thead><tbody>${ths.map(({ t, sh }) => `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(q => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[q]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="mono small nw">${sh} · ${String(E.SHIFT[sh][0] / 60 % 24).padStart(2, '0')}:00–${String(E.SHIFT[sh][1] / 60 % 24).padStart(2, '0')}:00</td><td>${busyNow(t)}</td></tr>`).join('')}</tbody></table></div></div></div></section>` };
   }
 };
 A.dkSeat = el => { let rec; F.store.commit(() => { rec = E.seatWalkin(E.walkin(el.dataset.w), false); }); if (!rec) return F.rerender(); F.toast(rec.seated ? `Seated in ${F.ROOMS.find(x => x.id === rec.room).name} at ${U.fmt(rec.start, E.cityTz(rec.cityId), 'time')}.` : 'Nothing free within 45 minutes. They’ll come back another day.', rec.seated ? '' : 'err'); F.rerender(); };
@@ -3982,10 +4045,10 @@ OV.rooms = () => {
 };
 OV.therapists = () => {
   const c = F.cityId(), tz = E.cityTz(c), day = E.spaDay(tz, now());
-  return `${F.cityChips()}<div class="tblw mt24"><table class="tbl"><thead><tr><th>Therapist</th><th>Licences</th><th>Joined</th><th>Today</th><th class="num">Member visits</th><th><span class="sr">Actions</span></th></tr></thead><tbody>${F.THERAPISTS.filter(t => t.city === c).map(t => { const sh = E.therShift(t, day), blocked = F.S.blocks.some(b => b.who === t.id && b.day === day); return `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(x => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[x]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="small">${day < t.joined ? 'Joins ' + U.keyFmt(t.joined, 'md') : U.keyFmt(t.since, 'md')}</td><td class="small">${day < t.joined ? '—' : t.left && day >= t.left ? 'Retired ' + U.keyFmt(t.left, 'md') : sh ? 'Shift ' + sh : blocked ? 'Off (sent home)' : 'Day off'}</td><td class="num">${F.S.visits.filter(v => v.ther.includes(t.id) && v.status !== 'cancelled').length}</td><td>${sh ? `<button class="btn-link tiny" data-a="opOff" data-t="${t.id}">Send home</button>` : blocked ? `<button class="btn-link tiny" data-a="opOn" data-t="${t.id}">Back on</button>` : ''}</td></tr>`; }).join('')}</tbody></table></div><p class="tiny muted mt16">Sending someone home hands their visits to another therapist with the same licence, or cancels them with everything back.</p>`;
+  return `${F.cityChips()}<div class="tblw mt24"><table class="tbl"><thead><tr><th>Therapist</th><th>Licenses</th><th>Joined</th><th>Today</th><th class="num">Member visits</th><th><span class="sr">Actions</span></th></tr></thead><tbody>${F.THERAPISTS.filter(t => t.city === c).map(t => { const sh = E.therShift(t, day), blocked = F.S.blocks.some(b => b.who === t.id && b.day === day); return `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(x => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[x]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="small">${day < t.joined ? 'Joins ' + U.keyFmt(t.joined, 'md') : U.keyFmt(t.since, 'md')}</td><td class="small">${day < t.joined ? '—' : t.left && day >= t.left ? 'Retired ' + U.keyFmt(t.left, 'md') : sh ? 'Shift ' + sh : blocked ? 'Off (sent home)' : 'Day off'}</td><td class="num">${F.S.visits.filter(v => v.ther.includes(t.id) && v.status !== 'cancelled').length}</td><td>${sh ? `<button class="btn-link tiny" data-a="opOff" data-t="${t.id}">Send home</button>` : blocked ? `<button class="btn-link tiny" data-a="opOn" data-t="${t.id}">Back on</button>` : ''}</td></tr>`; }).join('')}</tbody></table></div><p class="tiny muted mt16">Sending someone home hands their visits to another therapist with the same license, or cancels them with everything back.</p>`;
 };
 const dayOf = t => E.spaDay(E.cityTz(t.city), now());
-A.opOff = async el => { const t = E.ther(el.dataset.t); if (!(await F.confirm({ title: 'Send ' + t.init + ' home today?', body: 'Their member visits today move to another therapist with the same licence where possible.', ok: 'Send home' }))) return; F.store.commit(s => { s.blocks.push({ who: t.id, day: dayOf(t) }); s.visits.forEach(v => { if (v.ther.includes(t.id) && v.status === 'confirmed') v.checked = false; }); }); E.tick(); F.toast('Done. Visits handed over.'); F.rerender(); };
+A.opOff = async el => { const t = E.ther(el.dataset.t); if (!(await F.confirm({ title: 'Send ' + t.init + ' home today?', body: 'Their member visits today move to another therapist with the same license where possible.', ok: 'Send home' }))) return; F.store.commit(s => { s.blocks.push({ who: t.id, day: dayOf(t) }); s.visits.forEach(v => { if (v.ther.includes(t.id) && v.status === 'confirmed') v.checked = false; }); }); E.tick(); F.toast('Done. Visits handed over.'); F.rerender(); };
 A.opOn = el => { const t = E.ther(el.dataset.t); F.store.commit(s => { s.blocks = s.blocks.filter(b => !(b.who === t.id && b.day === dayOf(t))); }); F.toast('Back on shift.'); F.rerender(); };
 OV.menu = () => `<div class="tblw"><table class="tbl"><thead><tr><th>Treatment</th><th>Collection</th><th>On the menu from</th><th class="num">Booked here</th><th class="num">Rating</th></tr></thead><tbody>${F.TREAT.map(t => `<tr><td>${esc(t.n)}${t.hidden ? '<small class="d-b tiny muted">Programs only</small>' : ''}</td><td class="small">${F.COL[t.c][1]}</td><td><label class="sr" for="rel-${t.id}">Release date for ${esc(t.n)}</label><input class="inp inp-sm" type="date" id="rel-${t.id}" value="${F.trRel(t)}" data-ch="opRel" data-t="${t.id}"></td><td class="num">${F.S.visits.filter(v => v.tid === t.id && v.status !== 'cancelled').length}</td><td class="num">${E.trRating(t).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>`;
 F.C.opRel = el => { if (!/^\d{4}-\d{2}-\d{2}$/.test(el.value)) return; F.store.commit(s => { s.prefs.rel[el.dataset.t] = el.value; }); F.toast('Release date saved.'); F.rerender(); };
@@ -4077,7 +4140,7 @@ F.glowPaper = u => {
   return `<div class="paper gr"><header class="pp-head"><div><div class="pp-org">${F.SITE.logo}</div><div class="tiny">Glow record · private</div></div><div class="pp-ref"><span class="lbl">Guest</span><span class="typed">${esc(u.name)}</span><span class="tiny">${U.fmt(now(), tz, 'md')}</span></div></header>
   <h2 class="pp-title">Your Glow record<small>Every finished session · the level it reached · when upkeep is due</small></h2>
   <div class="gr-areas">${Object.entries(F.AREAS).map(([k, a]) => { const g = E.glow(u, k); return `<div class="gr-a"><span class="lbl">${a[0]}</span><div class="gbar mt8">${Array.from({ length: 7 }, (_, i) => `<i style="background:${E.glowTone(k, i)}" class="${i === g.level ? 'on' : ''}"></i>`).join('')}</div><p class="tiny mt8">${g.n ? `Level ${g.level} of 6 · upkeep by ${U.fmt(g.last + 60 * D, tz, 'md')}` : 'Not started'}</p></div>`; }).join('')}</div>
-  <table class="tbl mt32"><thead><tr><th>Date</th><th>Treatment</th><th>Spa</th><th>Licence</th></tr></thead><tbody>${vs.map(v => `<tr><td class="typed">${U.fmt(v.start, E.cityTz(v.cityId), 'md')}</td><td>${esc(E.tr(v.tid).n)}</td><td>${esc(F.SPAS[v.cityId].name.replace('Velvet ', ''))}</td><td class="typed">${v.ther.map(E.ther).filter(Boolean).map(t => t.lic).join(', ')}</td></tr>`).join('') || '<tr><td colspan="4">No sessions yet.</td></tr>'}</tbody></table>
+  <table class="tbl mt32"><thead><tr><th>Date</th><th>Treatment</th><th>Spa</th><th>License</th></tr></thead><tbody>${vs.map(v => `<tr><td class="typed">${U.fmt(v.start, E.cityTz(v.cityId), 'md')}</td><td>${esc(E.tr(v.tid).n)}</td><td>${esc(F.SPAS[v.cityId].name.replace('Velvet ', ''))}</td><td class="typed">${v.ther.map(E.ther).filter(Boolean).map(t => t.lic).join(', ')}</td></tr>`).join('') || '<tr><td colspan="4">No sessions yet.</td></tr>'}</tbody></table>
   <div class="pp-stamps">${F.stamp({ top: 'Velvet', mid: 'Glow Lab', bot: 'Private record', rot: -8, size: 112, color: '#7A1E6E' })}</div>
   <div class="paper-act noprint"><button class="btn btn-ghost btn-sm" data-a="printPaper">${F.ic('print', 14)} Print</button><button class="btn btn-pri btn-sm" data-a="closeModal">Done</button></div></div>`;
 };
@@ -4141,7 +4204,7 @@ const totals = c => { const b = bask(), sub = U.r2(Object.entries(b).filter(([id
 const qty = (id, q) => `<span class="qty"><button class="ibtn" data-a="bq" data-p="${id}" data-v="-1" aria-label="One fewer">${F.ic('minus', 14)}</button><span class="mono">${q}</span><button class="ibtn" data-a="bq" data-p="${id}" data-v="1" aria-label="One more">${F.ic('plus', 14)}</button></span>`;
 const addBtn = (x, label) => { const q = bask()[x.id] || 0; return q ? qty(x.id, q) : `<button class="btn btn-ghost btn-sm" data-a="bq" data-p="${x.id}" data-v="1">${F.ic('plus', 14)} ${label}</button>`; };
 const prod = x => { const c = F.cityId(), was = E.cp(c, x.usd), now_ = price(x, c);
-  return `<div class="card prod">${F.plate({ key: 'site/shop-' + x.id, art: F.SITE.art(x.id, 'boost'), cls: 'r11' })}<h3 class="prod-t mt16">${esc(x.n)}</h3>${x.body !== 'any' ? `<span class="badge b-ok mt8">${F.whoOf(x)}</span>` : ''}<p class="tiny muted mt4">${esc(x.s)}</p><p class="tiny muted mt4"><i class="dot live"></i> ${E.vvShopWeek(x)} bought this week</p><div class="row between nowrap mt8"><span class="mono small">${now_ < was ? `<s class="muted">${E.money(was, c)}</s> ` : ''}${E.money(now_, c)}</span>${F.rvLine('shop:' + x.id)}</div><div class="prod-a mt16">${addBtn(x, 'Add')}</div></div>`; };
+  return `<div class="card prod">${F.plate({ key: 'site/shop-' + x.id, art: F.SITE.art(x.id, 'boost'), cls: 'r11' + (F.LIGHT.has(x.id) ? ' pl-lt' : ''), cap: x.body !== 'any' ? F.whoOf(x) : '' })}<h3 class="prod-t mt16">${esc(x.n)}</h3><p class="tiny muted mt4">${esc(x.s)}</p><p class="tiny muted mt4"><i class="dot live"></i> ${E.vvShopWeek(x)} bought this week</p><div class="prod-f"><div class="row between nowrap"><span class="mono small">${now_ < was ? `<s class="muted">${E.money(was, c)}</s> ` : ''}${E.money(now_, c)}</span>${F.rvLine('shop:' + x.id)}</div><div class="prod-a">${addBtn(x, 'Add')}</div></div></div>`; };
 // one row of kinds in view; who it's for and the order behind the Filter button
 const KIND = { oil50: 'oil', oilnu: 'oil', nuru: 'oil', candle: 'oil', wand: 'toy', pmass: 'toy', bead: 'toy', silk: 'toy' };
 const SK = [['', 'Everything'], ['oil', 'Oils and gels'], ['toy', 'Toys'], ['care', 'Care']], SW = [['', 'Anyone'], ['vulva', F.WHO.vulva], ['penis', F.WHO.penis]], SS = [['', 'Top rated'], ['lo', 'Price, low to high'], ['hi', 'Price, high to low']];
@@ -4152,11 +4215,10 @@ F.pages.shop = {
     const c = F.cityId(), u = E.user(), tt = totals(c), se = E.vvSeason(c).find(e => e.tags.includes('shop')), q = r.q, link = o => '/shop' + U.q(Object.assign({ k: q.k, w: q.w, s: q.s }, o)), to = k => v => ({ q: link({ [k]: v }) }), list = shopList(q);
     const active = [['w', SW], ['s', SS]].filter(([k]) => q[k]).map(([k, l]) => ({ label: l.find(x => x[0] === q[k])[1], q: link({ [k]: '' }) }));
     return { title: 'Shop', html: `${F.pageHead({ eyebrow: 'Shop', title: 'Take it <span class="it">home.</span>', lead: `The oils from your ritual, the Rosé home kit and a few things for the bedroom. Plain packaging, free delivery over ${E.pm(150, c)}.` })}
-    <section class="sec-sm"><div class="wrap bk-g"><div>${se ? `<p class="small se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : ''}
+    <section class="sec-sm"><div class="wrap">${tt.n ? `<div class="bkbar ph-hide"><span class="small"><strong>Your basket</strong> · ${U.plural(tt.n, 'item')} · ${tt.ship ? 'delivery ' + E.money(tt.ship, c, true) : 'free delivery'}</span><span class="row nowrap"><span class="mono">${E.money(tt.total, c, true)}</span><button class="btn btn-pri btn-sm" data-a="cartOpen">Check out</button></span></div>` : ''}<div>${se ? `<p class="small se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : ''}
     <div class="${se ? 'mt24' : ''}">${F.secHead({ eyebrow: 'Bundles', lead: 'Things that belong together, 15% less than apart.' })}<div class="bund-l">${F.BUNDLES.map(b => `<div class="cc bund">${F.plate({ key: 'site/shop-' + b.items[0], art: F.SITE.art(b.id, 'boost'), cls: 'cc-ph r11' })}<span class="cc-b"><strong class="cc-t">${esc(b.n)}</strong><span class="cc-s">${esc(U.list(b.items.map(i => F.SHOPI[i].n.split(',')[0])))}</span><span class="cc-m mono"><s class="muted">${E.money(E.cp(c, b.items.reduce((t, i) => t + F.SHOPI[i].usd, 0)), c)}</s> ${E.money(price(b, c), c)}</span></span><span class="cc-r">${addBtn(b, 'Add')}</span></div>`).join('')}</div></div>
     <div class="mt48">${F.secHead({ eyebrow: 'Everything', lead: 'Oils, gels and the home kit can come back on their own every four to eight weeks, 10% less each time.' })}${F.filters({ id: 'shop', chips: F.fltChips(SK, q.k, to('k')), chipsLabel: 'Kind', html: F.fltGroup('For', SW, q.w, to('w')) + F.fltGroup('Sort', SS, q.s, to('s')), count: ['w', 's'].filter(k => q[k]).length, total: list.length, noun: 'product', active, clear: { q: link({ w: '', s: '' }) } })}
-    <div class="mt24">${list.length ? F.showMore('shop', list, prod, { n: 6, cls: 'cgrid2', more: 'More from the shop' }) : F.empty('Nothing here', 'Try another kind.', '')}</div></div></div>
-    <aside class="bk-side ph-hide"><div class="card bkc"><span class="lbl">Your basket</span>${tt.n ? `<div class="sum mt16">${F.kv(U.plural(tt.n, 'item'), E.money(tt.sub, c, true))}${F.kv('Delivery', tt.ship ? E.money(tt.ship, c, true) : 'Free')}${F.kv('Total', E.money(tt.total, c, true), 'kv-total')}</div><button class="btn btn-pri btn-block mt16" data-a="cartOpen">Check out</button>` : '<p class="small muted mt16">Nothing yet. Add something and it waits here.</p>'}</div></aside></div></section>
+    <div class="mt24">${list.length ? F.showMore('shop', list, prod, { n: 6, cls: 'cgrid2', more: 'More from the shop' }) : F.empty('Nothing here', 'Try another kind.', '')}</div></div></div></div></section>
     ${tt.n ? F.bookBar({ title: 'Your basket', sub: U.plural(tt.n, 'item'), price: E.money(tt.total, c, true), btn: { label: 'Check out', a: 'cartOpen' } }) : ''}` };
   }
 };
@@ -4164,9 +4226,11 @@ F.pages.shop = {
 const cart = () => { const c = F.cityId(), u = E.user(), b = bask(), tt = totals(c), lines = Object.keys(b).filter(id => b[id] > 0 && F.SHOPI[id]);
   const body = lines.length ? `<div class="stack">${lines.map(id => { const x = F.SHOPI[id]; return `<div class="cart-l"><div class="row between nowrap"><strong class="small">${esc(x.n)}</strong><span class="mono small">${E.money(price(x, c) * b[id], c, true)}</span></div><div class="row between wrap-gap mt8">${qty(id, b[id])}${E.REFILL.includes(id) ? `<label class="sr" for="rf-${id}">How often</label><select class="inp inp-sm" id="rf-${id}" data-ch="cartRefill" data-p="${id}">${[[0, 'Just once'], [4, 'Every 4 weeks, 10% less'], [6, 'Every 6 weeks, 10% less'], [8, 'Every 8 weeks, 10% less']].map(([w, l]) => `<option value="${w}" ${(refl()[id] || 0) === w ? 'selected' : ''}>${l}</option>`).join('')}</select>` : ''}</div></div>`; }).join('')}
     <div class="sum">${F.kv('Delivery', tt.ship ? E.money(tt.ship, c, true) : 'Free')}${F.kv('Total', E.money(tt.total, c, true), 'kv-total')}</div>${u ? F.payBlock(u, c, tt.total) : ''}</div>` : F.empty('Your basket is empty', 'Oils, the home kit and a few things for the bedroom.', '');
-  return { body, foot: lines.length ? (u ? `<button class="btn btn-pri btn-block" data-a="shopPay">Pay ${E.money(tt.total, c, true)} and send</button>` : '<button class="btn btn-pri btn-block" data-a="signin">Sign in to order</button>') : '' }; };
+  return { body, foot: lines.length ? (u ? `<button class="btn btn-pri btn-block" data-a="shopPay">${F.payCta(u, c, tt.total, 'order')}</button>` : '<button class="btn btn-pri btn-block" data-a="signin">Sign in to order</button>') : '' }; };
 A.cartOpen = () => { const x = cart(); F.drawer({ title: 'Your basket', body: x.body, foot: x.foot, id: 'cart' }); };
 const cartRedraw = () => { if (F._drawer && F._drawer.id === 'cart') A.cartOpen(); };
+// the Wallet switch in the basket changes what the card pays, so the drawer redraws with it
+const corePW = F.C.payWallet; F.C.payWallet = el => { corePW(el); cartRedraw(); };
 A.bq = el => { F.store.commit(s => { const b = s.prefs.basket; b[el.dataset.p] = Math.max(0, Math.min(9, (b[el.dataset.p] || 0) + +el.dataset.v)); if (!b[el.dataset.p]) delete b[el.dataset.p]; }); F.rerender(); cartRedraw(); };
 F.C.cartRefill = el => { F.store.commit(() => { refl()[el.dataset.p] = +el.value; }); };
 A.shopPay = async el => { F.busy(el, true, 'Paying'); await U.sleep(500);
@@ -4187,39 +4251,39 @@ E.roomsNow = c => E.memo('rn' + c + Math.floor(now() / (5 * M)), () => { const t
     let next = null; if (open && !free) for (let x = Math.ceil(n / (15 * M)) * 15 * M; x < n + 4 * 3600e3 && E.spaMins(tz, x) + 60 <= F.OPEN.to; x += 15 * M) { if (E.roomFree(c, k, x, x + 60 * M)) { next = x; break; } }
     return { k, n: rs.length, free, next }; }) }; });
 F.pages.spas = { render: () => ({ title: 'The spas', html: `${F.pageHead({ eyebrow: 'The spas', title: 'Three cities, <span class="it">thirteen rooms each.</span>', lead: 'Six touch rooms, the Wet Room, the Couples Suite, two Glow rooms, two steam thrones and the Salon. Open 10am to 2am.' })}
-  <section class="sec-sm"><div class="wrap g g3 al-start">${F.CITIES.map(c => { const sp = F.SPAS[c.id], rn = E.roomsNow(c.id), tz = E.cityTz(c.id), slides = [['site/spa-' + c.id, F.SITE.art(c.id, 'room'), sp.name]].concat(U.shuffle(U.rng(U.hash(c.id)), ROOMPH).slice(0, 4).map(([k, key, l]) => [key, F.SITE.art(c.id + k, 'room'), l]));
+  <section class="sec-sm"><div class="wrap g g3">${F.CITIES.map(c => { const sp = F.SPAS[c.id], rn = E.roomsNow(c.id), tz = E.cityTz(c.id), slides = [['site/spa-' + c.id, F.SITE.art(c.id, 'room'), sp.name]].concat(U.shuffle(U.rng(U.hash(c.id)), ROOMPH).slice(0, 4).map(([k, key, l]) => [key, F.SITE.art(c.id + k, 'room'), l]));
     return `<div class="card spa"><div class="car" data-car="${c.id}"><div class="car-t" tabindex="0" aria-label="${esc(sp.name)} photos">${slides.map(([key, art, l], i) => `<figure class="car-s">${F.plate({ key, art, cls: 'r43' })}<figcaption class="tiny">${esc(l)} · ${i + 1}/${slides.length}</figcaption></figure>`).join('')}</div><button class="ibtn car-b car-p" data-a="carGo" data-v="-1" aria-label="Previous photo">${F.ic('chevl', 16)}</button><button class="ibtn car-b car-n" data-a="carGo" data-v="1" aria-label="Next photo">${F.ic('chev', 16)}</button></div>
-    <div class="row between mt24"><span class="lbl">${c.name}</span>${F.rvLine('spa:' + c.id)}</div><h2 class="h-disp h3 mt8">${esc(sp.name)}</h2><p class="small mt8">${esc(sp.addr)}</p><p class="small muted mt4">${esc(sp.note)}</p>
-    <div class="rooms-now mt16"><span class="lbl"><i class="dot ${rn.open ? 'live' : ''}"></i> ${rn.open ? 'Right now' : 'Closed · opens at 10am'}</span>${rn.open ? `<ul class="stack-s mt8">${rn.kinds.map(x => `<li class="row between small"><span>${esc(F.ROOMKIND[x.k])}</span><span class="${x.free ? 'ok-t' : 'muted'}">${x.free ? (x.n > 1 ? x.free + ' of ' + x.n + ' free' : 'Free') : x.next ? 'Free from ' + U.fmt(x.next, tz, 'time') : 'Booked'}</span></li>`).join('')}</ul>` : ''}</div>
-    <div class="row wrap-gap mt24"><a class="btn btn-ghost btn-sm" href="#/build" data-a="setcity" data-c="${c.id}" data-follow="1">Book here</a><button class="btn-link mono small" data-a="call" data-c="${c.id}">${c.phone}</button></div></div>`; }).join('')}</div></section>` }) };
+    <div class="row between mt24"><span class="lbl">${c.name}</span>${F.rvLine('spa:' + c.id)}</div><h2 class="h-disp h3 mt8">${esc(sp.name)}</h2><p class="small mt8">${esc(sp.addr)}</p><p class="small muted mt4 sp-note">${esc(sp.note)}</p>
+    <div class="rooms-now mt16"><span class="lbl"><i class="dot ${rn.open ? 'live' : ''}"></i> ${rn.open ? 'Right now' : 'Closed · opens at ' + U.fmt(U.zoned(tz, E.spaDay(tz, now() + 8 * 3600e3), F.OPEN.from), tz, 'time')}</span>${rn.open ? `<ul class="stack-s mt8">${rn.kinds.map(x => `<li class="row between small"><span>${esc(F.ROOMKIND[x.k])}</span><span class="${x.free ? 'rn-free' : 'muted'}">${x.free ? (x.n > 1 ? x.free + ' of ' + x.n + ' free' : 'Free') : x.next ? 'Free from ' + U.fmt(x.next, tz, 'time') : 'Booked'}</span></li>`).join('')}</ul>` : ''}</div>
+    <div class="row wrap-gap spa-a"><a class="btn btn-ghost btn-sm" href="#/build" data-a="setcity" data-c="${c.id}" data-follow="1">Book here</a><button class="btn-link mono small" data-a="call" data-c="${c.id}">${c.phone}</button></div></div>`; }).join('')}</div></section>` }) };
 A.carGo = el => { const t = el.closest('.car').querySelector('.car-t'); t.scrollBy({ left: +el.dataset.v * t.clientWidth, behavior: 'smooth' }); };
 
 /* ---------- gift a ritual ---------- */
 const coreGift = F.pages.gift.render;
-const DESIGNS = [['noir', 'Noir'], ['rose', 'Rosé'], ['gold', 'Gold leaf']];
-const giftCard = (g, c, u) => { const t = E.tr(g.tid); return `<div class="gcard gd-${g.design}"><span class="lbl">Velvet · a ritual for you</span><div class="h-disp gcard-t mt16">${esc(t.n)}</div><p class="small mt8">${U.dur(g.dur)} at any Velvet spa, with everything included.</p><p class="hand-s mt16">${esc(g.msg || 'Your message appears here.')}</p><p class="tiny mt16">${esc(g.to || 'To someone')} · from ${esc(g.from || (u ? E.first(u) : 'you'))}</p></div>`; };
+const giftCard = (g, c, u) => { const t = E.tr(g.tid); return F.giftCard({ design: g.design, title: t.n, amt: E.money(E.cp(c, E.trNow(t, g.dur, c)), c), sub: `${U.dur(g.dur)} · any Velvet spa`, msg: g.msg, to: g.to, from: g.from || (u ? E.first(u) : 'you') }); };
 F.pages.gift = {
   render(r) {
-    const mode = F.ui.giftMode || 'ritual', seg = `<div class="seg" role="group" aria-label="Gift">${[['ritual', 'A ritual'], ['amount', 'An amount']].map(([k, l]) => `<button class="seg-b ${mode === k ? 'on' : ''}" data-a="giftMode" data-v="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div>`;
-    const head = F.pageHead({ eyebrow: 'Gift', title: 'Give them <span class="it">a ritual.</span>', lead: 'Choose the ritual, write a few words, and pick the day it arrives. It becomes a gift code worth exactly that ritual, on every FLINGR site.' });
-    if (mode === 'amount') { const x = coreGift(r); return { title: 'Gift', html: head + `<section class="sec-sm gift-seg"><div class="wrap">${seg}</div></section>` + x.html.slice(x.html.indexOf('<section class="sec-sm">')) }; }
+    const mode = F.ui.giftMode || 'ritual', seg = `<div class="seg mt32" role="group" aria-label="Gift">${[['ritual', 'A ritual'], ['amount', 'An amount']].map(([k, l]) => `<button class="seg-b ${mode === k ? 'on' : ''}" data-a="giftMode" data-v="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div>`;
+    const head = F.pageHead({ eyebrow: 'Gift', title: 'Give them <span class="it">a ritual.</span>', lead: 'Choose the ritual, write a few words, pick the day. It arrives as a gift code worth exactly that ritual.', extra: seg });
+    if (mode === 'amount') { const x = coreGift(r); return { title: 'Gift', html: head + x.html.slice(x.html.indexOf('<section class="sec-sm">')) }; }
     const u = E.user(), c = F.cityId(), g = F.ui.vg = F.ui.vg || { tid: 'warm', dur: 90, design: 'noir', when: 'now', date: U.addDays(E.todayKey(c), 7) }, t = E.tr(g.tid); if (!t.d.includes(g.dur)) g.dur = t.d[t.d.length - 1];
     const amt = E.cp(c, E.trNow(t, g.dur, c));
-    return { title: 'Gift', html: `${head}<section class="sec-sm gift-seg"><div class="wrap">${seg}</div></section>
-    <section class="sec-sm"><div class="wrap split al-start"><div class="gprev">${giftCard(g, c, u)}<div class="row wrap-gap mt16" role="group" aria-label="Design">${DESIGNS.map(([k, l]) => `<button class="chip chip-sm ${g.design === k ? 'on' : ''}" data-a="vgSet" data-k="design" data-v="${k}" aria-pressed="${g.design === k}">${l}</button>`).join('')}</div></div>
-    <form class="card stack" data-f="vGift"><div class="field"><label for="vgT">Ritual</label><select class="inp" id="vgT" data-ch="vgRitual">${F.COLS.filter(x => x[0] !== 'occasion').map(([k, l]) => `<optgroup label="${l}">${F.TREAT.filter(x => x.c === k && !x.hidden && F.trOpen(x)).map(x => `<option value="${x.id}" ${x.id === t.id ? 'selected' : ''}>${esc(x.n)}</option>`).join('')}</optgroup>`).join('')}</select></div>
-    ${t.d.length > 1 ? `<fieldset><legend class="lbl">Length</legend><div class="row wrap-gap mt8">${t.d.map(d => `<button type="button" class="chip chip-sm ${g.dur === d ? 'on' : ''}" data-a="vgSet" data-k="dur" data-v="${d}" aria-pressed="${g.dur === d}">${U.dur(d)}</button>`).join('')}</div></fieldset>` : ''}
+    return { title: 'Gift', html: `${head}
+    <section class="sec-sm"><div class="wrap gift-g"><div class="gift-l"><div class="gc-prev">${giftCard(g, c, u)}</div>${F.giftDesigns(g.design, 'vgSet')}</div>
+    <form class="gift-f" data-f="vGift"><div class="card stack"><div class="field"><label for="vgT">Ritual</label><select class="inp" id="vgT" data-ch="vgRitual">${F.COLS.filter(x => x[0] !== 'occasion').map(([k, l]) => `<optgroup label="${l}">${F.TREAT.filter(x => x.c === k && !x.hidden && F.trOpen(x)).map(x => `<option value="${x.id}" ${x.id === t.id ? 'selected' : ''}>${esc(x.n)}</option>`).join('')}</optgroup>`).join('')}</select></div>
+    ${t.d.length > 1 ? `<fieldset><legend class="lbl">Length</legend><div class="row wrap-gap">${t.d.map(d => `<button type="button" class="chip chip-sm ${g.dur === d ? 'on' : ''}" data-a="vgSet" data-k="dur" data-v="${d}" aria-pressed="${g.dur === d}">${U.dur(d)}</button>`).join('')}</div></fieldset>` : ''}
     <div class="fgrid"><div class="field"><label for="vgN">To</label><input class="inp" id="vgN" name="to" value="${esc(g.to || '')}" data-c="vgField" data-k="to" autocomplete="off"></div><div class="field"><label for="vgE">Their email</label><input class="inp" id="vgE" name="email" type="email" value="${esc(g.email || '')}" data-c="vgField" data-k="email"></div></div>
-    <div class="field"><label for="vgM">A few words <span class="muted">(optional)</span></label><textarea class="inp" id="vgM" name="msg" rows="2" maxlength="160" data-c="vgField" data-k="msg">${esc(g.msg || '')}</textarea></div>
-    <fieldset><legend class="lbl">It arrives</legend><div class="row wrap-gap mt8">${[['now', 'Straight away'], ['date', 'On a day I choose']].map(([k, l]) => `<button type="button" class="chip chip-sm ${g.when === k ? 'on' : ''}" data-a="vgSet" data-k="when" data-v="${k}" aria-pressed="${g.when === k}">${l}</button>`).join('')}</div>${g.when === 'date' ? `<div class="field mt16"><label for="vgD">Delivery day</label><input class="inp" type="date" id="vgD" min="${U.addDays(E.todayKey(c), 1)}" value="${g.date}" data-ch="vgDate"></div>` : ''}</fieldset>
-    ${u ? F.payBlock(u, c, amt) : ''}<button class="btn btn-pri">${u ? 'Pay ' + E.money(amt, c, true) + (g.when === 'date' ? ' and schedule' : ' and send') : 'Sign in to give'}</button></form></div></section>` };
+    <div class="field"><label for="vgM">A few words <span class="muted">(optional)</span></label><textarea class="inp" id="vgM" name="msg" rows="2" maxlength="120" data-c="vgField" data-k="msg">${esc(g.msg || '')}</textarea></div>
+    <fieldset><legend class="lbl">It arrives</legend><div class="row wrap-gap">${[['now', 'Straight away'], ['date', 'On a day I choose']].map(([k, l]) => `<button type="button" class="chip chip-sm ${g.when === k ? 'on' : ''}" data-a="vgSet" data-k="when" data-v="${k}" aria-pressed="${g.when === k}">${l}</button>`).join('')}</div>${g.when === 'date' ? `<div class="field mt16"><label for="vgD">Delivery day</label><input class="inp" type="date" id="vgD" min="${U.addDays(E.todayKey(c), 1)}" value="${g.date}" data-ch="vgDate"></div>` : ''}</fieldset></div>
+    <div class="card stack"><span class="lbl">Summary</span><div class="sum">${F.kv(esc(t.n), U.dur(g.dur))}${F.kv('Arrives', g.when === 'date' ? U.fmt(U.zoned(E.cityTz(c), g.date, 540), E.cityTz(c), 'dt') : 'Straight away, by email')}${F.kv('Total', E.money(amt, c, true), 'kv-total')}</div>
+    ${u ? F.payBlock(u, c, amt) : ''}<button class="btn btn-pri btn-block">${u ? F.payCta(u, c, amt, g.when === 'date' ? 'schedule' : 'send') : 'Sign in to give'}</button></div></form></div></section>` };
   }
 };
 A.giftMode = el => { F.ui.giftMode = el.dataset.v; F.rerender(); };
 A.vgSet = el => { F.ui.vg[el.dataset.k] = el.dataset.k === 'dur' ? +el.dataset.v : el.dataset.v; F.rerender(); };
 F.C.vgRitual = el => { F.ui.vg.tid = el.value; F.rerender(); };
-F.C.vgDate = el => { if (/^\d{4}-\d{2}-\d{2}$/.test(el.value)) F.ui.vg.date = el.value; };
-F.C.vgField = el => { F.ui.vg[el.dataset.k] = el.value; const p = $('.gprev .gcard'); if (p) p.outerHTML = giftCard(F.ui.vg, F.cityId(), E.user()); };
+F.C.vgDate = el => { if (/^\d{4}-\d{2}-\d{2}$/.test(el.value)) { F.ui.vg.date = el.value; F.rerender(); } };
+F.C.vgField = el => { F.ui.vg[el.dataset.k] = el.value; const p = $('.gc-prev'); if (p) p.innerHTML = giftCard(F.ui.vg, F.cityId(), E.user()); };
 F.Fm.vGift = async (f, d) => {
   const u = F.requireUser('/gift'); if (!u) return; F.clearErr(f);
   if (!d.to) return F.fieldErr(f, 'to', 'Who is it for?'); if (!U.validEmail(d.email)) return F.fieldErr(f, 'email', 'Enter their email.');
@@ -4317,7 +4381,7 @@ A.pgPause = async el => { const w = +el.dataset.w; if (!(await F.confirm({ title
 
 /* ---- 49-extras.js ---- */
 /* Velvet: share the ritual card with a partner, the body map's history (compare any past visit with now), "Running late?"
-   to the desk, "your room is ready" on the day, and favourite hands (therapists you'd like again). */
+   to the desk, "your room is ready" on the day, and favorite hands (therapists you'd like again). */
 (() => {
 'use strict';
 const E = F.E, A = F.A, now = () => Date.now(), M = 6e4, H = 36e5, D = 864e5;
@@ -4371,11 +4435,11 @@ F.ticks.push(n => {
 /* ---------- favourite hands ---------- */
 E.favs = u => u ? arr('favs').filter(f => f.userId === u.id && E.ther(f.therId)) : [];
 E.isFav = (u, id) => E.favs(u).some(f => f.therId === id);
-A.favToggle = el => { const id = el.dataset.t; F.store.commit(() => { const u = E.user(), list = arr('favs'), i = list.findIndex(f => f.userId === u.id && f.therId === id); if (i >= 0) list.splice(i, 1); else list.push({ userId: u.id, therId: id, tid: el.dataset.r || null, at: now() }); }); F.toast(E.isFav(E.user(), id) ? 'Saved to your favourite hands.' : 'Removed from your favourites.'); F.rerender(); };
-F.favBtn = (u, v) => v.ther.map(E.ther).filter(Boolean).map(x => { const on = E.isFav(u, x.id); return `<button class="btn btn-ghost btn-sm btn-block" data-a="favToggle" data-t="${x.id}" data-r="${v.tid}" aria-pressed="${on}">${F.ic('heart', 14)} ${on ? 'In your favourites' : 'Save these hands'} · ${esc(F.GENDER[x.g])} (${esc(x.init)})</button>`; }).join('');
+A.favToggle = el => { const id = el.dataset.t; F.store.commit(() => { const u = E.user(), list = arr('favs'), i = list.findIndex(f => f.userId === u.id && f.therId === id); if (i >= 0) list.splice(i, 1); else list.push({ userId: u.id, therId: id, tid: el.dataset.r || null, at: now() }); }); F.toast(E.isFav(E.user(), id) ? 'Saved to your favorite hands.' : 'Removed from your favorites.'); F.rerender(); };
+F.favBtn = (u, v) => v.ther.map(E.ther).filter(Boolean).map(x => { const on = E.isFav(u, x.id); return `<button class="btn btn-ghost btn-sm btn-block" data-a="favToggle" data-t="${x.id}" data-r="${v.tid}" aria-pressed="${on}">${F.ic('heart', 14)} ${on ? 'In your favorites' : 'Save these hands'} · ${esc(F.GENDER[x.g])} (${esc(x.init)})</button>`; }).join('');
 F.favCard = u => { const fs = E.favs(u); if (!fs.length) return '';
-  return `<div class="card"><span class="lbl">Your favourite hands</span><div class="stack-s mt16">${fs.map(f => { const x = E.ther(f.therId), on = E.therOn(x, E.todayKey(x.city)), t = E.tr(f.tid) || E.tr(E.lastRitual(u) ? E.lastRitual(u).tid : 'warm');
-    return `<div class="row between wrap-gap"><span class="small">${esc(F.GENDER[x.g])} (${esc(x.init)})<span class="d-b tiny muted">Licence ${esc(x.lic)} · ${esc(F.SPAS[x.city].name)}</span></span>${on && t ? `<a class="btn btn-ghost btn-sm" href="#/build?t=${t.id}&same=${x.id}">Book with them</a>` : '<span class="tiny muted">Not on the rota now</span>'}</div>`; }).join('')}</div></div>`; };
+  return `<div class="card"><span class="lbl">Your favorite hands</span><div class="stack-s mt16">${fs.map(f => { const x = E.ther(f.therId), on = E.therOn(x, E.todayKey(x.city)), t = E.tr(f.tid) || E.tr(E.lastRitual(u) ? E.lastRitual(u).tid : 'warm');
+    return `<div class="row between wrap-gap"><span class="small">${esc(F.GENDER[x.g])} (${esc(x.init)})<span class="d-b tiny muted">License ${esc(x.lic)} · ${esc(F.SPAS[x.city].name)}</span></span>${on && t ? `<a class="btn btn-ghost btn-sm" href="#/build?t=${t.id}&same=${x.id}">Book with them</a>` : '<span class="tiny muted">Not on the rota now</span>'}</div>`; }).join('')}</div></div>`; };
 })();
 
 /* ---- 50-evening.js ---- */
