@@ -364,7 +364,7 @@ legend{padding:0;margin-bottom:10px}
 .chk{display:flex;flex-direction:column;gap:10px}.chk li{display:flex;gap:10px;align-items:center;font-size:14px}.chk li .ic{color:var(--mut)}.chk li.done .ic{color:var(--ok)}.chk li span{flex:1}
 .next{display:block}.next.live{border-color:var(--pri);box-shadow:0 0 0 1px var(--pri) inset}
 .lrow{display:grid;grid-template-columns:64px 18px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 14px;background:var(--card);border:1px solid var(--ln);border-radius:var(--rs)}.lrow:hover{border-color:var(--ln2)}.lrow-d{display:flex;flex-direction:column}.lrow-d b{font:400 20px var(--f-disp)}.lrow-d small{font-size:11px;color:var(--mut)}.lrow .ic{color:var(--pri)}
-.prow{display:flex;flex-direction:column;gap:2px;padding:10px 0;border-bottom:1px solid var(--ln)}.prow:last-child{border-bottom:0}.prow .pstrip{margin-top:8px}
+
 @media (max-width:960px){.bd2{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.lrow{grid-template-columns:52px minmax(0,1fr) auto}.lrow>.ic{display:none}}
 .stack>.btn-link,.stack-s>.btn-link{align-self:flex-start}
@@ -444,7 +444,7 @@ body.locked .ck{visibility:hidden}   /* the cookie bar stays out of the way of a
 .ov-t{display:flex;gap:12px;align-items:flex-start;padding:12px;margin:0 -12px;border-radius:10px;color:var(--fg)}.ov-t:hover{background:var(--ln)}.ov-t>svg{flex:none;margin-top:2px;color:var(--pri)}
 .narrow-l{max-width:760px}
 /* phone: the account tab row scrolls; a soft edge shows there is more */
-@media(max-width:640px){.acct-nav .subnav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.acct-more summary{padding:12px 8px}}
+@media(max-width:640px){.acct-nav .subnav{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent calc(100% - 4px));mask-image:linear-gradient(90deg,#000 calc(100% - 44px),transparent calc(100% - 4px))}.acct-nav .subnav.sc-l{-webkit-mask-image:linear-gradient(90deg,transparent 4px,#000 44px,#000 calc(100% - 44px),transparent calc(100% - 4px));mask-image:linear-gradient(90deg,transparent 4px,#000 44px,#000 calc(100% - 44px),transparent calc(100% - 4px))}.acct-more summary{padding:12px 8px 12px 12px}.acct-more{border-left:1px solid var(--ln)}}
 .costep{scroll-margin-top:calc(var(--hdr) + 16px)}
 
 /* ============ shared kit: spacing scale, tab bar, sheets, compact lists, chips, reviews, search, hub ============ */
@@ -635,7 +635,6 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 /* phones: 16px in fields so iOS does not zoom the page on focus; no grey flash on tap (every control has its own pressed state) */
 @media (hover:none) and (pointer:coarse){input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),select,textarea{font-size:16px!important}}
 a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
-.nobr{white-space:nowrap}
 
 /* keyboard shortcuts sheet (shared/js/keys.js) */
 .kb{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border:1px solid var(--ln2);border-bottom-width:2px;border-radius:6px;font:500 12px/1 var(--f-mono);color:var(--fg)}
@@ -832,6 +831,27 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .gp .gc{margin-top:24px}
 /* phones: menu names wrap, so two names a row get the same two-line space and the lines below start level */
 @media (max-width:640px){.ptile-t{min-height:2.3em}.tg-pf2>.tile-feat .ptile-t{min-height:0}}
+
+/* phones: photo tiles become compact rows (photo left, words right), so a collection fits in two or three screens */
+@media (max-width:640px){
+.tgrid{grid-template-columns:minmax(0,1fr);gap:12px}
+.tgrid>.ptile,.tgrid>.ptile.tile-feat{display:grid;grid-template-columns:96px minmax(0,1fr);grid-column:auto;grid-row:auto}
+.tgrid>.ptile .plate,.tg-pf2>.tile-feat .plate{width:96px;aspect-ratio:4/5;height:auto;align-self:stretch;min-height:120px}
+.tgrid>.ptile .plate-cap{display:none}
+.tgrid .ptile-b{padding:12px 14px;gap:4px}
+.tgrid .ptile-t,.tgrid>.tile-feat .ptile-t{font-size:18px;min-height:0}
+.tgrid .ptile-s{display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}
+.tgrid .ptile-x:has(.dot.live){display:none}
+.tgrid .ptile-f{padding-top:6px}
+.cl-home>.cc:nth-child(n+5){display:none}
+.opts-show{display:none}
+.yv-ph{display:none}
+.fy-recent{display:none}
+}
+.dk-shift summary{cursor:pointer;list-style:none;min-height:44px;align-items:center}.dk-shift summary::-webkit-details-marker{display:none}.dk-shift[open] summary .ic{transform:rotate(180deg)}
+@media (max-width:640px){.tbl .ph-hide{display:none}}
+.vstage-bar{height:6px;border-radius:3px;background:var(--ln);overflow:hidden}.vstage-bar i{display:block;height:100%;background:var(--pri);border-radius:3px}
+.vstage .chiprow{flex-wrap:wrap;margin-right:0;padding-right:0}
 
 </style>
 <script>if(/^(#\/?)?$/.test(location.hash)){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='photos/site-hero.avif';l.fetchPriority='high';document.head.appendChild(l)}</script>
@@ -1315,6 +1335,12 @@ F.empty = (title, body, cta) => `<div class="empty"><div class="empty-mark">${F.
 F.noOrphan = h => { const parts = String(h).split(/(<[^>]*>)/); for (let i = parts.length - 1; i >= 0; i--) { if (parts[i][0] === '<') continue; const j = parts[i].trimEnd().lastIndexOf(' '); if (j > -1) { parts[i] = parts[i].slice(0, j) + '&nbsp;' + parts[i].slice(j + 1); break; } } return parts.join(''); };
 F.pageHead = ({ eyebrow, title, lead, extra = '', cls = '' }) => `<section class="phero ${cls}"><div class="wrap"><div class="eyebrow ln rv">${eyebrow}</div><h1 class="h-cond phero-t rv">${F.noOrphan(title)}</h1>${lead ? `<p class="lead rv">${lead}</p>` : ''}${extra}</div></section>`;
 F.signedOut = (title, body, next) => `<section class="sec"><div class="wrap narrow center">${F.empty(title, body, `<button class="btn btn-pri mt24" data-a="signin" data-next="${esc(next || '')}">Sign in</button><p class="small muted mt16">New here? <button class="btn-link" data-a="signup" data-next="${esc(next || '')}">Create a FLINGR account</button></p>`)}</div></section>`;
+// a row of tabs that scrolls sideways: leave it at the start when the current tab already fits; otherwise scroll just
+// enough to show it whole, and start the row on a tab's edge so no tab is cut in half on the left
+F.tabInView = n => { const on = n.querySelector('a.on'), tabs = [...n.querySelectorAll('a')]; if (!on || n.scrollWidth <= n.clientWidth) return;
+  const x0 = n.getBoundingClientRect().left - n.scrollLeft, L = el => el.getBoundingClientRect().left - x0, R = el => L(el) + el.offsetWidth, room = n.clientWidth - 32;
+  if (R(on) <= room) { n.scrollLeft = 0; return; }
+  const want = R(on) - room, start = tabs.find(t => L(t) >= want - 1) || on; n.scrollLeft = Math.min(L(start), L(on)); n.classList.toggle('sc-l', n.scrollLeft > 0); };
 F.subnav = (items, cur, label = 'Sections') => `<nav class="subnav" aria-label="${label}">${items.map(([href, l, n]) => `<a href="${href}" class="${cur === href ? 'on' : ''}" ${cur === href ? 'aria-current="page"' : ''}>${l}${n ? ` <span class="n">${n}</span>` : ''}</a>`).join('')}</nav>`;
 F.kv = (k, v, cls = '') => `<div class="kv ${cls}"><span>${k}</span><span>${v}</span></div>`;
 F.when = (ms, cityId, kind = 'dt') => U.fmt(ms, E.city(cityId).tz, kind);
@@ -1362,7 +1388,7 @@ F.render = (scroll = true) => {
   if (scroll && !restored) { if (sameView) window.scrollTo(0, y0); else if (samePage) { const nav = $('.subnav', main), top = nav ? nav.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 72) - 12 : y0; window.scrollTo(0, Math.max(0, Math.min(y0, top))); } else if (r.frag) { setTimeout(() => { const t = document.getElementById(r.frag); if (t) t.scrollIntoView({ block: 'start' }); }, 30); } else window.scrollTo(0, 0); }
   F.closeMenus(); F.chrome();
   try { P.mount && P.mount(r); } catch (e) { console.error(e); }
-  $$('.subnav').forEach(n => { const on = n.querySelector('a.on'); if (on && n.scrollWidth > n.clientWidth) n.scrollLeft = Math.max(0, on.offsetLeft - n.clientWidth / 2 + on.offsetWidth / 2); });
+  $$('.subnav').forEach(F.tabInView);
   $$('.days').forEach(n => { const on = n.querySelector('.on'); if (on && n.scrollWidth > n.clientWidth) n.scrollLeft += on.getBoundingClientRect().left - n.getBoundingClientRect().left - (n.clientWidth - on.offsetWidth) / 2; });
   F.reveal(); F.hsDots(); if (F.afterRender) F.afterRender(r);
   if (scroll) try { const st = history.state; if (!st || !st.seen) history.replaceState(Object.assign({}, st, { seen: 1, from: prev ? prev.full : null }), '', location.href); } catch (e) { }   // where this entry was opened from (see F.nav in 14-kit.js)
@@ -2972,16 +2998,16 @@ const L = '2026-10-22', B = '2027-02-01', P = '2027-05-01';
 // [id, collection, name, line, durations, USD per duration, room, qualification, release options, extras]
 const T = [
   ['warm', 'touch', 'Warm Oil Awakening', 'Full body, warm oil, unhurried, ending wherever you choose.', [60, 90], [220, 310], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Shower, robe, a glass of something, and two minutes with your therapist to agree the body map.'], [10, 'Face down: warm oil, long strokes from the soles of the feet to the back of the neck.'], [30, 'The inner thighs and the curve of the buttocks, slowly, again and again.'], [45, 'Face up: chest, belly and hips, the hands drifting closer each time.'], [55, 'If you chose a release: the hands stay, the pace rises, and you finish.']] }],
-  ['lingam', 'touch', 'Lingam Ritual', 'The penis and testicles, worshipped, edged and released.', [90, 120], [340, 440], 'touch', 'touch', ['one', 'edge', 'ruin', 'many', 'decide'], { body: 'penis', steps: [[0, 'Breathing together, then a full-body warm-up so you’re melting before anything else.'], [20, 'Oil poured slowly over the shaft and balls. Twisting strokes, the frenulum, the perineum.'], [45, 'Edging: brought to the brink and held there, again and again, until you’re shaking.'], [75, 'Release your way: one long finish, ruined on purpose, or as many as you have in you.']] }],
+  ['lingam', 'touch', 'Lingam Ritual', 'The penis and testicles, massaged slowly, edged and released.', [90, 120], [340, 440], 'touch', 'touch', ['one', 'edge', 'ruin', 'many', 'decide'], { body: 'penis', steps: [[0, 'Breathing together, then a full-body warm-up so you’re melting before anything else.'], [20, 'Oil poured slowly over the shaft and balls. Twisting strokes, the frenulum, the perineum.'], [45, 'Edging: brought to the brink and held there, again and again, until you’re shaking.'], [75, 'Release your way: one long finish, ruined on purpose, or as many as you have in you.']] }],
   ['yoni', 'touch', 'Yoni Ritual', 'The vulva, clitoris and G-spot, with as many orgasms as you like.', [90, 120], [360, 460], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'vulva', steps: [[0, 'Breath and a full-body warm-up until the belly softens.'], [20, 'Warm oil over the mound and lips; the outer lips, the inner lips, the hood, slowly.'], [40, 'The clitoris: circles, then stillness, then circles, at the pressure you ask for.'], [60, 'Inside, with consent: the come-here curl on the G-spot while the other hand stays on the clit.'], [80, 'Release: one orgasm, or wave after wave. Then stillness, a warm towel, and time.']] }],
   ['prostate', 'touch', 'Prostate Release', 'From the perineum to the prostate, for a deep, different orgasm.', [60, 90], [280, 380], 'touch', 'touch', ['one', 'many', 'decide'], { body: 'penis', steps: [[0, 'A full-body warm-up and slow breathing to relax the pelvic floor.'], [15, 'External: the perineum, pressed and circled until the whole area warms.'], [30, 'Gloved, lubricated and patient: one finger inside, resting until the sphincter opens.'], [40, 'Steady pressure and rocking on the prostate, with or without a hand on the penis, until it comes.']] }],
-  ['clit', 'touch', 'Clit Focus', 'Forty-five minutes on the clitoris alone. Multiples encouraged.', [45], [240], 'touch', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Settling in, oil warmed, legs supported with bolsters.'], [5, 'The hood and the sides first, feather-light, until you’re asking for more.'], [15, 'One rhythm, held without changing, through the first orgasm.'], [25, 'A still, cupped hand while the sensitivity fades, then building again, faster each time.']] }],
+  ['clit', 'touch', 'Clit Focus', 'Forty-five minutes on the clitoris only. As many orgasms as you like.', [45], [240], 'touch', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Settling in, oil warmed, legs supported with bolsters.'], [5, 'The hood and the sides first, feather-light, until you’re asking for more.'], [15, 'One rhythm, held without changing, through the first orgasm.'], [25, 'A still, cupped hand while the sensitivity fades, then building again, faster each time.']] }],
   ['breast', 'touch', 'Breast & Nipple Ritual', 'Breasts, chest and nipples, for any chest, slowly and with intent.', [45], [190], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Warm oil across the chest, shoulders and collarbones.'], [10, 'Circling the breasts or chest in slow spirals, never quite arriving.'], [25, 'The nipples: fingertips, a little pinch if you like, warm and cool.'], [40, 'If you chose a release: one hand stays, one hand travels.']] }],
   ['anal', 'touch', 'Anal Unwind', 'External and internal relaxation, as far as you want to go.', [45], [210], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Buttocks and lower back, kneaded until the whole area lets go.'], [15, 'Gloved and generous with lube: circles at the entrance.'], [25, 'A fingertip inside, only when your body invites it; slow, still, then rocking.'], [40, 'Finish as you choose.']] }],
   ['nuru', 'touch', 'Nuru Slide', 'Body to body in warm Nuru gel. Your therapist nude, sliding over you.', [75, 105], [390, 520], 'wet', 'touch', ['one', 'many', 'decide'], { body: 'any', attire: 'Nude', steps: [[0, 'Showered together, then onto the warmed vinyl mat in the Wet Room.'], [10, 'Warm Nuru gel poured over both of you. Your therapist slides along your back, thighs and buttocks.'], [40, 'Turned over: chest to chest, hips to hips, every inch of skin in contact.'], [60, 'Release with hands, as you chose, then a long warm rinse.']] }],
-  ['fourhands', 'touch', 'Four Hands', 'Two therapists, perfectly in time. Nowhere left untouched.', [90], [620], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'any', two: true, steps: [[0, 'Two therapists, one rhythm: mirrored strokes from head to toe.'], [30, 'One at your chest, one at your thighs; you stop knowing whose hands are whose.'], [60, 'Both hands on you at once where it matters most, until you finish.']] }],
+  ['fourhands', 'touch', 'Four Hands', 'Two therapists working in time, head to toe.', [90], [620], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'any', two: true, steps: [[0, 'Two therapists, one rhythm: mirrored strokes from head to toe.'], [30, 'One at your chest, one at your thighs; you stop knowing whose hands are whose.'], [60, 'Both hands on you at once where it matters most, until you finish.']] }],
   ['edge', 'touch', 'Edge Ritual', 'Two hours on the edge. Released at the end, or not at all.', [120], [520], 'touch', 'touch', ['edge', 'ruin'], { body: 'any', steps: [[0, 'Full-body warm-up, unhurried.'], [30, 'Brought to the edge and stopped. Again. And again.'], [90, 'Your therapist reads every breath and keeps you there, trembling.'], [110, 'The finish: released at last, or denied and sent home buzzing, as you chose.']] }],
-  ['squirt', 'touch', 'Squirt Session', 'The G-spot, steady pressure and towels down. Let go completely.', [75], [420], 'wet', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Warm-up and clitoral touch until you’re very aroused.'], [25, 'Two fingers, the come-here curl, steady and firm on the G-spot.'], [45, 'When it feels like needing to pee, your therapist keeps going and tells you to let go.'], [60, 'The finish: wave after wave, or one big one, on towels in the Wet Room. Then a rinse and the lounge.']] }],
+  ['squirt', 'touch', 'Squirt Session', 'The G-spot, steady pressure and towels down. Let it happen.', [75], [420], 'wet', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Warm-up and clitoral touch until you’re very aroused.'], [25, 'Two fingers, the come-here curl, steady and firm on the G-spot.'], [45, 'When it feels like needing to pee, your therapist keeps going and tells you to let go.'], [60, 'The finish: wave after wave, or one big one, on towels in the Wet Room. Then a rinse and the lounge.']] }],
   ['tantra', 'touch', 'Tantra Full', 'Three hours: breath, full-body awakening and multiple releases.', [180], [780], 'touch', 'touch', ['many', 'edge', 'decide'], { body: 'any', steps: [[0, 'Breathing together, eyes open, until your heart rate slows.'], [30, 'Full-body awakening: feathers, fingertips, oil.'], [90, 'Genital massage in waves, building and resting, energy moving up the body.'], [150, 'Release after release, or one enormous one. Then a long, held rest.']] }],
   ['express', 'touch', 'Express Release', 'Thirty minutes, straight to the point. Lunchtime or late night.', [30], [140], 'touch', 'touch', ['one'], { body: 'any', steps: [[0, 'Five minutes of warm oil on back and shoulders.'], [10, 'Straight to the point, at the pressure you ask for, until you finish.'], [25, 'A hot towel and out the door.']] }],
   ['side', 'pairs', 'Side by Side', 'Two tables, two therapists, one candlelit suite. Release optional for each of you.', [90], [640], 'couples', 'touch', ['none', 'one', 'decide'], { body: 'any', two: true, pair: true, steps: [[0, 'Champagne in the couples suite, robes off.'], [10, 'Two therapists, two tables, a hand’s reach apart.'], [60, 'Each of you finishes as you chose, watching the other or not.']] }],
@@ -2998,14 +3024,14 @@ const T = [
   ['sackfacial', 'glow', 'Shaft & Sack Facial', 'A facial for the penis and scrotum: steam, exfoliation, a mask.', [45], [150], 'glow', 'glow', null, { body: 'penis', steps: [[0, 'Warm steam and cleanse.'], [15, 'Exfoliation and ingrowns.'], [30, 'Mask and serum.']] }],
   ['buttfacial', 'glow', 'Butt Facial', 'Exfoliate, extract, mask and smooth the buttocks.', [45], [140], 'glow', 'glow', null, { body: 'any', steps: [[0, 'Steam and cleanse.'], [15, 'Exfoliation and extractions.'], [30, 'Mask and firming massage.']] }],
   ['brazil', 'glow', 'Sugar Brazilian', 'Everything off, front to back, with warm sugar paste.', [45], [110], 'glow', 'glow', null, { area: 'vulva', wax: true, body: 'vulva', steps: [[0, 'Cleanse and a light powder.'], [5, 'Warm sugar paste, flicked off with the grain.'], [35, 'Soothing oil.']] }],
-  ['manzil', 'glow', 'Male Brazilian', 'Shaft, scrotum and between the cheeks, smooth.', [60], [140], 'glow', 'glow', null, { area: 'him', wax: true, body: 'penis', steps: [[0, 'Cleanse and trim.'], [10, 'Warm sugar, section by section.'], [50, 'Soothing oil.']] }],
+  ['manzil', 'glow', 'Male Brazilian', 'Hair removed from the shaft, scrotum and between the cheeks.', [60], [140], 'glow', 'glow', null, { area: 'him', wax: true, body: 'penis', steps: [[0, 'Cleanse and trim.'], [10, 'Warm sugar, section by section.'], [50, 'Soothing oil.']] }],
   ['laser', 'glow', 'Laser Brazilian', 'Laser hair removal, front to back, in a six-session series.', [30], [260], 'glow', 'glow', null, { area: 'vulva', laser: true, series: [6, 42], body: 'any', steps: [[0, 'Shaved area cleaned and cooled.'], [5, 'Laser passes with a cooling tip.'], [25, 'Aloe and SPF.']] }],
-  ['ingrown', 'glow', 'Ingrown Rescue', 'Bumps and ingrowns, released and calmed.', [30], [95], 'glow', 'glow', null, { body: 'any', steps: [[0, 'Steam.'], [10, 'Gentle release of each ingrown.'], [25, 'Calming serum.']] }],
+  ['ingrown', 'glow', 'Ingrown Rescue', 'Ingrown hairs and bumps, freed and calmed.', [30], [95], 'glow', 'glow', null, { body: 'any', steps: [[0, 'Steam.'], [10, 'Gentle release of each ingrown.'], [25, 'Calming serum.']] }],
   ['steam', 'boost', 'Yoni Steam', 'Thirty minutes over warm herbal steam: mugwort, rose, calendula.', [30], [90], 'steam', 'glow', null, { body: 'vulva', steps: [[0, 'Seated on the steam throne under a robe.'], [5, 'Warm herbal steam rises for twenty-five minutes.'], [25, 'Tea and a rest.']] }],
   ['rf', 'boost', 'RF Tightening', 'Radiofrequency for vaginal tightening and sensation, in a series of three.', [45], [480], 'glow', 'pelvic', null, { body: 'vulva', series: [3, 28], rf: true, rel: B, steps: [[0, 'Consultation and a warmed, comfortable position.'], [10, 'A slim radiofrequency wand, inside and out, warming the tissue.'], [35, 'Rest; most people feel tighter and more sensitive within days.']] }],
-  ['kegel', 'boost', 'Kegel Biofeedback', 'See your pelvic floor on a screen and train it properly.', [45], [180], 'glow', 'pelvic', null, { body: 'any', rel: B, steps: [[0, 'A small sensor, and your pelvic floor on screen.'], [10, 'Squeezes, holds and releases, coached by the numbers.'], [35, 'A home plan.']] }],
+  ['kegel', 'boost', 'Kegel Biofeedback', 'See your pelvic floor muscles on a screen and learn to train them.', [45], [180], 'glow', 'pelvic', null, { body: 'any', rel: B, steps: [[0, 'A small sensor, and your pelvic floor on screen.'], [10, 'Squeezes, holds and releases, coached by the numbers.'], [35, 'A home plan.']] }],
   ['pelvic', 'boost', 'Pelvic Release', 'Internal trigger-point therapy by a licensed pelvic therapist.', [60], [260], 'glow', 'pelvic', null, { body: 'any', rel: B, steps: [[0, 'Intake and breathing.'], [15, 'External release of the hips and belly.'], [30, 'Gloved internal release of tight pelvic floor muscles.'], [50, 'Breathing and a home plan.']] }],
-  ['stamina', 'boost', 'Stamina Session', 'Vacuum pump warm-up and coached edging, to last longer for good.', [60], [280], 'touch', 'touch', ['edge', 'one'], { body: 'penis', rel: B, steps: [[0, 'A short vacuum pump session for blood flow.'], [15, 'Edging with your therapist calling your number from one to ten.'], [45, 'Released at the end, after the longest edge yet.']] }],
+  ['stamina', 'boost', 'Stamina Session', 'Vacuum pump warm-up and coached edging, to help you last longer.', [60], [280], 'touch', 'touch', ['edge', 'one'], { body: 'penis', rel: B, steps: [[0, 'A short vacuum pump session for blood flow.'], [15, 'Edging with your therapist calling your number from one to ten.'], [45, 'Released at the end, after the longest edge yet.']] }],
   ['pulse', 'boost', 'Pulse Therapy', 'Low-intensity pulse therapy for firmer, faster erections, in a series of six.', [30], [350], 'glow', 'pelvic', null, { body: 'penis', series: [6, 7], rel: P, steps: [[0, 'A cooling gel on the shaft.'], [5, 'Gentle pulses along the length for twenty minutes.'], [25, 'Done; nothing to recover from.']] }]
 ];
 F.TREAT = T.map(([id, c, n, s, d, usd, room, q, rel, x]) => Object.assign({ id, c, n, s, d, usd, room, q, release: rel, rel: L }, x));
@@ -3086,7 +3112,7 @@ F.CONTENT = {
     cookies: { title: 'Cookie Policy', updated: 'October 22, 2026', sections: [['Essential', 'Sign-in, booking and security.'], ['Preferences', 'Your city and currency.'], ['Analytics', 'Aggregated, non-identifying usage, only if you agree.']] }
   },
   journal: [
-    { slug: 'why-velvet', cat: 'Velvet', title: 'Why Velvet', read: 3, ago: 3, excerpt: 'Most spas pretend. We put the whole menu on the wall.', body: [['p', 'Every city has massage parlors that hint and spas that refuse. Velvet is neither: a beautiful spa where sensual touch is the point, written plainly on the menu, done by licensed therapists.'], ['h', 'Your choices, in writing'], ['p', 'Before you arrive you choose your ritual, your release, your therapist’s gender and what they wear, your oil, your music and your light. You paint your body map. Nothing is guessed in the room.'], ['h', 'The line we hold'], ['p', 'Hands, forearms, bodies on Nuru, and toys. Never oral, never intercourse, never you touching the therapist. It’s what makes it possible to relax completely.']], cta: ['See the menu', '#/menu'] },
+    { slug: 'why-velvet', cat: 'Velvet', title: 'Why Velvet', read: 3, ago: 3, excerpt: 'What we offer, written plainly on the menu.', body: [['p', 'Every city has massage parlors that hint and spas that refuse. Velvet is neither: a beautiful spa where sensual touch is the point, written plainly on the menu, done by licensed therapists.'], ['h', 'Your choices, in writing'], ['p', 'Before you arrive you choose your ritual, your release, your therapist’s gender and what they wear, your oil, your music and your light. You paint your body map. Nothing is guessed in the room.'], ['h', 'The line we hold'], ['p', 'Hands, forearms, bodies on Nuru, and toys. Never oral, never intercourse, never you touching the therapist. It’s what lets you relax.']], cta: ['See the menu', '#/menu'] },
     { slug: 'the-rose-series-honestly', cat: 'Glow', title: 'The Rosé series, honestly', read: 4, ago: 12, excerpt: 'What brightening can and can’t do, and why six sessions two weeks apart.', body: [['p', 'Intimate skin is naturally darker than the rest of you; that’s normal, and it’s fine. If you’d like it lighter and more even, a series of gentle peels can brighten it gradually.'], ['h', 'How it works'], ['p', 'Mild acids lift the top layers so newer, lighter skin comes through. Two weeks between sessions lets the skin settle. Six sessions is where most people see the change they wanted.'], ['h', 'Keeping it'], ['p', 'Results fade without upkeep: friction, hormones and time all darken skin again. Your Glow tracker shows it, privately, and reminds you when a maintenance session is due.']], cta: ['The Glow Lab', '#/glow'] },
     { slug: 'edged-or-released', cat: 'Rituals', title: 'Edged, released, or denied', read: 3, ago: 26, excerpt: 'Choosing your release, and why the Edge Ritual is the most re-booked thing on the menu.', body: [['p', 'Every touch ritual lists its release options. “One release” is the simple one. “Edged, then released” brings you to the brink and holds you there before letting go. “Edged and denied” sends you home buzzing.'], ['h', 'Decide in the room'], ['p', 'Not sure? Choose “decide in the room” and tell your therapist when you know.']] }
   ]
@@ -3561,11 +3587,11 @@ F.pages.home = {
     <div class="xs-f"><label for="vfC">Spa</label><select id="vfC" name="city">${F.CITIES.map(x => `<option value="${x.id}" ${x.id === c ? 'selected' : ''}>${esc(F.SPAS[x.id].name.replace('Velvet ', ''))}</option>`).join('')}</select></div>
     <div class="xs-f"><label for="vfG">Therapist</label><select id="vfG" name="g">${F.OPT.gender.map(g => `<option>${g}</option>`).join('')}</select></div><button class="btn btn-pri">Find a time ${F.ic('arrow', 14)}</button></form>
     <p class="live-l mt16"><i class="dot ${open ? 'live' : ''}"></i>${open ? `${esc(sp)} is open until 2am` : `${esc(sp)} opens at 10am`}</p></div></div></section>
-    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u)}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
+    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u) || (u && !E.myVisits(u).some(v => ['confirmed', 'arrived', 'in', 'lounge'].includes(v.status)) && F.usualCard(u) ? `<div class="vv-top">${F.usualCard(u)}</div>` : '')}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
     ${tonight.length ? `<div class="g g2 tn">${tonight.map(({ t, sl }) => `<a class="tn-c spot-on" href="#/build?t=${t.id}&d=${t.d[0]}&g=${encodeURIComponent(g)}&s=${sl.start}"><span class="tn-t mono">${U.fmt(sl.start, tz, 'time')}</span><span class="tn-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(t.d[0])} · from ${F.trFrom(t, c)}</small></span>${F.ic('arrow', 16)}</a>`).join('')}</div>` : `<p class="lead">${open ? 'Tonight is fully booked; late cancellations open up here first. Tomorrow opens at 10am, and the evening times go first.' : 'We open at 10am. The evening times go first.'}</p><a class="btn btn-pri mt24" href="#/build">Book for tomorrow</a>`}</div></section>
     <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="chiprow">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>
-    <div class="clist cl-s2 mt24">${feat.map(F.trCC).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
-    <section class="sec-md sec-alt"><div class="wrap split"><div>${F.secHead({ eyebrow: 'Your ritual, your rules', title: 'Nothing is <span class="it">guessed</span> in the room', lead: 'Choose the release, the oil, the light and your therapist. Paint your body map once; it travels with every visit. Licensed hands only: never oral, never intercourse, and you stop anything with a word.' })}<a class="btn btn-pri" href="#/build">Start building</a></div>
+    <div class="clist cl-s2 cl-home mt24">${feat.map(F.trCC).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
+    <section class="sec-md sec-alt"><div class="wrap split"><div>${F.secHead({ eyebrow: 'Your ritual, your rules', title: 'Nothing is <span class="it">guessed</span> in the room', lead: 'Choose how it ends, the oil, the light and your therapist. Mark your body map once and every therapist sees it. Hands only: no oral, no sex, and one word stops everything.' })}<a class="btn btn-pri" href="#/build">Start building</a></div>
     <div class="opts-show">${[['Release', F.RELEASE.edge], ['Oil', F.OPT.oil[1]], ['Light', F.OPT.light[0]], ['Therapist', 'A woman, in lingerie'], ['Body map', 'Genitals: yes · Anus: gently · Feet: avoid']].map(([k, v]) => `<div class="od-r"><span class="lbl">${k}</span><span class="hand-s">${esc(v)}</span></div>`).join('')}</div></div></section>
     ` };
   }
@@ -3620,7 +3646,7 @@ F.pages.treatment = {
   render(r) {
     const t = E.tr(r.params[0]); if (!t || t.hidden) return F.pages.notfound.render(r);
     const c = F.cityId(), u = E.user(), open = F.trOpen(t), se = open && E.trSeason(t, c), n = E.thersFor(t, c).filter(x => E.therOn(x, E.todayKey(c))).length, dur = t.d.includes((F.ui.trd || {})[t.id]) ? F.ui.trd[t.id] : t.d[0];
-    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}<span class="dh-m2">${F.rvLine('tr:' + t.id)}${open && F.vvWeekLine ? ' · ' + F.vvWeekLine(t) : ''}</span>`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
+    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}<span class="dh-m2">${F.rvLine('tr:' + t.id)}${open && F.vvWeekLine ? ' · ' + F.vvWeekLine(t) : ''}</span>`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (u && E.trStage(t.id) > E.vStage(u).i ? `<p class="tiny muted mt16">Most guests book this after ${U.plural(F.VSTAGES[E.trStage(t.id)].need, 'visit')}.</p>` : '') + F.seriesLine(u, t) + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
     ${F.detailBody(`<div>${F.secHead({ eyebrow: 'Minute by minute', lead: t.d.length > 1 ? `Shown for ${U.dur(t.d[0])}; the ${U.dur(t.d[1])} stretches every part.` : '' })}${F.timeline(t, t.d[0])}</div>
     <div>${F.secHead({ eyebrow: 'Guests say' })}${F.reviewBrief(F.vvT('tr:' + t.id))}</div>`, `${open ? `<div class="card dbook"><span class="lbl">Book</span><div class="row wrap-gap end mt8"><span class="h-disp dbook-p">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, dur, c))), c)}</span><span class="small muted">${E.memberPct(u) ? `<s>${E.money(E.cp(c, E.trNow(t, dur, c)), c)}</s> member price` : `members ${E.money(E.mprice(E.cp(c, E.trNow(t, dur, c))), c)}`}</span></div>
     ${t.d.length > 1 ? `<div class="fopts" role="group" aria-label="Length">${t.d.map(d => `<button class="fopt ${d === dur ? 'on' : ''}" data-a="trDur" data-t="${t.id}" data-v="${d}" aria-pressed="${d === dur}">${F.ic('clock', 15)}<span><strong>${U.dur(d)}</strong></span><span class="mono tiny">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, d, c))), c)}</span></button>`).join('')}</div>` : `<p class="small muted mt8">${U.dur(dur)}</p>`}
@@ -3675,10 +3701,11 @@ F.pages.yourvisit = { render: () => { const c = F.cityId(), sp = F.SPAS[c], city
   <div class="card"><span class="lbl">${F.ic('clock', 14)} Arrive</span><h2 class="h-disp h4 mt16">Fifteen minutes early</h2><p class="small muted mt8">Time to shower and settle. Arrive late and the ritual still ends on time.</p></div>
   <div class="card"><span class="lbl">${F.ic('check', 14)} Bring</span><h2 class="h-disp h4 mt16">Nothing at all</h2><p class="small muted mt8">Robes, slippers, towels, showers and toiletries are here. On a first visit, bring the ID you verified with.</p></div>
   <div class="card"><span class="lbl">${F.ic('pin', 14)} ${esc(city.name)}</span><h2 class="h-disp h4 mt16">${esc(sp.name)}</h2><p class="small mt8">${esc(sp.addr)}</p><p class="small muted mt4">${esc(sp.note)}</p><button class="btn-link mono mt16" data-a="call" data-c="${c}">${city.phone}</button></div></div></div></section>
-  <section class="sec-sm sec-alt"><div class="wrap split al-start yv-s"><div>${F.secHead({ eyebrow: 'Step by step', title: 'How a visit <span class="it">runs</span>' })}<ol class="mins">${VISIT.map(([m, x]) => `<li><span class="mono">${m}</span><p>${x}</p></li>`).join('')}</ol></div>${F.plate({ key: 'site/spa-' + c, art: F.SITE.art(c, 'room'), cls: 'r45', cap: esc(sp.name) })}</div></section>
-  <section class="sec-sm"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Aftercare' })}<ul class="ticks">${['Drink water; warm oil and steam dehydrate.', 'After a Glow peel: no hot baths, sun or scented products for 48 hours.', 'After waxing: nothing tight and no exercise for a day.', 'After RF: two days before internal touch.', 'Anything feels wrong? Call the desk, day or night.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul></div>
-  <div>${F.secHead({ eyebrow: 'House rules' })}<ul class="ticks">${['Licensed hands only: never oral, never intercourse.', 'You don’t touch your therapist.', 'No phones in the rooms; lockers have chargers.', 'Either of you can stop at any time.', 'Tips are optional, pooled and shared.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul></div></div></section>
-  <section class="sec-sm sec-alt"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Questions', title: 'Before you <span class="it">book</span>' })}<div class="btn-row"><a class="btn btn-pri" href="#/build">Build a ritual</a><a class="btn btn-ghost" href="#/help">All questions</a></div></div><div class="accs">${F.acc(F.CONTENT.faq.filter(x => x[0] === 'Your visit' && !/bring/.test(x[1])).concat(F.CONTENT.faq.filter(x => /cancel/.test(x[1]))).map(x => [x[1], esc(x[2])]), { name: 'yv' })}</div></div></section>` }; } };
+  <section class="sec-sm sec-alt"><div class="wrap split al-start yv-s"><div>${F.secHead({ eyebrow: 'Step by step', title: 'How a visit <span class="it">runs</span>' })}<ol class="mins">${VISIT.map(([m, x]) => `<li><span class="mono">${m}</span><p>${x}</p></li>`).join('')}</ol></div><div class="yv-ph">${F.plate({ key: 'site/spa-' + c, art: F.SITE.art(c, 'room'), cls: 'r45', cap: esc(sp.name) })}</div></div></section>
+  <section class="sec-sm"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Good to know', title: 'Before you <span class="it">book</span>' })}<div class="btn-row"><a class="btn btn-pri" href="#/build">Build a ritual</a><a class="btn btn-ghost" href="#/help">All questions</a></div></div>
+  <div class="accs">${F.acc([['House rules', RULES], ['Aftercare', CARE]].map(([q, l]) => [q, `<ul class="ticks">${l.map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul>`]).concat(F.CONTENT.faq.filter(x => x[0] === 'Your visit' && !/bring/.test(x[1])).concat(F.CONTENT.faq.filter(x => /cancel/.test(x[1]))).map(x => [x[1], esc(x[2])])), { name: 'yv', open: 0 })}</div></div></section>` }; } };
+const RULES = ['Licensed hands only: no oral, no sex.', 'You don’t touch your therapist.', 'No phones in the rooms; lockers have chargers.', 'Either of you can stop at any time.', 'Tips are optional, pooled and shared.'];
+const CARE = ['Drink water; warm oil and steam dry you out.', 'After a Glow peel: no hot baths, sun or scented products for 48 hours.', 'After waxing: nothing tight and no exercise for a day.', 'After RF: two days before internal touch.', 'Anything feels wrong? Call the desk, day or night.'];
 F.pages.standards = { render: () => ({ title: 'Standards', html: `${F.pageHead({ eyebrow: 'Standards', title: 'Licensed, <span class="it">and it shows.</span>', lead: 'Every therapist holds a Licensed Intimate Therapist credential for what they practice. Glow therapists are licensed aestheticians; pelvic therapists are licensed pelvic health practitioners.' })}<section class="sec-sm"><div class="wrap split al-start"><ul class="ticks">${['License numbers are printed on every receipt.', 'Touch rituals by touch-licensed therapists only; internal work and RF by pelvic practitioners.', 'Gloves for every internal touch. Fresh linen and a full clean between every guest.', 'No photos, no profiles, no tipping pressure: tips are pooled and shared.', 'A therapist may stop at any time; so may you.', 'Every room has a call button to the desk.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul><div class="card"><span class="lbl">Therapists on the license register</span><div class="h-disp h1 mt8">${F.THERAPISTS.filter(t => E.therOn(t, E.todayKey('la'))).length}</div><p class="small muted mt8">Across West Hollywood, SoHo and Marylebone. Touch, Glow and pelvic licenses.</p></div></div></section>` }) };
 F.Fm.vFind = (f, d) => { if (d.city && d.city !== F.cityId()) F.store.commit(s => { s.prefs.city = d.city; }); F.ui.rb = null; F.nav(`/build?t=${d.t}&g=${encodeURIComponent(d.g || 'Any')}`); };
 })();
@@ -3983,16 +4010,17 @@ const tile = (href, ic, t, sub, act) => `<a class="ov-t" ${act ? `data-a="${act}
 V[''] = u => {
   const up = upcoming(u), next = up[0], live = next && next.status !== 'confirmed', m = E.memberOf(u) || E.memberSeat(u), last = E.lastRitual(u), ga = glowAreas(u), sh = E.sheet(u), c = F.cityId();
   const hero = next ? `<a class="card next ${live ? 'live' : ''}" href="#/account/visit/${next.id}"><div class="row between"><span class="lbl">${live ? F.VTONE[next.status][0] : 'Your next visit'}</span>${live ? '<span class="badge b-live"><i class="dot live"></i>Now</span>' : ''}</div><h2 class="h-disp h2 mt8">${esc(E.tr(next.tid).n)}</h2><p class="small muted mt4">${U.dur(next.dur)} · ${U.fmt(next.start, E.cityTz(next.cityId), 'dt')} · ${esc(F.SPAS[next.cityId].name)}</p><span class="btn btn-ghost btn-sm mt16">Visit details</span></a>`
-    : last ? `<div class="card next"><span class="lbl">Book again</span><h2 class="h-disp h2 mt8">${esc(E.tr(last.tid).n)}</h2><p class="small muted mt4">${U.dur(last.dur)}${last.release ? ' · ' + F.RELEASE[last.release] : ''}${last.opts.oil ? ' · ' + esc(last.opts.oil) : ''}, as last time.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/build?t=${last.tid}&d=${last.dur}">Book it again</a><a class="btn-link tiny" href="#/menu">Or choose from the menu</a></div></div>`
-    : `<div class="card next"><span class="lbl">Nothing booked yet</span><h2 class="h-disp h2 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt16">Full body, warm oil, unhurried, and you choose how it ends.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/treatment/warm">Book it</a><a class="btn-link tiny" href="#/menu">Or see the whole menu</a></div></div>`;
+    : F.usualCard(u) || (last ? `<div class="card next"><span class="lbl">Book again</span><h2 class="h-disp h2 mt8">${esc(E.tr(last.tid).n)}</h2><p class="small muted mt4">${U.dur(last.dur)}${last.release ? ' · ' + F.RELEASE[last.release] : ''}${last.opts.oil ? ' · ' + esc(last.opts.oil) : ''}, as last time.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/build?t=${last.tid}&d=${last.dur}">Book it again</a><a class="btn-link tiny" href="#/menu">Or choose from the menu</a></div></div>`
+    : `<div class="card next"><span class="lbl">Nothing booked yet</span><h2 class="h-disp h2 mt8">Start with Warm Oil Awakening</h2><p class="small muted mt16">Full body, warm oil, unhurried, and you choose how it ends.</p><div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="#/treatment/warm">Book it</a><a class="btn-link tiny" href="#/menu">Or see the whole menu</a></div></div>`);
   const zones = sh.marked;
   return { title: 'Account', html: `${F.vvTop(u)}${u.verified ? '' : `<div class="notice mb24">${F.ic('lock', 16)}<span>Verify your identity before your first visit. <button class="btn-link tiny" data-a="verifyId">Verify</button></span></div>`}
-  <div class="ov2"><div class="stack">${hero}
+  <div class="ov2"><div class="stack">${hero}${E.vStage(u).n ? F.stageCard(u) : ''}
     ${up.length > 1 ? `<div><div class="row between"><span class="lbl">Also booked</span><a class="btn-link tiny" href="#/account/visits">All visits</a></div><div class="stack-s mt16">${up.slice(1, 4).map(vRow).join('')}</div></div>` : ''}</div>
     <aside class="card ov-side"><span class="lbl">At a glance</span><div class="stack-s mt16">
       ${tile('#/account/wallet', 'wallet', E.money(E.walletIn(u, c), c) + ' in your Wallet', m ? `Member prices until ${U.fmt(m.periodEnd, E.cityTz(m.cityId), 'md')}` : 'Paying per ritual')}
       ${tile('#/account/bodymap', 'drop', 'Touch sheet', F.sheetLine(u) + (zones ? '. Every therapist reads it first' : '. Two minutes makes it yours'))}
       ${tile('#/account/visits', 'cal', up.length ? U.plural(up.length, 'visit') + ' booked' : 'Visits', up.length ? 'Coming up and before' : 'Your history and programs')}
+      ${E.favs(u).length ? tile('#/account/visits?v=past', 'heart', 'Favorite hands', U.plural(E.favs(u).length, 'therapist') + ' saved') : ''}
       ${ga.length ? tile('#/account/glow', 'sparkle', 'Glow tracker', ga.map(([k, g]) => F.AREAS[k][0] + ' ' + g.level + '/6').join(' · ')) : ''}
     </div></aside></div>` };
 };
@@ -4052,7 +4080,7 @@ F.pages.desk = {
       ${handled.length ? `<span class="lbl mt24">Earlier</span><div class="stack-s mt8">${handled.slice().sort((a, b) => b.st.at - a.st.at).map(({ w, st }) => `<div class="kv small"><span>${esc(w.name)} · ${esc(E.tr(w.tid).n)}<small class="d-b muted">${st.seated ? `Seated ${U.fmt(st.start, tz, 'time')} in ${esc(F.ROOMS.find(x => x.id === st.room).name)} with ${esc(E.ther(st.ther).init)}` : 'Turned away'}${st.by === 'auto' ? ' · by the team' : ''}</small></span>${F.tone({ label: st.seated ? 'Seated' : 'Away', tone: st.seated ? 'ok' : 'mute' })}</div>`).join('')}</div>` : ''}</div>
     <div class="card"><span class="lbl">Members in today</span>${live.length ? `<div class="stack-s mt16">${live.map(v => `<div class="wk-r"><div><strong class="small">${esc(E.first(E.userById(v.userId)))} · ${esc(E.tr(v.tid).n)}</strong><small class="d-b muted">${U.fmt(v.start, tz, 'time')} · ${esc(F.ROOMS.find(x => x.id === v.room).name)} · ${F.VTONE[v.status][0]}</small></div><div class="row nowrap">${v.status === 'confirmed' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="arrived">Check in</button>` : v.status === 'arrived' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="in">Start</button>` : v.status === 'in' ? `<button class="btn btn-ghost btn-sm" data-a="dkStep" data-v="${v.id}" data-s="lounge">To the lounge</button>` : '<span class="tiny muted">Resting</span>'}</div></div>`).join('')}</div>` : '<p class="small muted mt16">No members booked here today.</p>'}</div></div>
     <div class="card"><div class="row between wrap-gap"><span class="lbl">Day sheet</span><span class="ds-key tiny muted"><span><i class="sim"></i>Booked guest</span><span><i class="mem"></i>Member</span><span><i class="wk"></i>Walk-in</span></span></div><div class="ds-w mt16"><div class="ds"><div class="ds-r ds-h"><span class="ds-l"></span><div class="ds-t">${hours.map((h, i) => `<span class="ds-hr" style="left:${(i / hours.length * 100).toFixed(3)}%">${h === 0 ? '12a' : h < 12 ? h + 'a' : h === 12 ? '12p' : h - 12 + 'p'}</span>`).join('')}</div></div>${rooms}</div></div></div>
-    <div class="card"><span class="lbl">On shift today · ${ths.length}</span><div class="tblw mt16"><table class="tbl"><thead><tr><th>Therapist</th><th>License</th><th>Shift</th><th>Now</th></tr></thead><tbody>${ths.map(({ t, sh }) => `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(q => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[q]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="mono small nw">${sh} · ${String(E.SHIFT[sh][0] / 60 % 24).padStart(2, '0')}:00–${String(E.SHIFT[sh][1] / 60 % 24).padStart(2, '0')}:00</td><td>${busyNow(t)}</td></tr>`).join('')}</tbody></table></div></div></div></section>` };
+    <details class="card dk-shift"><summary class="row between nowrap"><span class="lbl">On shift today · ${ths.length}</span>${F.ic('chevd', 14)}</summary><div class="tblw mt16"><table class="tbl"><thead><tr><th>Therapist</th><th>License</th><th>Shift</th><th>Now</th></tr></thead><tbody>${ths.map(({ t, sh }) => `<tr><td>${esc(t.init)} · ${F.GENDER[t.g]}<small class="d-b tiny muted">${t.id}</small></td><td class="small">${t.quals.map(q => ({ touch: 'Touch', glow: 'Glow', pelvic: 'Pelvic' })[q]).join(', ')}<small class="d-b tiny muted">${t.lic}</small></td><td class="mono small nw">${sh} · ${String(E.SHIFT[sh][0] / 60 % 24).padStart(2, '0')}:00–${String(E.SHIFT[sh][1] / 60 % 24).padStart(2, '0')}:00</td><td>${busyNow(t)}</td></tr>`).join('')}</tbody></table></div></details></div></section>` };
   }
 };
 A.dkSeat = el => { let rec; F.store.commit(() => { rec = E.seatWalkin(E.walkin(el.dataset.w), false); }); if (!rec) return F.rerender(); F.toast(rec.seated ? `Seated in ${F.ROOMS.find(x => x.id === rec.room).name} at ${U.fmt(rec.start, E.cityTz(rec.cityId), 'time')}.` : 'Nothing free within 45 minutes. They’ll come back another day.', rec.seated ? '' : 'err'); F.rerender(); };
@@ -4085,7 +4113,7 @@ OV.therapists = () => {
 const dayOf = t => E.spaDay(E.cityTz(t.city), now());
 A.opOff = async el => { const t = E.ther(el.dataset.t); if (!(await F.confirm({ title: 'Send ' + t.init + ' home today?', body: 'Their member visits today move to another therapist with the same license where possible.', ok: 'Send home' }))) return; F.store.commit(s => { s.blocks.push({ who: t.id, day: dayOf(t) }); s.visits.forEach(v => { if (v.ther.includes(t.id) && v.status === 'confirmed') v.checked = false; }); }); E.tick(); F.toast('Done. Visits handed over.'); F.rerender(); };
 A.opOn = el => { const t = E.ther(el.dataset.t); F.store.commit(s => { s.blocks = s.blocks.filter(b => !(b.who === t.id && b.day === dayOf(t))); }); F.toast('Back on shift.'); F.rerender(); };
-OV.menu = () => `<div class="tblw"><table class="tbl"><thead><tr><th>Treatment</th><th>Collection</th><th>On the menu from</th><th class="num">Booked here</th><th class="num">Rating</th></tr></thead><tbody>${F.TREAT.map(t => `<tr><td>${esc(t.n)}${t.hidden ? '<small class="d-b tiny muted">Programs only</small>' : ''}</td><td class="small">${F.COL[t.c][1]}</td><td><label class="sr" for="rel-${t.id}">Release date for ${esc(t.n)}</label><input class="inp inp-sm" type="date" id="rel-${t.id}" value="${F.trRel(t)}" data-ch="opRel" data-t="${t.id}"></td><td class="num">${F.S.visits.filter(v => v.tid === t.id && v.status !== 'cancelled').length}</td><td class="num">${E.trRating(t).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>`;
+OV.menu = () => `<div class="tblw"><table class="tbl"><thead><tr><th>Treatment</th><th class="ph-hide">Collection</th><th>On the menu from</th><th class="num">Booked here</th><th class="num">Rating</th></tr></thead><tbody>${F.TREAT.map(t => `<tr><td>${esc(t.n)}${t.hidden ? '<small class="d-b tiny muted">Programs only</small>' : ''}</td><td class="small ph-hide">${F.COL[t.c][1]}</td><td><label class="sr" for="rel-${t.id}">Release date for ${esc(t.n)}</label><input class="inp inp-sm" type="date" id="rel-${t.id}" value="${F.trRel(t)}" data-ch="opRel" data-t="${t.id}"></td><td class="num">${F.S.visits.filter(v => v.tid === t.id && v.status !== 'cancelled').length}</td><td class="num">${E.trRating(t).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>`;
 F.C.opRel = el => { if (!/^\d{4}-\d{2}-\d{2}$/.test(el.value)) return; F.store.commit(s => { s.prefs.rel[el.dataset.t] = el.value; }); F.toast('Release date saved.'); F.rerender(); };
 OV.members = () => {
   const w = E.world(now()), real = F.S.members.slice().reverse();
@@ -4380,7 +4408,7 @@ const tagsOf = t => [t.c, t.id, 'id:' + t.id, t.body, t.pair ? 'pairs' : '', ...
 const fyItems = u => { const z = E.myMap(u), c = F.cityId(); return F.TREAT.filter(t => !t.hidden && F.trOpen(t) && !E.careBlock(u, t) && !E.mapClash(t, t.pair ? E.mutualMap(u) : z, (t.release || [])[0])).map(t => ({ t, id: t.id, title: t.n, sub: t.s, href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', meta: `${t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}`, price: F.trFrom(t, c), tags: tagsOf(t) })); };
 const fyScore = (x, p) => 2 + x.tags.reduce((a, k) => a + (p.tags[k] || 0), 0) + (F.rvRank('tr:' + x.id) - 4.6) * 4;
 // skip: what the page above already shows
-F.forYouVV = (u, skip = []) => [F.digestCard(u), F.forYou(u, fyItems(u).filter(x => !skip.includes(x.id)), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
+F.forYouVV = (u, skip = []) => [F.digestCard(u), F.forYou(u, fyItems(u).filter(x => !skip.includes(x.id)), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) }).replace(/^<(\w+) class="/, '<$1 class="fy-recent ')].filter(Boolean).map((x, i) => i ? `<div class="mt48${/^<\w+ class="fy-recent/.test(x) ? ' fy-recent' : ''}">${x}</div>` : x).join('');
 
 /* ---------- nudges: come back at the right interval ---------- */
 const upcomingOf = (u, test) => E.myVisits(u).some(v => v.status === 'confirmed' && test(E.tr(v.tid)));
@@ -4543,6 +4571,61 @@ F.vvDuringAdd = (v, t) => {
   return `<div class="vdur mt32"><span class="lbl">Add to your visit</span><div class="stack-s mt8">${ext ? `<div class="row between wrap-gap"><span class="small">Fifteen more minutes <span class="tiny muted d-b">Your therapist is free after</span></span><button class="btn btn-ghost btn-sm" data-a="vvAdd" data-v="${v.id}" data-x="ext15">${E.money(E.cp(c, Math.round(E.trUsd(t, t.d[0]) / t.d[0] * 15)), c)}</button></div>` : ''}${opts.map(([id, l, s]) => `<div class="row between wrap-gap"><span class="small">${esc(l)} <span class="tiny muted d-b">${esc(s)}</span></span><button class="btn btn-ghost btn-sm" data-a="vvAdd" data-v="${v.id}" data-x="${id}">${E.money(E.cp(c, F.ADDONS.find(z => z[0] === id)[2]), c)}</button></div>`).join('')}</div>${(v.during || []).length ? `<p class="tiny muted mt8">Added: ${v.during.map(z => esc(z.label)).join(', ')}.</p>` : ''}</div>`;
 };
 A.vvAdd = el => { const r = E.vvAddDuring(el.dataset.v, el.dataset.x); if (!r.ok) return F.toast(r.reason, 'err'); F.toast(r.label + ': on its way.'); F.rerender(); };
+})();
+
+/* ---- 52-stages.js ---- */
+/* Velvet: visit stages and "Your usual".
+   Stages: every finished touch visit (Touch, Pairs, Wet; not Glow or Firm & Boost) moves you along four stages, from a first
+   gentle visit to the longest rituals. Nothing is locked: the stage only decides what is suggested next.
+   Your usual: a ritual you have finished twice or more at the same length, with the hands you had most, booked again from
+   its first free time in one tap. */
+(() => {
+'use strict';
+const E = F.E, now = () => Date.now();
+F.VSTAGES = [
+  { n: 'First visit', need: 0, line: 'Start with full-body touch and warm oil.', tids: ['warm', 'express', 'breast'] },
+  { n: 'Focus', need: 1, line: 'One area, given real time.', tids: ['lingam', 'yoni', 'clit', 'prostate'] },
+  { n: 'Deeper', need: 3, line: 'Longer rituals and more intense touch.', tids: ['edge', 'nuru', 'anal', 'squirt'] },
+  { n: 'Full', need: 6, line: 'Our longest rituals, with two therapists or three hours.', tids: ['fourhands', 'tantra'] }
+];
+const counts = v => { const t = E.tr(v.tid); return v.status === 'done' && t && !['glow', 'boost'].includes(t.c); };
+E.vStage = u => {
+  const n = u ? E.myVisits(u).filter(counts).length : 0; let i = 0; F.VSTAGES.forEach((s, k) => { if (n >= s.need) i = k; });
+  const next = F.VSTAGES[i + 1] || null;
+  return { i, n, stage: F.VSTAGES[i], next, left: next ? next.need - n : 0, pct: next ? Math.round((n - F.VSTAGES[i].need) / (next.need - F.VSTAGES[i].need) * 100) : 100 };
+};
+// the stage a ritual is first suggested at (null: suggested from the start, or not a touch ritual)
+E.trStage = tid => { const i = F.VSTAGES.findIndex(s => s.tids.includes(tid)); return i > 0 ? i : null; };
+F.stageCard = u => {
+  const s = E.vStage(u), c = F.cityId(), tr = s.stage.tids.map(E.tr).filter(t => t && F.trOpen(t)).slice(0, 3);
+  return `<div class="card vstage"><div class="row between wrap-gap"><span class="lbl">Your stage</span><span class="mono tiny">${s.i + 1} of ${F.VSTAGES.length}</span></div>
+  <h2 class="h-disp h3 mt8">${esc(s.stage.n)}</h2><p class="small muted mt4">${esc(s.stage.line)}</p>
+  <div class="vstage-bar mt16" role="img" aria-label="${s.next ? `${s.left} more ${s.left === 1 ? 'visit' : 'visits'} to ${s.next.n}` : 'Every stage reached'}"><i style="width:${s.pct}%"></i></div>
+  <p class="tiny muted mt8">${s.next ? `${s.left} more ${s.left === 1 ? 'visit' : 'visits'} to ${esc(s.next.n)}` : 'Every stage reached'}</p>
+  ${tr.length ? `<div class="chiprow mt16" role="group" aria-label="Try next">${tr.map(t => `<a class="chip chip-sm" href="#/treatment/${t.id}">${esc(t.n)} · ${F.trFrom(t, c)}</a>`).join('')}</div>` : ''}</div>`;
+};
+// Your usual: same ritual and length finished at least twice; the hands you had most often on it
+E.usual = u => {
+  if (!u) return null; const done = E.myVisits(u).filter(v => v.status === 'done' && !v.program && E.tr(v.tid) && !E.tr(v.tid).hidden), by = {};
+  done.forEach(v => { const k = v.tid + '|' + v.dur; (by[k] = by[k] || []).push(v); });
+  const best = Object.values(by).filter(l => l.length >= 2).sort((a, b) => b.length - a.length || b[b.length - 1].start - a[a.length - 1].start)[0]; if (!best) return null;
+  const v = best[best.length - 1], hands = {}; best.forEach(x => (x.ther || []).forEach(id => { hands[id] = (hands[id] || 0) + 1; }));
+  const same = Object.entries(hands).sort((a, b) => b[1] - a[1]).map(([id]) => id).find(id => { const x = E.ther(id); return x && x.city === F.cityId(); }) || null;
+  return { tid: v.tid, dur: v.dur, n: best.length, same, opts: v.opts, release: v.release };
+};
+// the first free time in the next week, with the same hands when they're free, otherwise anyone
+E.usualSlot = us => E.memo(`us|${us.tid}|${us.dur}|${us.same}|${F.cityId()}|${Math.floor(now() / (15 * 6e4))}`, () => { const c = F.cityId(), tz = E.cityTz(c); let key = E.spaDay(tz, now());
+  for (const same of us.same ? [us.same, null] : [null]) { let k = key; for (let i = 0; i < 7; i++, k = U.addDays(k, 1)) { const sl = E.slots({ tid: us.tid, dur: us.dur, cityId: c, key: k, same })[0]; if (sl) return { start: sl.start, same }; } }
+  return null; });
+F.usualHref = us => { const sl = E.usualSlot(us); return `#/build?t=${us.tid}&d=${us.dur}${sl && sl.same ? '&same=' + sl.same : ''}${sl ? '&s=' + sl.start : ''}`; };
+F.usualCard = u => {
+  const us = E.usual(u); if (!us || !F.trOpen(E.tr(us.tid))) return ''; const t = E.tr(us.tid), sl = E.usualSlot(us), x = sl && sl.same && E.ther(sl.same), tz = E.cityTz(F.cityId());
+  return `<div class="card next"><span class="lbl">Your usual</span><h2 class="h-disp h2 mt8">${esc(t.n)}</h2><p class="small muted mt4">${U.dur(us.dur)}${us.release ? ' · ' + F.RELEASE[us.release] : ''}${x ? ` · ${esc(F.GENDER[x.g])} (${esc(x.init)})` : ''} · booked ${us.n} times</p>
+  <div class="row wrap-gap mt16"><a class="btn btn-pri btn-sm" href="${F.usualHref(us)}">${sl ? 'Book ' + U.fmt(sl.start, tz, 'dt') : 'Choose a time'}</a><a class="btn-link tiny" href="#/menu">Or choose something else</a></div></div>`;
+};
+// on a Glow series treatment: your own progress, the same bar as the Glow Lab
+F.seriesLine = (u, t) => { if (!u || !t.series || !t.area) return ''; const g = E.glow(u, t.area); if (!g.n) return '';
+  return `<div class="card-s mt16"><div class="row between"><span class="small"><strong>Your series</strong> · level ${g.level} of 6</span><a class="btn-link tiny" href="#/account/glow">Tracker</a></div><div class="series mt8">${Array.from({ length: 6 }, (_, i) => `<i class="${i < g.level ? 'on' : ''}"></i>`).join('')}</div></div>`; };
 })();
 
 /* ---- 96-health.js ---- */
@@ -4909,6 +4992,76 @@ document.addEventListener('keydown', e => {
 F.A.keys = () => sheet();
 })();
 
+/* ---- 97d-guide.js ---- */
+/* The FLINGR family: getting started, the same on all three sites.
+   - A three-step guide, shown once per site on the first visit after the age check (Skip or Next; Esc or the backdrop
+     close it too). Never on staff pages. Its last button goes to the site's next step: F.SITE.nextStep(u) when a site
+     defines one ({ href, label }), otherwise the site's main list. Reset site removes the "seen" mark with everything else.
+   - "Words we use" on the Help page: the site's own words, one line each, folded away under one heading.
+   Automated browsers (navigator.webdriver) don't get the guide on their own, so page checks see the pages as before;
+   F.guide.open() shows it on demand. */
+(() => {
+'use strict';
+const SITE = () => (F.SITE && F.SITE.id) || 'flingr', KEY = () => 'flingr.guide.' + SITE();
+const WORDS = {
+  flingr: {
+    steps: [['Find a host', 'Pick a city and a date, then browse the hosts who are free.'], ['Book a plan', 'Choose The Hour, The Night or The Slow Morning, and pay with your card or your Wallet.'], ['After you book', 'Message your host, say what you like and don’t, and check in on the night.']],
+    next: { href: '#/hosts', label: 'Browse hosts' },
+    gloss: [['Host', 'The person you book for your night.'], ['Plan', 'How long you book: The Hour, The Night or The Slow Morning.'], ['Match sheet', 'What you like and don’t. Your host sees it before the night.'], ['Screening', 'A health test from the last 90 days. Some hosts ask for one.'], ['Buddy Check-in', 'Someone you trust who hears from us if you miss a check-in during your booking.'], ['Morning Menu', 'Breakfast and extras for the morning after.'], ['Escapes', 'Places you book for a stay, like a villa or a yacht, with hosts who travel there.'], ['Afterhours', 'The members’ club nights in each city.'], ['Lounge, Floor, VIP', 'The three parts of Afterhours: the Lounge to unwind, the Floor for more, VIP for a private night.'], ['One Evening', 'A Velvet ritual, a Practice lesson and your FLINGR night in one checkout.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
+  },
+  practice: {
+    steps: [['Choose a skill', 'Each skill has five levels, from the basics to a final test.'], ['Choose how to learn', 'Voice, video, in person, a group class, or a practical with a model.'], ['Book again to move on', 'Each lesson starts where the last one ended.']],
+    next: { href: '#/skills', label: 'See the skills' },
+    gloss: [['Educator', 'The person who teaches your lesson.'], ['Voice and Video', 'Lessons online. With video, your camera can stay off.'], ['Earpiece', 'Your educator coaches you through an earpiece during your own night with your partner.'], ['The Hall', 'The studio room where group classes happen.'], ['Gallery seat', 'A seat at the back of a class, to watch only.'], ['Practical', 'A hands-on lesson with your educator and a practice model.'], ['Feedback Dial', 'Five lights the model uses to show what works, plus a STOP button.'], ['Blind Practical', 'The final test, with a model who doesn’t know your level.'], ['Practice Contract', 'What will be touched, by whom and with what protection, agreed before a lesson.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
+  },
+  velvet: {
+    steps: [['Pick a ritual', 'The menu says what happens, how long it takes and how it ends.'], ['Make it yours', 'Choose the length, your therapist and how it ends. Mark your body map once.'], ['Come back', 'Each visit moves you to the next stage, and your usual books again in one tap.']],
+    next: { href: '#/menu', label: 'See the menu' },
+    gloss: [['Ritual', 'A treatment on the menu.'], ['Release', 'An orgasm. Each ritual lists how it can end, and you choose.'], ['Body map', 'Where you’d like to be touched, gently, or not at all. Every therapist reads it first.'], ['Touch sheet', 'Your body map and choices on one page.'], ['Stage', 'Where you are, from a first visit to the longest rituals. Each visit moves you on.'], ['Your usual', 'A ritual you’ve booked twice or more, ready to book again in one tap.'], ['Glow Lab', 'Skin care for intimate areas.'], ['Rosé series', 'Six brightening sessions, two weeks apart, with a tracker.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
+  }
+};
+const W = () => Object.assign({}, WORDS[SITE()] || WORDS.flingr, F.SITE && F.SITE.guide || {});
+const pri = () => (SITE() === 'flingr' ? 'btn btn-cherry' : 'btn btn-pri');
+const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { } } };
+let step = 0;
+const draw = () => {
+  const w = W(), s = w.steps[step], last = step === w.steps.length - 1, u = F.E && F.E.user && F.E.user(), nx = (F.SITE && F.SITE.nextStep && F.SITE.nextStep(u)) || w.next;
+  return `<div class="fg-guide"><p class="eyebrow">Getting started · ${step + 1} of ${w.steps.length}</p><h2 class="h-disp h3 mt16">${s[0]}</h2><p class="small muted mt8">${s[1]}</p>
+  <div class="fg-dots mt24" aria-hidden="true">${w.steps.map((_, i) => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>
+  <div class="fg-act mt24"><button class="btn-link tiny" data-a="fgSkip">Skip</button>${last ? `<a class="${pri()}" href="${nx.href}" data-a="fgDone">${nx.label}</a>` : `<button class="${pri()}" data-a="fgNext">Next</button>`}</div></div>`;
+};
+const seen = () => ls.set(KEY(), String(Date.now()));
+const open = () => { step = 0; F.modal(draw(), { cls: 'fg-modal', label: 'Getting started', onClose: seen }); };
+F.A.fgNext = () => { step++; const m = F._modal && F._modal.m && F._modal.m.querySelector('.fg-guide'); if (m) { m.outerHTML = draw(); const b = F._modal.m.querySelector('[data-a=fgNext],[data-a=fgDone]'); if (b) b.focus(); } };
+F.A.fgSkip = () => { seen(); F.closeModal(); };
+F.A.fgDone = el => { seen(); F.closeModal(); if (el && el.getAttribute) location.hash = el.getAttribute('href'); };
+const STAFF = /^#\/(staff|ops|host-studio|studio|desk)\b/;
+const maybe = () => {
+  if (navigator.webdriver || ls.get(KEY()) || F._modal || document.getElementById('gate') || STAFF.test(location.hash) || !(F.ageOk && F.ageOk())) return;
+  open();
+};
+let t = 0; const later = () => { clearTimeout(t); t = setTimeout(maybe, 900); };
+// "Words we use" at the end of the Help page
+const gloss = () => { const g = W().gloss; if (!g || !g.length) return '';
+  return `<section class="sec-sm fg-gloss"><div class="wrap"><details class="acc"><summary><span class="h-disp h4">Words we use</span>${F.ic ? F.ic('plus', 14) : '+'}</summary><dl class="fg-dl">${g.map(([k, v]) => `<div><dt>${k}</dt><dd class="small muted">${v}</dd></div>`).join('')}</dl></details></div></section>`; };
+const wrapHelp = () => { const P = F.pages && F.pages.help; if (!P || P._fg) return; const r0 = P.render; P.render = function (r) { const out = r0.apply(this, arguments); if (out && typeof out.html === 'string') out.html += gloss(); return out; }; P._fg = true; };
+const CSS = `.fg-modal{max-width:440px}.fg-guide{padding:8px 4px 4px}.fg-dots{display:flex;gap:6px}.fg-dots i{width:8px;height:8px;border-radius:50%;background:var(--ln)}.fg-dots i.on{background:var(--fg)}
+.fg-act{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.fg-gloss{padding-top:0}.fg-gloss .acc{border-top:1px solid var(--ln)}.fg-gloss summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;cursor:pointer;list-style:none}.fg-gloss summary::-webkit-details-marker{display:none}
+.fg-dl{display:grid;grid-template-columns:minmax(0,1fr);gap:12px 32px;padding:4px 0 24px;margin:0}.fg-dl dt{font-weight:500;font-size:14px}.fg-dl dd{margin:2px 0 0}
+@media (min-width:768px){.fg-dl{grid-template-columns:repeat(2,minmax(0,1fr))}}`;
+const start = () => {
+  if (!document.getElementById('fgCss')) { const s = document.createElement('style'); s.id = 'fgCss'; s.textContent = CSS; document.head.appendChild(s); }
+  wrapHelp();
+  const main = document.getElementById('main'); if (main && window.MutationObserver) new MutationObserver(later).observe(main, { childList: true });
+  if (window.MutationObserver) new MutationObserver(later).observe(document.body, { childList: true });
+  later();
+};
+F.guide = { open, words: W };
+wrapHelp();
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else setTimeout(start, 0);
+})();
+
 /* ---- 98-family.js ---- */
 /* Shared by FLINGR, Velvet and Practice (build.js copies it into each site, after the site's own code and before boot).
    Everything here works the same on the three sites, which share one origin and therefore one localStorage:
@@ -5071,7 +5224,7 @@ const redrawDevice = () => { const m = F._modal && F._modal.m; if (m && m.queryS
 A.famZoom = el => { FAM.setPref('z', +el.dataset.v); redrawDevice(); };
 A.famHc = el => { FAM.setPref('hc', el.dataset.v === '1'); redrawDevice(); };
 FAM.footLink = () => `<button class="btn-link tiny" data-a="famDevice">This browser</button>`;
-FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">This browser</h2><p class="small muted mt8">Text size and contrast; storage; moving your account and bookings to another device; installing the app.</p><button class="btn btn-ghost btn-sm mt16" data-a="famDevice">Open</button></div>`;
+FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">This browser</h2><p class="small muted mt8">Text size and contrast; storage; moving your account and bookings to another device; installing the app. Start over removes everything you changed on all three sites.</p><div class="row wrap-gap mt16"><button class="btn btn-ghost btn-sm" data-a="famDevice">Open</button><button class="btn btn-ghost btn-sm" data-a="resetSite">Start over</button></div></div>`;
 
 /* ---------- Operations → Health ---------- */
 FAM.errors = () => (window.FLINGR_ERRLOG ? window.FLINGR_ERRLOG.read() : []);
