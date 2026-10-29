@@ -644,13 +644,21 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .kb-k{display:flex;gap:6px;min-width:96px}
 .kb-link{display:none}
 @media (hover:hover) and (pointer:fine) and (min-width:1024px){.kb-link{display:inline}}
+/* spacing pass: the sticky header hides what scrolls under it; back-to-top off on phones (it covered text);
+   one plain style for the footer's bottom links; the support number on one line */
+.hdr{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+@media (max-width:640px){.totop{display:none!important}}
+.ftr-b .btn-link{font:inherit;font-size:12px;letter-spacing:normal;text-transform:none;border-bottom:0;padding:0;color:var(--mut);width:auto;min-height:0}
+.ftr-b .btn-link:hover{color:var(--fg)}.ftr-b .btn-link[data-a=quickExit]{color:var(--fg);text-decoration:underline;text-underline-offset:3px}
+.ftr-b .row.wrap-gap{gap:10px 16px}
+.ftr-sup .btn-link{margin-left:6px}
 
 /* ============ Velvet · amethyst silk, neon fuchsia and candle gold ============ */
 :root{
   --bg:#07040A;--bg2:#0D0811;--bg3:#040205;--fg:#FCEFF6;--mut:rgba(252,239,246,.68);--ln:rgba(252,239,246,.12);--ln2:rgba(252,239,246,.28);--card:rgba(255,255,255,.03);--spot:rgba(255,63,160,.16);
   --pri:#FF3FA0;--pri-h:#FF6CB8;--pri-fg:#1A0716;--hi:#F6C987;--ok:#7FDCA8;--warn:#FFB86B;--err:#FFB07A;--it-c:#FF8CC8;
   --f-disp:'Bodoni Moda',Didot,Georgia,serif;--f-cond:'Bodoni Moda',Didot,Georgia,serif;--f-it:'Instrument Serif',Georgia,serif;--f-body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--f-mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--f-hand:'Caveat',cursive;--f-sign:'Mrs Saint Delafield',cursive;--f-logo:'Bodoni Moda',Didot,Georgia,serif;
-  --plate-bg:#120A16;--plate-fg:rgba(252,239,246,.45);--pop-bg:#130B18;--hdr-bg:rgba(7,4,10,.92);--inp-bg:rgba(255,255,255,.03);--ftr-bg:#040205;
+  --plate-bg:#120A16;--plate-fg:rgba(252,239,246,.45);--pop-bg:#130B18;--hdr-bg:rgba(7,4,10,.97);--inp-bg:rgba(255,255,255,.03);--ftr-bg:#040205;
   --hero-bg:radial-gradient(110% 85% at 50% 6%,#8E1F95 0%,#4A0F5E 24%,#1A0620 52%,#07040A 100%);--phero-glow:rgba(161,35,159,.18);
   --word-c:#FFF5F9;--word-ls:.06em;--word-glow:rgba(255,63,160,.5);
   color-scheme:dark;
@@ -677,7 +685,7 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .bm{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:340px;margin:0 auto}.bm-f{margin:0;display:flex;flex-direction:column;align-items:center;gap:6px}.bm-f svg{width:100%;height:auto;display:block}
 .mz{stroke:#07040A;stroke-width:1;stroke-linejoin:round;transition:fill .2s}.mz[data-a]{cursor:pointer}.mz[data-a]:hover{stroke:var(--fg);stroke-width:1.2}
 .mz.z-yes{fill:rgba(246,201,135,.85)}.mz.z-gentle{fill:rgba(210,168,240,.7)}.mz.z-avoid{stroke:var(--err);stroke-dasharray:2 1.5}.bm-hl{stroke:var(--err);stroke-width:1.3;opacity:.8}
-.bm-key{display:flex;justify-content:center;gap:14px;flex-wrap:nowrap;white-space:nowrap;margin-top:12px}.bm-key span{display:inline-flex;align-items:center;gap:6px}.bm-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.bm-key{display:flex;justify-content:center;gap:8px 14px;flex-wrap:wrap;white-space:nowrap;margin-top:12px}.bm-key span{display:inline-flex;align-items:center;gap:6px}.bm-key i{width:12px;height:12px;border-radius:3px;display:inline-block}
 .bm-key .z-yes{background:rgba(246,201,135,.85)}.bm-key .z-gentle{background:rgba(210,168,240,.7)}.bm-key .z-avoid{border:1px dashed var(--err);background:repeating-linear-gradient(45deg,var(--err) 0 1px,transparent 1px 4px)}
 .bm-mini .bm{max-width:220px}
 .paper .mz{stroke:#FBFAF5}.paper .mz.z-yes{fill:rgba(199,154,85,.75)}.paper .mz.z-gentle{fill:rgba(154,108,184,.6)}.paper .bm-key .z-yes{background:rgba(199,154,85,.75)}.paper .bm-key .z-gentle{background:rgba(154,108,184,.6)}
@@ -1434,7 +1442,7 @@ F.footer = () => {
   $('#ftr').innerHTML = `<div class="wrap">
   <div class="ftr-grid"><div><a href="#/" class="logo">${F.SITE.logo}</a><p class="small muted mt16">${f.blurb}</p>${famLinks().length ? `<div class="fam mt24"><span class="lbl">The FLINGR family</span><div class="fam-l mt8">${famLinks().map(x => `<a class="fam-a" href="${x.url}">${esc(x.name)}<small>${esc(x.line)}</small></a>`).join('')}</div></div>` : ''}</div>
   ${f.cols.map(([h, links]) => `<div><h4 class="eyebrow">${h}</h4>${links.map(([l, href]) => `<a href="${href}">${l}</a>`).join('')}</div>`).join('')}
-  <div><h4 class="eyebrow">Help</h4><a href="#/help">Help & FAQ</a><a href="#/contact">Contact</a><p class="tiny muted mt16">24/7 line<br><button class="btn-link tiny" data-a="call" data-c="${c.id}">${c.phone}</button></p></div></div>
+  <div><h4 class="eyebrow">Help</h4><a href="#/help">Help & FAQ</a><a href="#/contact">Contact</a><p class="tiny muted mt16 ftr-sup">24/7 line <button class="btn-link tiny" data-a="call" data-c="${c.id}">${c.phone}</button></p></div></div>
   <div class="ftr-b"><span>© ${new Date(Date.now()).getUTCFullYear()} FLINGR Technologies, Inc. ${esc(F.SITE.brand)} is part of FLINGR.</span><span class="row wrap-gap"><button class="btn-link qx-link" data-a="quickExit" title="Or press Esc twice">Quick exit</button><button class="btn-link qx-link" data-a="resetSite">Reset site</button><button class="btn-link qx-link kb-link" data-a="keys">Shortcuts</button>${F.fam ? F.fam.footLink() : ''}<a href="#/legal/terms">Terms</a><a href="#/legal/privacy">Privacy</a><a href="#/legal/cookies">Cookies</a><button class="btn-link tiny" data-a="cookieSettings">Cookie settings</button></span></div></div>`;
 };
 A.call = el => { const c = E.city(el.dataset.c || F.cityId()); F.modal(`<h2 class="h-disp h3">Call us</h2><p class="muted mt8">${esc(F.SITE.brand)} ${c.name} · open around the clock. You’ll speak to a person, not a menu.</p><a class="btn btn-pri mt24" href="tel:${c.phone.replace(/[^\d+]/g, '')}" data-a="closeModal" data-follow="1">${F.ic('phone', 16)} ${c.phone}</a><p class="tiny muted mt16">In an emergency call ${c.emergency}.</p>`, { cls: 'modal-sm', label: 'Call us' }); };
@@ -4993,71 +5001,34 @@ F.A.keys = () => sheet();
 })();
 
 /* ---- 97d-guide.js ---- */
-/* The FLINGR family: getting started, the same on all three sites.
-   - A three-step guide, shown once per site on the first visit after the age check (Skip or Next; Esc or the backdrop
-     close it too). Never on staff pages. Its last button goes to the site's next step: F.SITE.nextStep(u) when a site
-     defines one ({ href, label }), otherwise the site's main list. Reset site removes the "seen" mark with everything else.
-   - "Words we use" on the Help page: the site's own words, one line each, folded away under one heading.
-   Automated browsers (navigator.webdriver) don't get the guide on their own, so page checks see the pages as before;
-   F.guide.open() shows it on demand. */
+/* The FLINGR family: "Words we use" at the end of each site's Help page, the site's own words one line each, folded
+   away under one heading. Words come from WORDS below, or F.SITE.guide.gloss when a site sets its own. */
 (() => {
 'use strict';
-const SITE = () => (F.SITE && F.SITE.id) || 'flingr', KEY = () => 'flingr.guide.' + SITE();
+const SITE = () => (F.SITE && F.SITE.id) || 'flingr';
 const WORDS = {
   flingr: {
-    steps: [['Find a host', 'Pick a city and a date, then browse the hosts who are free.'], ['Book a plan', 'Choose The Hour, The Night or The Slow Morning, and pay with your card or your Wallet.'], ['After you book', 'Message your host, say what you like and don’t, and check in on the night.']],
-    next: { href: '#/hosts', label: 'Browse hosts' },
     gloss: [['Host', 'The person you book for your night.'], ['Plan', 'How long you book: The Hour, The Night or The Slow Morning.'], ['Match sheet', 'What you like and don’t. Your host sees it before the night.'], ['Screening', 'A health test from the last 90 days. Some hosts ask for one.'], ['Buddy Check-in', 'Someone you trust who hears from us if you miss a check-in during your booking.'], ['Morning Menu', 'Breakfast and extras for the morning after.'], ['Escapes', 'Places you book for a stay, like a villa or a yacht, with hosts who travel there.'], ['Afterhours', 'The members’ club nights in each city.'], ['Lounge, Floor, VIP', 'The three parts of Afterhours: the Lounge to unwind, the Floor for more, VIP for a private night.'], ['One Evening', 'A Velvet ritual, a Practice lesson and your FLINGR night in one checkout.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
   },
   practice: {
-    steps: [['Choose a skill', 'Each skill has five levels, from the basics to a final test.'], ['Choose how to learn', 'Voice, video, in person, a group class, or a practical with a model.'], ['Book again to move on', 'Each lesson starts where the last one ended.']],
-    next: { href: '#/skills', label: 'See the skills' },
     gloss: [['Educator', 'The person who teaches your lesson.'], ['Voice and Video', 'Lessons online. With video, your camera can stay off.'], ['Earpiece', 'Your educator coaches you through an earpiece during your own night with your partner.'], ['The Hall', 'The studio room where group classes happen.'], ['Gallery seat', 'A seat at the back of a class, to watch only.'], ['Practical', 'A hands-on lesson with your educator and a practice model.'], ['Feedback Dial', 'Five lights the model uses to show what works, plus a STOP button.'], ['Blind Practical', 'The final test, with a model who doesn’t know your level.'], ['Practice Contract', 'What will be touched, by whom and with what protection, agreed before a lesson.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
   },
   velvet: {
-    steps: [['Pick a ritual', 'The menu says what happens, how long it takes and how it ends.'], ['Make it yours', 'Choose the length, your therapist and how it ends. Mark your body map once.'], ['Come back', 'Each visit moves you to the next stage, and your usual books again in one tap.']],
-    next: { href: '#/menu', label: 'See the menu' },
     gloss: [['Ritual', 'A treatment on the menu.'], ['Release', 'An orgasm. Each ritual lists how it can end, and you choose.'], ['Body map', 'Where you’d like to be touched, gently, or not at all. Every therapist reads it first.'], ['Touch sheet', 'Your body map and choices on one page.'], ['Stage', 'Where you are, from a first visit to the longest rituals. Each visit moves you on.'], ['Your usual', 'A ritual you’ve booked twice or more, ready to book again in one tap.'], ['Glow Lab', 'Skin care for intimate areas.'], ['Rosé series', 'Six brightening sessions, two weeks apart, with a tracker.'], ['Wallet', 'Money on your account. It works on all three sites.'], ['All-Access', 'One membership for FLINGR, Practice and Velvet.']]
   }
 };
 const W = () => Object.assign({}, WORDS[SITE()] || WORDS.flingr, F.SITE && F.SITE.guide || {});
-const pri = () => (SITE() === 'flingr' ? 'btn btn-cherry' : 'btn btn-pri');
-const ls = { get: k => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) { } } };
-let step = 0;
-const draw = () => {
-  const w = W(), s = w.steps[step], last = step === w.steps.length - 1, u = F.E && F.E.user && F.E.user(), nx = (F.SITE && F.SITE.nextStep && F.SITE.nextStep(u)) || w.next;
-  return `<div class="fg-guide"><p class="eyebrow">Getting started · ${step + 1} of ${w.steps.length}</p><h2 class="h-disp h3 mt16">${s[0]}</h2><p class="small muted mt8">${s[1]}</p>
-  <div class="fg-dots mt24" aria-hidden="true">${w.steps.map((_, i) => `<i class="${i === step ? 'on' : ''}"></i>`).join('')}</div>
-  <div class="fg-act mt24"><button class="btn-link tiny" data-a="fgSkip">Skip</button>${last ? `<a class="${pri()}" href="${nx.href}" data-a="fgDone">${nx.label}</a>` : `<button class="${pri()}" data-a="fgNext">Next</button>`}</div></div>`;
-};
-const seen = () => ls.set(KEY(), String(Date.now()));
-const open = () => { step = 0; F.modal(draw(), { cls: 'fg-modal', label: 'Getting started', onClose: seen }); };
-F.A.fgNext = () => { step++; const m = F._modal && F._modal.m && F._modal.m.querySelector('.fg-guide'); if (m) { m.outerHTML = draw(); const b = F._modal.m.querySelector('[data-a=fgNext],[data-a=fgDone]'); if (b) b.focus(); } };
-F.A.fgSkip = () => { seen(); F.closeModal(); };
-F.A.fgDone = el => { seen(); F.closeModal(); if (el && el.getAttribute) location.hash = el.getAttribute('href'); };
-const STAFF = /^#\/(staff|ops|host-studio|studio|desk)\b/;
-const maybe = () => {
-  if (navigator.webdriver || ls.get(KEY()) || F._modal || document.getElementById('gate') || STAFF.test(location.hash) || !(F.ageOk && F.ageOk())) return;
-  open();
-};
-let t = 0; const later = () => { clearTimeout(t); t = setTimeout(maybe, 900); };
-// "Words we use" at the end of the Help page
 const gloss = () => { const g = W().gloss; if (!g || !g.length) return '';
   return `<section class="sec-sm fg-gloss"><div class="wrap"><details class="acc"><summary><span class="h-disp h4">Words we use</span>${F.ic ? F.ic('plus', 14) : '+'}</summary><dl class="fg-dl">${g.map(([k, v]) => `<div><dt>${k}</dt><dd class="small muted">${v}</dd></div>`).join('')}</dl></details></div></section>`; };
 const wrapHelp = () => { const P = F.pages && F.pages.help; if (!P || P._fg) return; const r0 = P.render; P.render = function (r) { const out = r0.apply(this, arguments); if (out && typeof out.html === 'string') out.html += gloss(); return out; }; P._fg = true; };
-const CSS = `.fg-modal{max-width:440px}.fg-guide{padding:8px 4px 4px}.fg-dots{display:flex;gap:6px}.fg-dots i{width:8px;height:8px;border-radius:50%;background:var(--ln)}.fg-dots i.on{background:var(--fg)}
-.fg-act{display:flex;justify-content:space-between;align-items:center;gap:16px}
-.fg-gloss{padding-top:0}.fg-gloss .acc{border-top:1px solid var(--ln)}.fg-gloss summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;cursor:pointer;list-style:none}.fg-gloss summary::-webkit-details-marker{display:none}
+const CSS = `.fg-gloss{padding-top:0}.fg-gloss .acc{border-top:1px solid var(--ln)}.fg-gloss summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;cursor:pointer;list-style:none}.fg-gloss summary::-webkit-details-marker{display:none}
 .fg-dl{display:grid;grid-template-columns:minmax(0,1fr);gap:12px 32px;padding:4px 0 24px;margin:0}.fg-dl dt{font-weight:500;font-size:14px}.fg-dl dd{margin:2px 0 0}
 @media (min-width:768px){.fg-dl{grid-template-columns:repeat(2,minmax(0,1fr))}}`;
 const start = () => {
   if (!document.getElementById('fgCss')) { const s = document.createElement('style'); s.id = 'fgCss'; s.textContent = CSS; document.head.appendChild(s); }
   wrapHelp();
-  const main = document.getElementById('main'); if (main && window.MutationObserver) new MutationObserver(later).observe(main, { childList: true });
-  if (window.MutationObserver) new MutationObserver(later).observe(document.body, { childList: true });
-  later();
 };
-F.guide = { open, words: W };
+F.guide = { words: W };
 wrapHelp();
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else setTimeout(start, 0);
 })();
