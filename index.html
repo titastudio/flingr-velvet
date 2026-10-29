@@ -350,7 +350,7 @@ legend{padding:0;margin-bottom:10px}
 @media (max-width:640px){.costep-h{padding:16px 18px}.costep-b{padding:0 18px 20px}}
 
 /* shared: booking columns, option rows, day pickers, list rows */
-.pcard{display:flex;flex-direction:column}.pcard-f{display:flex;justify-content:space-between;align-items:baseline;margin-top:auto;padding-top:24px}.pcard .badge{align-self:flex-start}
+
 .person{display:flex;gap:14px;align-items:center}.pp-a{width:64px;flex:none}
 .rev{padding-bottom:16px;border-bottom:1px solid var(--ln)}
 .stack-l{display:flex;flex-direction:column;gap:48px;min-width:0}
@@ -511,6 +511,10 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .cc:hover{border-color:var(--ln2)}.cc .plate{width:88px;max-height:110px;border-radius:calc(var(--r) - 4px);margin:0}
 .cc-b{display:flex;flex-direction:column;gap:2px;min-width:0}.cc-t{font:500 15px/1.3 var(--f-body);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .cc-s{font-size:13px;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cc-m{font:500 10.5px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cl-s2 .cc-s{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ct-ph{padding:0;overflow:hidden}.ct-ph>.plate{border-radius:0}.ct-ph .ct-b{padding:var(--card-pad)}
+/* contact cards sit in one narrow column on wide screens: the photo goes beside the text so the column stays short */
+@media (min-width:961px){.ct-ph{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);align-items:stretch}.ct-ph>.plate{height:100%;aspect-ratio:auto;min-height:150px}.ct-ph .ct-b{align-self:center}}
 .cc-n{display:flex;align-items:center;gap:6px;font-size:12px;line-height:1.4;color:var(--mut)}.cc-n .dot{width:6px;height:6px}
 .cc-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px}.cc-p{font:500 13px var(--f-mono);white-space:nowrap}
 @media (max-width:380px){.cc{grid-template-columns:72px minmax(0,1fr) auto;gap:12px}.cc .plate{width:72px;max-height:90px}}
@@ -610,6 +614,10 @@ html{scroll-padding-top:calc(var(--hdr) + 16px)}
 .ptile{display:flex;flex-direction:column;min-width:0;background:var(--card);border:1px solid var(--ln);border-radius:var(--r);overflow:hidden;transition:border-color .25s}.ptile:hover{border-color:var(--ln2)}.ptile .plate{border-radius:0}
 .ptile-b{display:flex;flex-direction:column;gap:4px;padding:14px 16px 16px;flex:1;min-width:0}.ptile-t{font:400 20px/1.15 var(--f-disp)}.ptile-s{font-size:13px;line-height:1.4;color:var(--mut);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .ptile-m{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:8px;font-size:12px}.ptile .tag{align-self:flex-start;margin-top:6px}
+/* a tile's footer, pinned to the bottom so prices line up across a row: extra lines (rating, a tag) above the price row */
+.ptile-f{display:flex;flex-direction:column;gap:4px;margin-top:auto;padding-top:8px;font-size:12px}.ptile-f .ptile-m{margin-top:0;padding-top:0}.ptile-f .tag{margin-top:0}.ptile-x{display:flex;align-items:center;gap:6px;color:var(--mut)}.ptile-x .dot{width:6px;height:6px}
+/* phones: the line shows in full */
+@media (max-width:640px){.ptile-s{display:block;overflow:visible}}
 /* detail pages: the opening, one column after it */
 .dh{padding:40px 0;border-bottom:1px solid var(--ln);background:radial-gradient(70% 140% at 8% 0%,var(--phero-glow),transparent 70%)}
 .dh-g{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:56px;align-items:center}.dh-ph{order:2}.dh-ph .plate{box-shadow:0 20px 50px rgba(0,0,0,.4)}.dh-t{font-size:clamp(44px,6vw,88px)}.dh-m{font-size:14px;color:var(--mut);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.dh-m .mono{color:var(--fg)}
@@ -780,7 +788,7 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .cal-d i,.cal-k{width:6px;height:6px;border-radius:50%;background:var(--hi);display:inline-block}.cal-d i.pg,.cal-k.pg{background:var(--pri)}.cal-d b{font-weight:500}
 /* builder */
 .dayb.full{opacity:.5}.dayb.full.on{opacity:1}
-.sl-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--hi);margin-left:6px;vertical-align:middle}
+.sl-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--hi);margin-left:6px;vertical-align:middle}.sl-key{margin:0 6px 0 0}
 .xsite{display:block}.xsite .ic{vertical-align:-1px}
 /* the body map: one side at a time, zoomed, beside a partner's */
 .bm-z{overflow:auto;max-height:520px;border-radius:var(--rs)}.bm-z .bm{width:calc(var(--zoom,1) * 100%);max-width:none}.bm-z .bm-one{grid-template-columns:minmax(0,1fr);width:calc(var(--zoom,1) * 60%);margin:0 auto}
@@ -803,7 +811,9 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .vcrowd a{color:var(--fg);text-decoration:none}.vcrowd a:hover,.vcrowd a:focus-visible{text-decoration:underline}
 .vcrowd .mono{display:inline-flex;align-items:center;gap:6px;letter-spacing:.06em;text-transform:uppercase}
 @media (max-width:640px){.vcrowd{flex-direction:column;align-items:flex-start;gap:6px}}
-.vslot,.vweek{display:flex;align-items:center;gap:6px}
+.vslot{display:flex;align-items:center;gap:6px}.vweek{display:inline-flex;align-items:center;gap:6px}
+/* a treatment's rating and how often it was booked: their own line under the facts */
+.dh-m2{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:12px}
 .vdur{border-top:1px solid var(--ln);padding-top:20px}
 .vdur .row{padding:8px 0}
 @media (max-width:400px){.xh-word{font-size:clamp(56px,18vw,80px)}}
@@ -820,6 +830,8 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .yv-g .lbl .ic{color:var(--pri)}.yv-s{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}.yv-s>.plate{position:sticky;top:calc(var(--hdr) + 24px)}
 @media (max-width:960px){.yv-s{grid-template-columns:minmax(0,1fr)}.yv-s>.plate{position:static;aspect-ratio:4/3}}
 .gp .gc{margin-top:24px}
+/* phones: menu names wrap, so two names a row get the same two-line space and the lines below start level */
+@media (max-width:640px){.ptile-t{min-height:2.3em}.tg-pf2>.tile-feat .ptile-t{min-height:0}}
 
 </style>
 <script>if(/^(#\/?)?$/.test(location.hash)){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='photos/site-hero.avif';l.fetchPriority='high';document.head.appendChild(l)}</script>
@@ -1316,9 +1328,18 @@ F.parse = () => {
   const i = h.indexOf('?'); const p = i >= 0 ? h.slice(0, i) : h;
   return { path: p || '/', q: U.parseQ(i >= 0 ? h.slice(i + 1) : ''), full: h, frag: fi >= 0 ? raw.slice(fi + 1) : '' };
 };
-const setHash = (p, replace) => { try { if (window.origin === 'null' || location.protocol === 'about:') return; if (replace) history.replaceState(null, '', '#' + p); else if (location.hash.slice(1) !== p) location.hash = p; } catch (e) { } };
+const setHash = (p, replace) => { try { if (window.origin === 'null' || location.protocol === 'about:') return; if (replace) history.replaceState(history.state, '', '#' + p); else if (location.hash.slice(1) !== p) location.hash = p; } catch (e) { } };
 F.nav = p => { if (p.charAt(0) !== '/') p = '/' + p; F._path = p; setHash(p, false); F.closeModal(true); F.closeDrawer(true); F.render(); };
 F.navReplace = p => { F._path = p; setHash(p, true); F.render(false); };
+// Every scrolled box in the page (a sideways row of nights, dates or chips, a table, a list) keeps its place when the
+// page redraws or you come Back to it; a row that wasn't scrolled brings its chosen item into view.
+const sKey = e => e.tagName + '.' + (typeof e.className === 'string' ? e.className.replace(/\b(on|in|rv|rv-now|pg-in|done|cur|next|open)\b/g, '').replace(/\s+/g, ' ').trim() : '');
+F.scrollSnap = root => { const out = {}, n = {}; if (!root) return out; root.querySelectorAll('*').forEach(e => { const k = sKey(e); n[k] = (n[k] || 0) + 1; if (e.scrollLeft > 0 || e.scrollTop > 0) out[k + '#' + n[k]] = [e.scrollLeft, e.scrollTop]; }); return out; };
+F.scrollPut = (root, snap) => {
+  if (!root) return; const n = {}, done = new Set();
+  if (snap && Object.keys(snap).length) root.querySelectorAll('*').forEach(e => { const k = sKey(e); n[k] = (n[k] || 0) + 1; const v = snap[k + '#' + n[k]]; if (v) { e.scrollLeft = v[0]; e.scrollTop = v[1]; done.add(e); } });
+  root.querySelectorAll('.hscroll, .chip-scroll, .ah-nights, .days, .chiprow, .scroll-x, .ev-hosts, .bk-dates, .dates').forEach(r => { if (done.has(r) || r.scrollWidth <= r.clientWidth + 4) return; let on = r.querySelector('.on, [aria-pressed="true"], [aria-selected="true"], input:checked'); if (!on) return; if (on.tagName === 'INPUT') on = on.closest('label') || on; const a = on.getBoundingClientRect(), b = r.getBoundingClientRect(); if (a.right > b.right - 4 || a.left < b.left) r.scrollLeft += a.left - b.left - (r.clientWidth - a.width) / 2; });
+};
 F.render = (scroll = true) => {
   F.timers.forEach(clearInterval); F.timers = [];
   if (scroll && F.saveScroll) F.saveScroll();
@@ -1331,19 +1352,20 @@ F.render = (scroll = true) => {
   try { out = P.render(r); } catch (e) { console.error(e); out = F.pages.notfound.render(r, true); }
   if (out.redirect) { F.navReplace(out.redirect); return; }
   const cu = E.user(); document.title = cu && cu.prefs.plainTitle ? 'Notes' : (out.title ? out.title + ' · ' : '') + F.SITE.title;
-  const main = $('#main'), SCR = '.tblw, .scroll-x', kept = prev && prev.page === page ? $$(SCR, main).map(e => [e.className, e.scrollTop, e.scrollLeft]) : [];
+  const main = $('#main'), snap = prev && prev.page === page ? F.scrollSnap(main) : F._popNav && F.popSnap ? F.popSnap(r.full) : null;
   main.innerHTML = out.html;
-  kept.forEach(([c, t, l]) => { const e = $$(SCR, main).find(x => x.className === c && !x.dataset.kept); if (e) { e.dataset.kept = 1; e.scrollTop = t; e.scrollLeft = l; } });
+  F.scrollPut(main, snap);
   main.dataset.page = page; document.body.dataset.page = page;
   const sameView = scroll && prev && prev.page === page && prev.path === r.path, samePage = sameView || (scroll && prev && prev.page === page && !(F.SITE.freshPages || []).includes(page));
   if (scroll && !samePage) { main.classList.remove('pg-in'); void main.offsetWidth; main.classList.add('pg-in'); }
   const restored = scroll && !sameView && F.restoreScroll && F.restoreScroll(r.full);
-  if (scroll && !restored) { if (sameView) window.scrollTo(0, y0); else if (samePage) { const nav = $('.subnav', main), top = nav ? nav.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 72) - 12 : 0; window.scrollTo(0, Math.max(0, Math.min(y0, top))); } else if (r.frag) { setTimeout(() => { const t = document.getElementById(r.frag); if (t) t.scrollIntoView({ block: 'start' }); }, 30); } else window.scrollTo(0, 0); }
+  if (scroll && !restored) { if (sameView) window.scrollTo(0, y0); else if (samePage) { const nav = $('.subnav', main), top = nav ? nav.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr')) || 72) - 12 : y0; window.scrollTo(0, Math.max(0, Math.min(y0, top))); } else if (r.frag) { setTimeout(() => { const t = document.getElementById(r.frag); if (t) t.scrollIntoView({ block: 'start' }); }, 30); } else window.scrollTo(0, 0); }
   F.closeMenus(); F.chrome();
   try { P.mount && P.mount(r); } catch (e) { console.error(e); }
   $$('.subnav').forEach(n => { const on = n.querySelector('a.on'); if (on && n.scrollWidth > n.clientWidth) n.scrollLeft = Math.max(0, on.offsetLeft - n.clientWidth / 2 + on.offsetWidth / 2); });
   $$('.days').forEach(n => { const on = n.querySelector('.on'); if (on && n.scrollWidth > n.clientWidth) n.scrollLeft += on.getBoundingClientRect().left - n.getBoundingClientRect().left - (n.clientWidth - on.offsetWidth) / 2; });
   F.reveal(); F.hsDots(); if (F.afterRender) F.afterRender(r);
+  if (scroll) try { const st = history.state; if (!st || !st.seen) history.replaceState(Object.assign({}, st, { seen: 1, from: prev ? prev.full : null }), '', location.href); } catch (e) { }   // where this entry was opened from (see F.nav in 14-kit.js)
   if (F.P) F.P.session.lastActive = Date.now();
 };
 const qAttr = v => String(v).replace(/["\\]/g, '\\$&');
@@ -1671,7 +1693,6 @@ document.addEventListener('keydown', e => {
 });
 document.addEventListener('input', e => { const el = e.target.closest('[data-c]'); if (el && F.C[el.dataset.c]) F.C[el.dataset.c](el, e); });
 document.addEventListener('change', e => { const el = e.target.closest('[data-ch]'); if (el && F.C[el.dataset.ch]) F.C[el.dataset.ch](el, e); });
-A.toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 window.addEventListener('scroll', () => { const h = $('#hdr'); if (h) h.classList.toggle('scrolled', window.scrollY > 8); const t = $('#totop'); if (t) t.classList.toggle('on', window.scrollY > 1400); }, { passive: true });
 
 /* ---------- pages every site has ---------- */
@@ -2306,7 +2327,7 @@ F.pages.contact = {
     <section class="sec-sm"><div class="wrap split al-start"><form class="card stack" data-f="contact" novalidate><div class="fgrid"><div class="field"><label for="ctN">Name</label><input class="inp" id="ctN" name="name" value="${u ? esc(u.name) : ''}" required></div><div class="field"><label for="ctE">Email</label><input class="inp" id="ctE" name="email" type="email" value="${u ? esc(u.email) : ''}" required></div></div>
     <div class="field"><label for="ctT">About</label><select class="inp" id="ctT" name="topic">${(F.SITE.topics || ['A booking', 'Membership', 'Payments', 'Something else']).map(t => `<option>${t}</option>`).join('')}</select></div>
     <div class="field"><label for="ctM">Message</label><textarea class="inp" id="ctM" name="msg" rows="5" required></textarea></div><button class="btn btn-pri">Send</button></form>
-    <div class="stack">${F.CITIES.map(c => `<div class="card ct-c"><strong>${c.name}</strong><p class="small muted mt4">${esc((F.SITE.venues && F.SITE.venues[c.id] && F.SITE.venues[c.id].addr) || '')}</p><button class="btn-link mono mt16" data-a="call" data-c="${c.id}">${c.phone}</button></div>`).join('')}</div></div></section>` };
+    <div class="stack">${F.CITIES.map(c => { const v = (F.SITE.venues || {})[c.id] || {}; return `<div class="card ct-c${v.photo ? ' ct-ph' : ''}">${v.photo ? F.plate({ key: v.photo, cls: 'r169' }) : ''}<div class="ct-b"><strong>${c.name}</strong><p class="small muted mt4">${esc(v.addr || '')}</p><button class="btn-link mono mt16" data-a="call" data-c="${c.id}">${c.phone}</button></div></div>`; }).join('')}</div></div></section>` };
   }
 };
 F.Fm.contact = (f, d) => {
@@ -2639,8 +2660,15 @@ document.addEventListener('keydown', e => {
 });
 
 /* ---------- Back restores the scroll; listing pages remember their filters ---------- */
-const SCR = {};
-F.saveScroll = () => { if (F.route && F.route.full) SCR[F.route.full] = window.scrollY; };
+const SCR = {}, SCRX = {};
+F.saveScroll = () => { if (F.route && F.route.full) { SCR[F.route.full] = window.scrollY; SCRX[F.route.full] = F.scrollSnap($('#main')); } };
+F.popSnap = full => SCRX[full] || null;
+// a link inside the page that goes back to the page you just came from ("← Bookings", "← The menu") works like Back,
+// so you land where you were on it
+const backTo = p => { let st = null; try { st = history.state; } catch (e) { } const f = st && st.from; return !!(f && F.route && p !== F.route.full && history.length > 1 && (f === p || (p.indexOf('?') < 0 && f.split('?')[0] === p))); };
+const nav0 = F.nav;
+F.nav = p => { if (p.charAt(0) !== '/') p = '/' + p; if (backTo(p)) { F.closeModal(true); F.closeDrawer(true); history.back(); return; } nav0(p); };
+document.addEventListener('click', e => { const a = e.target.closest && e.target.closest('a[href^="#/"]'); if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target) return; if (backTo(a.getAttribute('href').slice(1))) { e.preventDefault(); history.back(); } });
 // F._popNav is set by the hashchange handler when the visitor went Back or Forward (not when a link was followed)
 F.restoreScroll = full => { const pop = F._popNav; F._popNav = false; if (!pop || !(full in SCR)) return false; const y = SCR[full]; requestAnimationFrame(() => window.scrollTo(0, y)); setTimeout(() => { if (Math.abs(window.scrollY - y) > 4 && document.documentElement.scrollHeight > y) window.scrollTo(0, y); }, 120); return true; };
 F.rememberQuery = r => {
@@ -2891,7 +2919,8 @@ F.ratingLine = target => { const s = E.reviewStats(target); return s.n ? `<span 
 F.ui.rvT = {};
 // 2–3 reviews with the summary, and "Read all" opening up to 20 in a sheet
 // the compact version for detail pages: the average in one line, one or two short quotes, and "Read all"
-const short = t => { t = String(t || ''); if (t.length <= 140) return t; const cut = t.slice(0, 140), i = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf(', ')); return (i > 60 ? cut.slice(0, i + 1) : cut.replace(/\s+\S*$/, '')) + '…'; };
+// a long review cut to its last whole sentence, or else at a comma or a word with an ellipsis (never ".…")
+const short = t => { t = String(t || ''); if (t.length <= 140) return t; const cut = t.slice(0, 140), dot = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? ')), com = cut.lastIndexOf(', '); return dot > 60 ? cut.slice(0, dot + 1) : (com > 60 ? cut.slice(0, com) : cut.replace(/\s+\S*$/, '')).replace(/[\s,.;:!?—–-]+$/, '') + '…'; };
 F.reviewBrief = (target, { n = 2 } = {}) => {
   F.ui.rvT[target.id] = target; const s = E.reviewStats(target); if (!s.n) return `<p class="small muted">No reviews yet. The first ones arrive after the first ${esc(F.SITE.historyWord || 'visits')}.</p>`;
   const list = E.reviewsOf(target, 12).filter(r => r.rating >= 4 && r.text).slice(0, n);
@@ -2928,7 +2957,7 @@ F.Fm.reviewSave = (f, d) => { const g = F.ui.rvNew, u = E.user(), x = g && E.rev
 'use strict';
 F.COLS = [['touch', 'Touch', 'Hands, oil and release'], ['pairs', 'Pairs', 'For two, side by side or face to face'], ['glow', 'Glow', 'The Rosé series, smoothing and grooming'], ['boost', 'Firm & Boost', 'Tightening, libido and stamina'], ['occasion', 'Occasions', 'Weddings, honeymoons and nights to remember']];
 F.COL = Object.fromEntries(F.COLS.map(c => [c[0], c]));
-F.RELEASE = { none: 'No release', one: 'Release included', many: 'As many as you like', edge: 'Edged, then released', ruin: 'Edged, and denied', decide: 'Decide in the room' };
+F.RELEASE = { none: 'No release', one: 'One release', many: 'As many as you like', edge: 'Edged, then released', ruin: 'Edged, and denied', decide: 'Decide in the room' };
 F.OPT = {
   oil: ['Unscented almond', 'Rose and sandalwood', 'Vanilla and tonka', 'Neroli and amber', 'Warming ginger', 'Fragrance-free grapeseed'],
   music: ['Low and slow', 'Deep house', 'Rain and silence', 'Your own playlist'],
@@ -2944,15 +2973,15 @@ const L = '2026-10-22', B = '2027-02-01', P = '2027-05-01';
 const T = [
   ['warm', 'touch', 'Warm Oil Awakening', 'Full body, warm oil, unhurried, ending wherever you choose.', [60, 90], [220, 310], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Shower, robe, a glass of something, and two minutes with your therapist to agree the body map.'], [10, 'Face down: warm oil, long strokes from the soles of the feet to the back of the neck.'], [30, 'The inner thighs and the curve of the buttocks, slowly, again and again.'], [45, 'Face up: chest, belly and hips, the hands drifting closer each time.'], [55, 'If you chose a release: the hands stay, the pace rises, and you finish.']] }],
   ['lingam', 'touch', 'Lingam Ritual', 'The penis and testicles, worshipped, edged and released.', [90, 120], [340, 440], 'touch', 'touch', ['one', 'edge', 'ruin', 'many', 'decide'], { body: 'penis', steps: [[0, 'Breathing together, then a full-body warm-up so you’re melting before anything else.'], [20, 'Oil poured slowly over the shaft and balls. Twisting strokes, the frenulum, the perineum.'], [45, 'Edging: brought to the brink and held there, again and again, until you’re shaking.'], [75, 'Release your way: one long finish, ruined on purpose, or as many as you have in you.']] }],
-  ['yoni', 'touch', 'Yoni Ritual', 'The vulva, clitoris and G-spot, with as many orgasms as you like.', [90, 120], [360, 460], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'vulva', steps: [[0, 'Breath and a full-body warm-up until the belly softens.'], [20, 'Warm oil over the mound and lips; the outer lips, the inner lips, the hood, slowly.'], [40, 'The clitoris: circles, then stillness, then circles, at the pressure you ask for.'], [60, 'Inside, with consent: the come-here curl on the G-spot while the other hand stays on the clit.'], [80, 'One orgasm, or wave after wave. Then stillness, a warm towel, and time.']] }],
+  ['yoni', 'touch', 'Yoni Ritual', 'The vulva, clitoris and G-spot, with as many orgasms as you like.', [90, 120], [360, 460], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'vulva', steps: [[0, 'Breath and a full-body warm-up until the belly softens.'], [20, 'Warm oil over the mound and lips; the outer lips, the inner lips, the hood, slowly.'], [40, 'The clitoris: circles, then stillness, then circles, at the pressure you ask for.'], [60, 'Inside, with consent: the come-here curl on the G-spot while the other hand stays on the clit.'], [80, 'Release: one orgasm, or wave after wave. Then stillness, a warm towel, and time.']] }],
   ['prostate', 'touch', 'Prostate Release', 'From the perineum to the prostate, for a deep, different orgasm.', [60, 90], [280, 380], 'touch', 'touch', ['one', 'many', 'decide'], { body: 'penis', steps: [[0, 'A full-body warm-up and slow breathing to relax the pelvic floor.'], [15, 'External: the perineum, pressed and circled until the whole area warms.'], [30, 'Gloved, lubricated and patient: one finger inside, resting until the sphincter opens.'], [40, 'Steady pressure and rocking on the prostate, with or without a hand on the penis, until it comes.']] }],
   ['clit', 'touch', 'Clit Focus', 'Forty-five minutes on the clitoris alone. Multiples encouraged.', [45], [240], 'touch', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Settling in, oil warmed, legs supported with bolsters.'], [5, 'The hood and the sides first, feather-light, until you’re asking for more.'], [15, 'One rhythm, held without changing, through the first orgasm.'], [25, 'A still, cupped hand while the sensitivity fades, then building again, faster each time.']] }],
   ['breast', 'touch', 'Breast & Nipple Ritual', 'Breasts, chest and nipples, for any chest, slowly and with intent.', [45], [190], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Warm oil across the chest, shoulders and collarbones.'], [10, 'Circling the breasts or chest in slow spirals, never quite arriving.'], [25, 'The nipples: fingertips, a little pinch if you like, warm and cool.'], [40, 'If you chose a release: one hand stays, one hand travels.']] }],
   ['anal', 'touch', 'Anal Unwind', 'External and internal relaxation, as far as you want to go.', [45], [210], 'touch', 'touch', ['none', 'one', 'decide'], { body: 'any', steps: [[0, 'Buttocks and lower back, kneaded until the whole area lets go.'], [15, 'Gloved and generous with lube: circles at the entrance.'], [25, 'A fingertip inside, only when your body invites it; slow, still, then rocking.'], [40, 'Finish as you choose.']] }],
   ['nuru', 'touch', 'Nuru Slide', 'Body to body in warm Nuru gel. Your therapist nude, sliding over you.', [75, 105], [390, 520], 'wet', 'touch', ['one', 'many', 'decide'], { body: 'any', attire: 'Nude', steps: [[0, 'Showered together, then onto the warmed vinyl mat in the Wet Room.'], [10, 'Warm Nuru gel poured over both of you. Your therapist slides along your back, thighs and buttocks.'], [40, 'Turned over: chest to chest, hips to hips, every inch of skin in contact.'], [60, 'Release with hands, as you chose, then a long warm rinse.']] }],
   ['fourhands', 'touch', 'Four Hands', 'Two therapists, perfectly in time. Nowhere left untouched.', [90], [620], 'touch', 'touch', ['one', 'many', 'edge', 'decide'], { body: 'any', two: true, steps: [[0, 'Two therapists, one rhythm: mirrored strokes from head to toe.'], [30, 'One at your chest, one at your thighs; you stop knowing whose hands are whose.'], [60, 'Both hands on you at once where it matters most, until you finish.']] }],
-  ['edge', 'touch', 'Edge Ritual', 'Two hours on the edge. Released at the end, or not at all.', [120], [520], 'touch', 'touch', ['edge', 'ruin'], { body: 'any', steps: [[0, 'Full-body warm-up, unhurried.'], [30, 'Brought to the edge and stopped. Again. And again.'], [90, 'Your therapist reads every breath and keeps you there, trembling.'], [110, 'Released at last, or denied and sent home buzzing, as you chose.']] }],
-  ['squirt', 'touch', 'Squirt Session', 'The G-spot, steady pressure and towels down. Let go completely.', [75], [420], 'wet', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Warm-up and clitoral touch until you’re very aroused.'], [25, 'Two fingers, the come-here curl, steady and firm on the G-spot.'], [45, 'When it feels like needing to pee, your therapist keeps going and tells you to let go.'], [60, 'Wave after wave, on towels in the Wet Room. Then a rinse and the lounge.']] }],
+  ['edge', 'touch', 'Edge Ritual', 'Two hours on the edge. Released at the end, or not at all.', [120], [520], 'touch', 'touch', ['edge', 'ruin'], { body: 'any', steps: [[0, 'Full-body warm-up, unhurried.'], [30, 'Brought to the edge and stopped. Again. And again.'], [90, 'Your therapist reads every breath and keeps you there, trembling.'], [110, 'The finish: released at last, or denied and sent home buzzing, as you chose.']] }],
+  ['squirt', 'touch', 'Squirt Session', 'The G-spot, steady pressure and towels down. Let go completely.', [75], [420], 'wet', 'touch', ['many', 'one'], { body: 'vulva', steps: [[0, 'Warm-up and clitoral touch until you’re very aroused.'], [25, 'Two fingers, the come-here curl, steady and firm on the G-spot.'], [45, 'When it feels like needing to pee, your therapist keeps going and tells you to let go.'], [60, 'The finish: wave after wave, or one big one, on towels in the Wet Room. Then a rinse and the lounge.']] }],
   ['tantra', 'touch', 'Tantra Full', 'Three hours: breath, full-body awakening and multiple releases.', [180], [780], 'touch', 'touch', ['many', 'edge', 'decide'], { body: 'any', steps: [[0, 'Breathing together, eyes open, until your heart rate slows.'], [30, 'Full-body awakening: feathers, fingertips, oil.'], [90, 'Genital massage in waves, building and resting, energy moving up the body.'], [150, 'Release after release, or one enormous one. Then a long, held rest.']] }],
   ['express', 'touch', 'Express Release', 'Thirty minutes, straight to the point. Lunchtime or late night.', [30], [140], 'touch', 'touch', ['one'], { body: 'any', steps: [[0, 'Five minutes of warm oil on back and shoulders.'], [10, 'Straight to the point, at the pressure you ask for, until you finish.'], [25, 'A hot towel and out the door.']] }],
   ['side', 'pairs', 'Side by Side', 'Two tables, two therapists, one candlelit suite. Release optional for each of you.', [90], [640], 'couples', 'touch', ['none', 'one', 'decide'], { body: 'any', two: true, pair: true, steps: [[0, 'Champagne in the couples suite, robes off.'], [10, 'Two therapists, two tables, a hand’s reach apart.'], [60, 'Each of you finishes as you chose, watching the other or not.']] }],
@@ -3059,7 +3088,7 @@ F.CONTENT = {
   journal: [
     { slug: 'why-velvet', cat: 'Velvet', title: 'Why Velvet', read: 3, ago: 3, excerpt: 'Most spas pretend. We put the whole menu on the wall.', body: [['p', 'Every city has massage parlors that hint and spas that refuse. Velvet is neither: a beautiful spa where sensual touch is the point, written plainly on the menu, done by licensed therapists.'], ['h', 'Your choices, in writing'], ['p', 'Before you arrive you choose your ritual, your release, your therapist’s gender and what they wear, your oil, your music and your light. You paint your body map. Nothing is guessed in the room.'], ['h', 'The line we hold'], ['p', 'Hands, forearms, bodies on Nuru, and toys. Never oral, never intercourse, never you touching the therapist. It’s what makes it possible to relax completely.']], cta: ['See the menu', '#/menu'] },
     { slug: 'the-rose-series-honestly', cat: 'Glow', title: 'The Rosé series, honestly', read: 4, ago: 12, excerpt: 'What brightening can and can’t do, and why six sessions two weeks apart.', body: [['p', 'Intimate skin is naturally darker than the rest of you; that’s normal, and it’s fine. If you’d like it lighter and more even, a series of gentle peels can brighten it gradually.'], ['h', 'How it works'], ['p', 'Mild acids lift the top layers so newer, lighter skin comes through. Two weeks between sessions lets the skin settle. Six sessions is where most people see the change they wanted.'], ['h', 'Keeping it'], ['p', 'Results fade without upkeep: friction, hormones and time all darken skin again. Your Glow tracker shows it, privately, and reminds you when a maintenance session is due.']], cta: ['The Glow Lab', '#/glow'] },
-    { slug: 'edged-or-released', cat: 'Rituals', title: 'Edged, released, or denied', read: 3, ago: 26, excerpt: 'Choosing your release, and why the Edge Ritual is the most re-booked thing on the menu.', body: [['p', 'Every touch ritual lists its release options. “Release included” is the simple one. “Edged, then released” brings you to the brink and holds you there before letting go. “Edged and denied” sends you home buzzing.'], ['h', 'Decide in the room'], ['p', 'Not sure? Choose “decide in the room” and tell your therapist when you know.']] }
+    { slug: 'edged-or-released', cat: 'Rituals', title: 'Edged, released, or denied', read: 3, ago: 26, excerpt: 'Choosing your release, and why the Edge Ritual is the most re-booked thing on the menu.', body: [['p', 'Every touch ritual lists its release options. “One release” is the simple one. “Edged, then released” brings you to the brink and holds you there before letting go. “Edged and denied” sends you home buzzing.'], ['h', 'Decide in the room'], ['p', 'Not sure? Choose “decide in the room” and tell your therapist when you know.']] }
   ]
 };
 const RULES = [
@@ -3522,8 +3551,9 @@ F.ranked = list => list.slice().sort((a, b) => (F.trOpen(b) - F.trOpen(a)) || F.
 F.pages.home = {
   render() {
     const c = F.cityId(), tz = E.cityTz(c), n = now(), u = E.user(), m = E.spaMins(tz, n), open = m >= F.OPEN.from && m < F.OPEN.to, day = E.spaDay(tz, n), sp = F.SPAS[c].name.replace('Velvet ', '');
-    const tonight = open ? ['yoni', 'lingam', 'nuru', 'edge', 'prostate', 'express', 'fourhands', 'warm', 'squirt', 'clit'].map(E.tr).filter(F.trOpen).reduce((out, t) => { if (out.length < 4) { const sl = E.memo('tn' + t.id + c + day, () => E.slots({ tid: t.id, dur: t.d[0], cityId: c, key: day, lead: 30 * M })).find(x => !out.some(o => o.sl.start === x.start)); if (sl) out.push({ t, sl }); } return out; }, []).sort((a, b) => a.sl.start - b.sl.start) : [];
-    const feat = F.ranked(['yoni', 'lingam', 'nuru', 'edge', 'side', 'rose_vulva', 'prostate', 'watch'].map(E.tr)).slice(0, 6), mine = u ? F.forYouVV(u) : '';
+    // the same times the builder offers (same lead time and therapist choice), so a link here lands on its time there
+    const g = u ? E.rbGender(u) : 'Any', tonight = open ? ['yoni', 'lingam', 'nuru', 'edge', 'prostate', 'express', 'fourhands', 'warm', 'squirt', 'clit'].map(E.tr).filter(F.trOpen).reduce((out, t) => { if (out.length < 4) { const sl = E.memo(`rs|${t.id}|${t.d[0]}|${c}|${day}|${g}|null`, () => E.slots({ tid: t.id, dur: t.d[0], cityId: c, key: day, gender: g, same: null })).find(x => !out.some(o => o.sl.start === x.start)); if (sl) out.push({ t, sl }); } return out; }, []).sort((a, b) => a.sl.start - b.sl.start) : [];
+    const feat = F.ranked(['yoni', 'lingam', 'nuru', 'edge', 'side', 'rose_vulva', 'prostate', 'watch'].map(E.tr)).slice(0, 6), mine = u ? F.forYouVV(u, feat.map(t => t.id)) : '';
     return { title: 'The sensual spa', html: `<section class="xh"><div class="xh-ph">${F.plate({ key: 'site/hero', cls: 'xh-plate' })}</div><div class="wrap xh-in"><div class="xh-top"><span>Licensed hands · Est. 2026</span><span>West Hollywood · SoHo · Marylebone · 10am to 2am</span></div>
     <div class="xh-mark"><h1 class="xh-word" aria-label="Velvet">VELVET</h1></div>
     <div><div class="xh-meta"><span>The sensual spa</span><i></i><span>Touch, finished properly</span></div>
@@ -3532,9 +3562,9 @@ F.pages.home = {
     <div class="xs-f"><label for="vfG">Therapist</label><select id="vfG" name="g">${F.OPT.gender.map(g => `<option>${g}</option>`).join('')}</select></div><button class="btn btn-pri">Find a time ${F.ic('arrow', 14)}</button></form>
     <p class="live-l mt16"><i class="dot ${open ? 'live' : ''}"></i>${open ? `${esc(sp)} is open until 2am` : `${esc(sp)} opens at 10am`}</p></div></div></section>
     <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u)}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
-    ${tonight.length ? `<div class="g g2 tn">${tonight.map(({ t, sl }) => `<a class="tn-c spot-on" href="#/build?t=${t.id}&d=${t.d[0]}&s=${sl.start}"><span class="tn-t mono">${U.fmt(sl.start, tz, 'time')}</span><span class="tn-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(t.d[0])} · from ${F.trFrom(t, c)}</small></span>${F.ic('arrow', 16)}</a>`).join('')}</div>` : `<p class="lead">${open ? 'Tonight is fully booked; late cancellations open up here first. Tomorrow opens at 10am, and the evening times go first.' : 'We open at 10am. The evening times go first.'}</p><a class="btn btn-pri mt24" href="#/build">Book for tomorrow</a>`}</div></section>
-    <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="clist">${feat.map(F.trCC).join('')}</div>
-    <div class="chiprow mt24">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
+    ${tonight.length ? `<div class="g g2 tn">${tonight.map(({ t, sl }) => `<a class="tn-c spot-on" href="#/build?t=${t.id}&d=${t.d[0]}&g=${encodeURIComponent(g)}&s=${sl.start}"><span class="tn-t mono">${U.fmt(sl.start, tz, 'time')}</span><span class="tn-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(t.d[0])} · from ${F.trFrom(t, c)}</small></span>${F.ic('arrow', 16)}</a>`).join('')}</div>` : `<p class="lead">${open ? 'Tonight is fully booked; late cancellations open up here first. Tomorrow opens at 10am, and the evening times go first.' : 'We open at 10am. The evening times go first.'}</p><a class="btn btn-pri mt24" href="#/build">Book for tomorrow</a>`}</div></section>
+    <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="chiprow">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>
+    <div class="clist cl-s2 mt24">${feat.map(F.trCC).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
     <section class="sec-md sec-alt"><div class="wrap split"><div>${F.secHead({ eyebrow: 'Your ritual, your rules', title: 'Nothing is <span class="it">guessed</span> in the room', lead: 'Choose the release, the oil, the light and your therapist. Paint your body map once; it travels with every visit. Licensed hands only: never oral, never intercourse, and you stop anything with a word.' })}<a class="btn btn-pri" href="#/build">Start building</a></div>
     <div class="opts-show">${[['Release', F.RELEASE.edge], ['Oil', F.OPT.oil[1]], ['Light', F.OPT.light[0]], ['Therapist', 'A woman, in lingerie'], ['Body map', 'Genitals: yes · Anus: gently · Feet: avoid']].map(([k, v]) => `<div class="od-r"><span class="lbl">${k}</span><span class="hand-s">${esc(v)}</span></div>`).join('')}</div></div></section>
     ` };
@@ -3551,8 +3581,8 @@ const okP = (t, p) => { const u = t.usd[0]; return !p || (p === 'lo' ? u < 200 :
 const okW = (t, w) => !w || (w === 'two' ? t.pair : !t.pair && (t.body === w || t.body === 'any'));
 const sortBy = (l, s) => s === 'price' ? l.sort((a, b) => a.usd[0] - b.usd[0]) : s === 'dur' ? l.sort((a, b) => a.d[0] - b.d[0]) : s === 'rating' ? l.sort((a, b) => F.rvStats('tr:' + b.id).avg - F.rvStats('tr:' + a.id).avg) : F.ranked(l);
 // a portrait photo card: name, one line, length and price
-F.trTile = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c); return `<a class="ptile" href="#/treatment/${t.id}">${F.plate({ key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45' + (F.LIGHT.has(t.id) ? ' pl-lt' : ''), cap: se ? esc(se.name) : '' })}<span class="ptile-b"><strong class="ptile-t">${esc(t.n)}</strong><span class="ptile-s">${esc(t.s)}</span><span class="ptile-m"><span class="muted">${durs(t)}</span><span class="mono">${open ? F.trFrom(t, c) : 'From ' + U.keyFmt(F.trRel(t), 'dshort')}</span></span></span></a>`; };
-F.progTile = p => `<a class="ptile" href="#/program/${p.id}">${F.plate({ key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45', cap: F.progOpen(p) ? '' : 'From ' + U.keyFmt(p.rel, 'dshort') })}<span class="ptile-b"><strong class="ptile-t">${esc(p.name)}</strong><span class="ptile-s">${esc(p.line)}</span><span class="ptile-m"><span class="muted">${U.plural(p.plan.length, 'visit')}</span><span class="mono">${E.money(E.progPrice(p, F.cityId()), F.cityId())}</span></span></span></a>`;
+F.trTile = t => { const c = F.cityId(), open = F.trOpen(t), se = open && E.trSeason(t, c); return `<a class="ptile" href="#/treatment/${t.id}">${F.plate({ key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45' + (F.LIGHT.has(t.id) ? ' pl-lt' : ''), cap: se ? esc(se.name) : '' })}<span class="ptile-b"><strong class="ptile-t">${esc(t.n)}</strong><span class="ptile-s">${esc(t.s)}</span><span class="ptile-f"><span class="ptile-x">${F.rvTxt('tr:' + t.id)}</span>${open && E.vvTrWeek ? `<span class="ptile-x"><i class="dot live"></i>${E.vvTrWeek(t)} booked this week</span>` : ''}<span class="ptile-m"><span class="muted">${durs(t)}</span><span class="mono">${open ? F.trFrom(t, c) : 'From ' + U.keyFmt(F.trRel(t), 'dshort')}</span></span></span></span></a>`; };
+F.progTile = p => `<a class="ptile" href="#/program/${p.id}">${F.plate({ key: 'site/prog-' + p.id, art: F.SITE.art(p.id, 'occasion'), cls: 'r45', cap: F.progOpen(p) ? '' : 'From ' + U.keyFmt(p.rel, 'dshort') })}<span class="ptile-b"><strong class="ptile-t">${esc(p.name)}</strong><span class="ptile-s">${esc(p.line)}</span><span class="ptile-f"><span class="ptile-x">${F.rvTxt('pg:' + p.id)}</span><span class="ptile-m"><span class="muted">${U.plural(p.plan.length, 'visit')}</span><span class="mono">${E.money(E.progPrice(p, F.cityId()), F.cityId())}</span></span></span></span></a>`;
 F.pages.menu = {
   render(r) {
     const q = r.q, col = F.COL[q.c] ? q.c : 'touch', link = o => '/menu' + U.q(Object.assign({ c: col, d: q.d, p: q.p, w: q.w, s: q.s }, o)), to = k => v => ({ q: link({ [k]: v }) });
@@ -3590,11 +3620,11 @@ F.pages.treatment = {
   render(r) {
     const t = E.tr(r.params[0]); if (!t || t.hidden) return F.pages.notfound.render(r);
     const c = F.cityId(), u = E.user(), open = F.trOpen(t), se = open && E.trSeason(t, c), n = E.thersFor(t, c).filter(x => E.therOn(x, E.todayKey(c))).length, dur = t.d.includes((F.ui.trd || {})[t.id]) ? F.ui.trd[t.id] : t.d[0];
-    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}${(x => x ? ` <span class="nobr">· ${x}</span>` : '')(F.rvLine('tr:' + t.id))}${F.trOpen(t) && F.vvWeekLine ? F.vvWeekLine(t) : ''}`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
+    return { title: t.n, html: `${F.detailHead({ back: `<a class="btn-link tiny" href="#/menu?c=${t.c}">${F.ic('back', 12)} ${F.COL[t.c][1]}</a>`, art: F.trArt(t, 'r45'), tcls: 'h-disp', title: esc(t.n), line: esc(t.s), meta: `<span class="mono">${F.trFrom(t, c)}</span>${E.memberPct(u) ? ' your price' : ` · members ${E.money(E.mprice(E.cp(c, E.trNow(t, t.d[0], c))), c)}`} · ${durs(t)}${t.pair || t.body !== 'any' ? ' · ' + F.whoOf(t) : ''}<span class="dh-m2">${F.rvLine('tr:' + t.id)}${open && F.vvWeekLine ? ' · ' + F.vvWeekLine(t) : ''}</span>`, extra: (se ? `<p class="small mt16 se-l">${F.ic('sparkle', 14)} ${se.line}</p>` : '') + (!open ? `<div class="notice mt16">${F.ic('clock', 16)}<span>On the menu from ${U.keyFmt(F.trRel(t), 'dateLong')}.</span></div>` : ''), cta: open ? `<a class="btn btn-pri" href="#/build?t=${t.id}">Build this ritual</a>` : '' })}
     ${F.detailBody(`<div>${F.secHead({ eyebrow: 'Minute by minute', lead: t.d.length > 1 ? `Shown for ${U.dur(t.d[0])}; the ${U.dur(t.d[1])} stretches every part.` : '' })}${F.timeline(t, t.d[0])}</div>
     <div>${F.secHead({ eyebrow: 'Guests say' })}${F.reviewBrief(F.vvT('tr:' + t.id))}</div>`, `${open ? `<div class="card dbook"><span class="lbl">Book</span><div class="row wrap-gap end mt8"><span class="h-disp dbook-p">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, dur, c))), c)}</span><span class="small muted">${E.memberPct(u) ? `<s>${E.money(E.cp(c, E.trNow(t, dur, c)), c)}</s> member price` : `members ${E.money(E.mprice(E.cp(c, E.trNow(t, dur, c))), c)}`}</span></div>
     ${t.d.length > 1 ? `<div class="fopts" role="group" aria-label="Length">${t.d.map(d => `<button class="fopt ${d === dur ? 'on' : ''}" data-a="trDur" data-t="${t.id}" data-v="${d}" aria-pressed="${d === dur}">${F.ic('clock', 15)}<span><strong>${U.dur(d)}</strong></span><span class="mono tiny">${E.money(E.yourPrice(u, E.cp(c, E.trNow(t, d, c))), c)}</span></button>`).join('')}</div>` : `<p class="small muted mt8">${U.dur(dur)}</p>`}
-    <a class="btn btn-pri btn-block mt24 dbook-go" href="#/build?t=${t.id}&d=${dur}">Build this ritual</a><p class="tiny muted mt8">Prices follow the hour: quiet afternoons cost less.</p></div>` : ''}<div class="dfacts"><div class="dfact">${F.ic('heart', 16)}<p class="small"><strong>How it ends:</strong> ${t.release ? t.release.map(x => F.RELEASE[x]).join(' · ') : 'no release; this is skin care'}. You choose in the next step.</p></div>
+    <a class="btn btn-pri btn-block mt24 dbook-go" href="#/build?t=${t.id}&d=${dur}">Build this ritual</a><p class="tiny muted mt8">Prices follow the hour: quiet afternoons cost less.</p></div>` : ''}<div class="dfacts"><div class="dfact">${F.ic('heart', 16)}<p class="small">${t.release ? `<strong>Choose how it ends:</strong> ${t.release.map(x => F.RELEASE[x]).join(' · ')}. You pick one in the next step.` : '<strong>How it ends:</strong> no release; this is skin care.'}</p></div>
     <div class="dfact">${F.ic('user', 16)}<p class="small">${open && n ? `Any of ${n} licensed therapists at ${esc(F.SPAS[c].name)}, or choose specific hands in the next step.` : `Licensed therapists only, at ${esc(F.SPAS[c].name)}.`}${t.two ? ' Two therapists work together.' : ''}${t.series ? ` A series of ${t.series[0]}, ${t.series[1]} days apart.` : ''}</p></div>
 </div>`)}
     ${open ? F.bookBar({ title: esc(t.n), price: 'from ' + F.trFrom(t, c), btn: { label: 'Build it', href: '#/build?t=' + t.id } }) : ''}` };
@@ -3689,6 +3719,9 @@ E.partner = u => { const m = u && F.S.maps.find(x => x.userId === u.id); return 
 E.mutualMap = u => { const a = E.myMap(u), p = E.partner(u); if (!p) return a; return Object.fromEntries(F.ZONES.map(([k]) => [k, a[k] === 'avoid' || p.z[k] === 'avoid' ? 'avoid' : a[k] === 'yes' && p.z[k] === 'yes' ? 'yes' : 'gentle'])); };
 F.mutualCard = u => { const p = E.partner(u), z = E.mutualMap(u), by = v => F.ZONES.filter(([k]) => z[k] === v).map(x => x[1].toLowerCase());
   return `<span class="lbl">${p ? 'Your shared map, with ' + esc(p.name) : 'Your shared map'}</span><div class="ts-mini mt16"><div class="bm-mini">${F.bodyMap(z, false)}</div><div class="stack-s small">${p ? `<p><strong>Both yes:</strong> ${esc(U.list(by('yes')) || 'nowhere yet')}.</p>${by('gentle').length ? `<p><strong>Gently:</strong> ${esc(U.list(by('gentle')))}.</p>` : ''}${by('avoid').length ? `<p><strong>Off for both of you:</strong> ${esc(U.list(by('avoid')))}.</p>` : ''}` : '<p class="muted">Add your partner’s map and this shows only where you both said yes.</p>'}</div></div>`; };
+// the sheet in a few words: "1 gentle area, 2 to avoid"; and whether it was ever saved (else it's the default)
+F.mapCount = z => { const n = v => F.ZONES.filter(([k]) => z[k] === v).length, g = n('gentle'), a = n('avoid'); return [g ? U.plural(g, 'gentle area') : '', a ? a + ' to avoid' : ''].filter(Boolean).join(', ') || 'yes everywhere'; };
+F.sheetLine = u => { const sh = E.sheet(u), c = F.mapCount(sh.z); return sh.marked ? 'Saved: ' + c : 'Using the default: ' + c; };
 F.mapSummary = z => { const g = F.ZONES.filter(([k]) => z[k] === 'gentle').map(x => x[1].toLowerCase()), a = F.ZONES.filter(([k]) => z[k] === 'avoid').map(x => x[1].toLowerCase()); return (g.length ? 'Gently: ' + U.list(g) + '. ' : '') + (a.length ? 'Avoid: ' + U.list(a) + '.' : '') || 'Everywhere, yes please.'; };
 
 /* ---------- booking rules for members ---------- */
@@ -3696,6 +3729,8 @@ E.horizon = u => E.memberPct(u) ? 35 : 21;
 // members get first pick of 10pm to 2am; everyone else sees those times from 48 hours ahead
 E.lateHeld = (u, cityId, start) => E.spaMins(E.cityTz(cityId), start) >= 22 * 60 && !E.memberPct(u) && start - now() > 48 * H;
 E.lastRitual = u => { const v = u && E.myVisits(u).filter(x => x.status !== 'cancelled' && !x.program).pop(); return v || null; };
+// the therapist the builder starts with: the touch sheet's choice, then last time's, then anyone
+E.rbGender = u => { const last = E.lastRitual(u); return E.sheet(u).prefs.gender || (last && last.opts.gender) || 'Any'; };
 const DEF_OPTS = { oil: F.OPT.oil[1], music: F.OPT.music[0], light: F.OPT.light[0], pressure: 'Medium', temp: F.OPT.temp[0], gender: 'Any', attire: F.OPT.attire[0] };
 const touch = t => t.q === 'touch';
 
@@ -3755,14 +3790,14 @@ F.pages.build = {
       <fieldset><legend class="lbl">Add to your visit${isMember ? ' <span class="muted">· one is free for members</span>' : ''}</legend><div class="row wrap-gap mt8">${F.ADDONS.filter(a => a[0] !== 'shower' || t.pair).map(([k, l, usd]) => `<label class="chk-chip"><input type="checkbox" data-ch="rbAdd" value="${k}" ${b.extras.includes(k) ? 'checked' : ''}><span>${esc(l)} · ${E.pm(usd, c)}</span></label>`).join('')}</div></fieldset>
       ${t.pair ? `<div class="field"><label for="rbP">Your partner’s first name <span class="muted">(for the desk)</span></label><input class="inp" id="rbP" data-c="rbField" data-k="partner" value="${esc(b.partner)}" maxlength="30" autocomplete="off"></div>` : ''}
       <div class="field"><label for="rbN">Anything your therapist should know <span class="muted">(optional)</span></label><textarea class="inp" id="rbN" rows="2" data-c="rbField" data-k="note" maxlength="300" placeholder="A sore shoulder, a first time, a word you like to hear">${esc(b.note)}</textarea></div></div></div>
-    <div class="costep ${clash || care ? 'open' : 'done'}">${head(3, t.pair ? 'Your shared map' : 'Your touch sheet', esc(F.mapSummary(z)))}<div class="costep-b">${t.pair ? `${F.mutualCard(u)}<button class="btn btn-ghost btn-sm mt16" data-a="mapOpen" data-who="partner">${E.partner(u) ? 'Change your partner’s map' : 'Add your partner’s map'}</button>` : `<div class="ts-mini"><div class="bm-mini">${F.bodyMap(z, false)}</div><div class="stack-s">${E.careNotes(u).map(x => `<p class="small">${F.ic('check', 12)} ${esc(x)}</p>`).join('') || '<p class="small muted">No care notes. Allergies, pregnancy and medication go on the sheet.</p>'}<button class="btn btn-ghost btn-sm" data-a="mapOpen">Open my touch sheet</button></div></div>`}${clash || care ? `<div class="notice err mt16">${F.ic('alert', 16)}<span>${esc(clash || care)}</span></div>` : ''}</div></div>
+    <div class="costep ${clash || care ? 'open' : 'done'}">${head(3, t.pair ? 'Your shared map' : 'Your touch sheet', t.pair ? (x => x[0].toUpperCase() + x.slice(1))(F.mapCount(z)) : F.sheetLine(u))}<div class="costep-b">${t.pair ? `${F.mutualCard(u)}<button class="btn btn-ghost btn-sm mt16" data-a="mapOpen" data-who="partner">${E.partner(u) ? 'Change your partner’s map' : 'Add your partner’s map'}</button>` : `<div class="ts-mini"><div class="bm-mini">${F.bodyMap(z, false)}</div><div class="stack-s">${E.careNotes(u).map(x => `<p class="small">${F.ic('check', 12)} ${esc(x)}</p>`).join('') || '<p class="small muted">No care notes. Allergies, pregnancy and medication go on the sheet.</p>'}<button class="btn btn-ghost btn-sm" data-a="mapOpen">Open my touch sheet</button></div></div>`}${clash || care ? `<div class="notice err mt16">${F.ic('alert', 16)}<span>${esc(clash || care)}</span></div>` : ''}</div></div>
     <div class="costep ${b.start ? 'done' : 'open'}" id="rb-time">${head(4, 'Time', b.start ? U.fmt(b.start, tz, 'dt') + ' · ' + esc(F.SPAS[c].name) : '')}<div class="costep-b">${F.cityChips()}
       ${sameT ? `<div class="notice mt16">${F.ic('heart', 16)}<span>Only times when the same hands (${esc(sameT.init)}) are free. <button class="btn-link tiny" data-a="rbAny">Any licensed hands</button></span></div>` : `<details class="acc rb-hands mt16" data-d="rbh"><summary class="row between"><span class="small">Any licensed therapist, or choose specific hands</span>${F.ic('plus', 14)}</summary><div class="acc-b">${F.therPicker(t, b.dur)}</div></details>`}
       <div class="days mt16">${days.map((k, i) => `<button class="dayb ${k === b.key ? 'on' : ''} ${counts[i] ? '' : 'full'}" data-a="rbDay" data-v="${k}" aria-pressed="${k === b.key}"><small>${U.keyFmt(k, 'wd')}</small><b>${k.slice(8)}</b><i>${counts[i] ? counts[i] < 3 ? 'Last few' : '' : 'Full'}</i></button>`).join('')}</div>
       ${slots.length > 12 ? `<div class="seg seg-sm mt16" role="group" aria-label="Part of the day">${PARTS.filter(([k]) => groups[k].length).map(([k, l]) => `<button class="seg-b ${k === part ? 'on' : ''}" data-a="rbPart" data-v="${k}" aria-pressed="${k === part}">${l} · ${groups[k].length}</button>`).join('')}</div>` : ''}
       <div class="slots mt16">${slots.length ? (slots.length > 12 ? groups[part] : slots).map(x => { const dm = E.demand(c, x.start, t.id); return `<button class="chip ${x.start === b.start ? 'on' : ''} ${dm < 1 ? 'sl-q' : ''}" data-a="rbTime" data-v="${x.start}" aria-pressed="${x.start === b.start}">${U.fmt(x.start, tz, 'time')}${dm < 1 ? '<i class="sl-dot" aria-label="quiet hour, 10% less"></i>' : ''}</button>`; }).join('') : `<div class="notice">${F.ic('clock', 16)}<span>${E.waitFor(u, t.id, b.key, c) ? `You’re on the waitlist for ${U.keyFmt(b.key, 'date')}. If a guest cancels, you hear first.` : `${U.keyFmt(b.key, 'date')} is full. Guests do cancel late; join the waitlist and the first time that opens comes to you.`}</span></div>${E.waitFor(u, t.id, b.key, c) ? '' : `<button class="btn btn-ghost btn-sm mt16" data-a="rbWait">Join the waitlist</button>`}`}</div>
       ${b.start && F.vvSlotCrowd ? F.vvSlotCrowd(t, c, b.start, tz) : ''}
-      <p class="tiny muted mt16">Times in ${E.city(c).name} (${U.tzAbbr(tz)}). Open 10am to 2am. Prices follow the hour: quiet times <span class="sl-dot"></span> cost less, busy evenings up to a quarter more.${lateNote ? ' Late slots from 10pm open to everyone 48 hours ahead; members book them any time.' : ''}</p></div></div>
+      <p class="tiny muted mt16"><span class="sl-dot sl-key"></span>Quiet hour: costs less. Busy evenings cost up to a quarter more.</p><p class="tiny muted mt4">Times in ${E.city(c).name} (${U.tzAbbr(tz)}). Open 10am to 2am.${lateNote ? ' Late slots from 10pm open to everyone 48 hours ahead; members book them any time.' : ''}</p></div></div>
     <div class="costep ${b.start ? 'open' : 'locked'}" id="rb-pay">${head(5, 'Payment')}${b.start ? `<div class="costep-b stack">
       ${err ? `<div class="notice err">${F.ic('alert', 16)}<span>${esc(err)}</span></div>${!u.verified ? '<button class="btn btn-pri btn-sm" data-a="verifyId">Verify now</button>' : ''}` : ''}
       ${isMember ? `<p class="small">${F.ic('check', 14)} Member price${pr.free ? ' and a free add-on' : ''}: ${E.money(U.r2(pr.disc + pr.free), c, true)} less.</p>` : `<p class="small muted">Members would pay ${E.money(memberWould, c, true)} for this visit. <a class="u" href="#/membership">About membership</a></p>`}
@@ -3770,7 +3805,7 @@ F.pages.build = {
       ${due > 0 ? F.payBlock(u, c, due) : ''}
       <button class="btn btn-pri btn-lg btn-block" data-a="rbGo" ${err ? 'disabled' : ''}>${F.payCta(u, c, due, 'book')}</button><p class="tiny muted">Cancel more than 24 hours ahead for everything back; half back from 24 to 4 hours.</p></div>` : ''}</div></div>
     <aside class="co-side ph-hide"><div class="card co-sum">${F.trArt(t, 'r169')}<h2 class="h-disp h3 mt16">${esc(t.n)}</h2><p class="small muted mt8">${U.dur(b.dur)}${t.pair ? ' · for two' : ''}</p><div class="sum mt16">${t.release ? F.kv('Release', F.RELEASE[b.release]) : ''}${F.kv('Therapist', (t.two ? 'Two, ' : '') + (b.opts.gender === 'Any' ? 'any gender' : b.opts.gender.toLowerCase()) + (touch(t) ? ', ' + (b.opts.attire || '').toLowerCase() : ''))}${touch(t) ? F.kv('Oil', esc(b.opts.oil)) : ''}${F.kv('When', b.start ? U.fmt(b.start, tz, 'dt') : '—')}${F.kv('Where', esc(F.SPAS[c].name))}
-      ${F.kv(esc(t.n), E.money(pr.base, c, true))}${pr.disc ? F.kv(isMember ? 'Member price' : 'Reserve price', '−' + E.money(pr.disc, c, true), 'kv-disc') : ''}${pr.add ? F.kv('Add-ons', E.money(pr.add, c, true)) : ''}${pr.free ? F.kv('A free add-on', '−' + E.money(pr.free, c, true), 'kv-disc') : ''}${promo && promo.ok ? F.kv(esc(promo.label), '−' + E.money(promo.amount, c, true), 'kv-disc') : ''}${F.kv('Total', E.money(due, c, true), 'kv-total')}</div></div></aside></div></div></section>
+      ${F.kv(esc(t.n), E.money(pr.base, c, true))}${pr.disc ? F.kv(isMember ? 'Member price' : 'Reserve price', '−' + E.money(pr.disc, c, true), 'kv-disc') : ''}${pr.add ? F.kv('Add-ons', E.money(pr.add, c, true)) : ''}${pr.free ? F.kv('A free add-on', '−' + E.money(pr.free, c, true), 'kv-disc') : ''}${promo && promo.ok ? F.kv(esc(promo.label), '−' + E.money(promo.amount, c, true), 'kv-disc') : ''}${F.kv('Total', E.money(due, c, true), 'kv-total')}</div>${b.start ? `<button class="btn btn-pri btn-block mt24" data-a="rbGo" ${err ? 'disabled' : ''}>${F.payCta(u, c, due, 'book')}</button>${err ? `<p class="tiny muted mt8">${esc(err)}</p>` : ''}` : '<button class="btn btn-pri btn-block mt24" data-a="rbJump">Choose a time</button>'}</div></aside></div></div></section>
     ${F.bookBar({ title: esc(t.n), sub: b.start ? U.fmt(b.start, tz, 'dt') : U.dur(b.dur), price: E.money(due, c, true), btn: { label: b.start ? 'Pay and book' : 'Choose a time', a: 'rbJump' } })}` };
   }
 };
@@ -3956,7 +3991,7 @@ V[''] = u => {
     ${up.length > 1 ? `<div><div class="row between"><span class="lbl">Also booked</span><a class="btn-link tiny" href="#/account/visits">All visits</a></div><div class="stack-s mt16">${up.slice(1, 4).map(vRow).join('')}</div></div>` : ''}</div>
     <aside class="card ov-side"><span class="lbl">At a glance</span><div class="stack-s mt16">
       ${tile('#/account/wallet', 'wallet', E.money(E.walletIn(u, c), c) + ' in your Wallet', m ? `Member prices until ${U.fmt(m.periodEnd, E.cityTz(m.cityId), 'md')}` : 'Paying per ritual')}
-      ${tile('#/account/bodymap', 'drop', 'Touch sheet', zones ? 'Saved: every therapist reads it first' : 'Not set yet: two minutes, used every visit')}
+      ${tile('#/account/bodymap', 'drop', 'Touch sheet', F.sheetLine(u) + (zones ? '. Every therapist reads it first' : '. Two minutes makes it yours'))}
       ${tile('#/account/visits', 'cal', up.length ? U.plural(up.length, 'visit') + ' booked' : 'Visits', up.length ? 'Coming up and before' : 'Your history and programs')}
       ${ga.length ? tile('#/account/glow', 'sparkle', 'Glow tracker', ga.map(([k, g]) => F.AREAS[k][0] + ' ' + g.level + '/6').join(' · ')) : ''}
     </div></aside></div>` };
@@ -4344,7 +4379,8 @@ F.SITE.prefTags = u => { const sh = E.sheet(u), z = sh.z, tags = {}, add = (k, w
 const tagsOf = t => [t.c, t.id, 'id:' + t.id, t.body, t.pair ? 'pairs' : '', ...(t.release || [])].filter(Boolean);
 const fyItems = u => { const z = E.myMap(u), c = F.cityId(); return F.TREAT.filter(t => !t.hidden && F.trOpen(t) && !E.careBlock(u, t) && !E.mapClash(t, t.pair ? E.mutualMap(u) : z, (t.release || [])[0])).map(t => ({ t, id: t.id, title: t.n, sub: t.s, href: '#/treatment/' + t.id, key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls: 'r45', meta: `${t.d.length > 1 ? t.d.join('/') + ' min' : U.dur(t.d[0])} · ${F.rvTxt('tr:' + t.id)}`, price: F.trFrom(t, c), tags: tagsOf(t) })); };
 const fyScore = (x, p) => 2 + x.tags.reduce((a, k) => a + (p.tags[k] || 0), 0) + (F.rvRank('tr:' + x.id) - 4.6) * 4;
-F.forYouVV = u => [F.digestCard(u), F.forYou(u, fyItems(u), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
+// skip: what the page above already shows
+F.forYouVV = (u, skip = []) => [F.digestCard(u), F.forYou(u, fyItems(u).filter(x => !skip.includes(x.id)), fyScore, { title: 'For you', n: 3, lead: 'From your touch sheet and your visits.' }), F.recentRow(u, { n: 3, map: () => ({ cls: 'r45' }) })].filter(Boolean).map((x, i) => i ? `<div class="mt48">${x}</div>` : x).join('');
 
 /* ---------- nudges: come back at the right interval ---------- */
 const upcomingOf = (u, test) => E.myVisits(u).some(v => v.status === 'confirmed' && test(E.tr(v.tid)));
@@ -4484,7 +4520,7 @@ E.vvFeed = (cityId, n = 3) => {
 };
 F.vvStrip = cityId => { const f = E.vvFeed(cityId, 3); return f.length ? `<div class="vcrowd mt24"><span class="tiny mono"><i class="dot live"></i>${E.vvTodayCount(cityId)} rituals booked today</span>${f.map(z => `<a class="tiny" href="${z.href}">${esc(z.text)} <span class="muted">· ${ago(z.at)}</span></a>`).join('')}</div>` : ''; };
 F.vvSlotCrowd = (t, cityId, start, tz) => { const rf = E.vvRoomsFree(t, cityId, start, start + t.d[0] * M), lk = E.vvLooking(t, start); return `<p class="tiny mt16 vslot"><i class="dot live"></i>${U.fmt(start, tz, 'time')}: ${rf.all > 1 ? `${rf.free} of ${rf.all} rooms free` : rf.free ? 'the room is free' : 'the room is held for you'}${lk >= 2 ? ` · ${lk} others looking at this time` : ''}</p>`; };
-F.vvWeekLine = t => `<span class="d-b tiny mt8 vweek"><i class="dot live"></i> Booked ${E.vvTrWeek(t)} times this week</span>`;
+F.vvWeekLine = t => `<span class="vweek"><i class="dot live"></i> Booked ${E.vvTrWeek(t)} times this week</span>`;
 
 /* ---------- during a visit ---------- */
 const DURING = [['tonic', 'A tonic from the bar', 'Brought to you in the lounge'], ['lounge', 'Another hour in the lounge', 'Stay longer, no rush'], ['shower', 'The two-person rain shower', 'After the ritual']];
@@ -4650,7 +4686,7 @@ H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><
 })();
 
 /* ---- 97a-evening.js ---- */
-/* One Evening: a Velvet ritual, then a FLINGR night, then a Practice follow-up the next day, paid for in one checkout
+/* One Evening: a Velvet ritual, a FLINGR night and a Practice lesson, in the visitor's order, paid for in one checkout
    on FLINGR (10% off the whole evening with All-Access). FLINGR books its own part at once; the Velvet and Practice parts
    are paid for and held, and each site books its part (prepaid) the next time it's open on this browser. The evenings
    live in localStorage['flingr.evening'], shared by the three sites on this domain. */
