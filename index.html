@@ -238,6 +238,7 @@ legend{padding:0;margin-bottom:10px}
 .cc-wrap{position:relative}.cc-brand{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mut)}
 .tblw{overflow-x:auto;border:1px solid var(--ln);border-radius:var(--rs)}
 .tbl{width:100%;border-collapse:collapse;font-size:14px}.tbl th{font:500 10px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mut);text-align:left;padding:12px 14px;border-bottom:1px solid var(--ln2);white-space:nowrap}.tbl td{padding:12px 14px;border-bottom:1px solid var(--ln);vertical-align:middle}.tbl tr:last-child td{border-bottom:0}.tbl td.num,.tbl th.num{text-align:right;font-family:var(--f-mono)}
+.tbl th.center{text-align:center}.tbl th.right{text-align:right}   /* a header lines up with its column */
 .stat{display:flex;flex-direction:column;gap:6px}.stat .h-disp{font-size:32px}
 .ops-in{max-width:420px}
 
@@ -744,7 +745,7 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .tlx{display:flex;gap:3px;height:44px;border-radius:var(--rs);overflow:hidden}
 .tlx-s{display:grid;place-items:center;min-width:28px;color:#1A0716;font:600 12px var(--f-mono)}
 .tlx-l{display:flex;flex-direction:column}.tlx-l li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid var(--ln)}
-.tlx-n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#1A0716}
+.tlx-n{width:28px;height:28px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#1A0716}
 .tlx-m{color:var(--pri);letter-spacing:.06em}.tlx-l p{margin-top:4px}
 /* therapists */
 .thps{display:flex;flex-direction:column;gap:12px}
@@ -2300,11 +2301,11 @@ F.pages.ops = {
     const tabs = F.SITE.opsTabs.concat([['clock', 'Clock'], ['health', 'Health'], ['data', 'Data']]), tab = r.params[0] || '';
     if (!tabs.some(t => t[0] === tab) || !OV[tab]) return { redirect: '/staff' };
     return { title: 'Operations', html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div><div class="eyebrow">Operations · ${esc(F.SITE.brand)}</div><h1 class="h-cond acct-n">${esc(tabs.find(t => t[0] === tab)[1])}</h1><p class="tiny muted">Site time ${U.fmt(now(), F.city().tz, 'dt')} ${U.tzAbbr(F.city().tz)}${F.clock.offset() ? ' · moved forward ' + U.dur(Math.round(F.clock.offset() / 6e4)) : ''}</p></div><button class="btn btn-ghost btn-sm" data-a="opsOut">Leave</button></div>
-    ${F.subnav(tabs.map(([k, l]) => ['#/staff' + (k ? '/' + k : ''), l]), '#/staff' + (tab ? '/' + tab : ''), 'Operations')}</div></section><section class="sec-sm"><div class="wrap">${OV[tab](r)}</div></section>` };
+    ${F.subnav(tabs.map(([k, l]) => ['#/staff' + (k ? '/' + k : ''), l]), '#/staff' + (tab ? '/' + tab : ''), 'Operations')}</div></section><section class="sec-sm"><div class="wrap">${OV[tab](r)}${!tab && F.fam ? F.fam.staffHub() : ''}</div></section>` };
   }
 };
 // the staff sign-in, in the site's own page style (operations and the front desk)
-F.staffIn = ({ title, name, lead = `For ${esc(F.SITE.brand)} staff. Enter your staff code to go on.` }) => ({ title: name, html: `${F.pageHead({ eyebrow: 'Staff only', title, lead })}<section class="sec-sm"><div class="wrap"><form class="card stack ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use saved code</button><button class="btn btn-pri">Enter</button></form></div></section>` });
+F.staffIn = ({ title, name, lead = `For ${esc(F.SITE.brand)} staff. Enter your staff code to go on.` }) => ({ title: name, html: `${F.pageHead({ eyebrow: 'Staff only', title, lead })}<section class="sec-sm"><div class="wrap"><form class="card stack ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use saved code</button><button class="btn btn-pri">Enter</button></form>${F.fam ? F.fam.staffHub() : ''}</div></section>` });
 F.Fm.opsIn = (f, d) => { if (String(d.code || '').trim().toUpperCase() !== F.SITE.opsCode) return F.fieldErr(f, 'code', 'That code isn’t right.'); F.store.commit(s => { s.prefs.opsAt = now(); }); F.rerender(); };
 A.opsFill = () => F.fill($('form[data-f=opsIn]'), { code: F.SITE.opsCode });
 A.opsOut = () => { F.store.commit(s => { s.prefs.opsAt = 0; }); F.nav('/'); };
@@ -3584,7 +3585,9 @@ F.pages.home = {
   render() {
     const c = F.cityId(), tz = E.cityTz(c), n = now(), u = E.user(), m = E.spaMins(tz, n), open = m >= F.OPEN.from && m < F.OPEN.to, day = E.spaDay(tz, n), sp = F.SPAS[c].name.replace('Velvet ', '');
     // the same times the builder offers (same lead time and therapist choice), so a link here lands on its time there
-    const g = u ? E.rbGender(u) : 'Any', tonight = open ? ['yoni', 'lingam', 'nuru', 'edge', 'prostate', 'express', 'fourhands', 'warm', 'squirt', 'clit'].map(E.tr).filter(F.trOpen).reduce((out, t) => { if (out.length < 4) { const sl = E.memo(`rs|${t.id}|${t.d[0]}|${c}|${day}|${g}|null`, () => E.slots({ tid: t.id, dur: t.d[0], cityId: c, key: day, gender: g, same: null })).find(x => !out.some(o => o.sl.start === x.start)); if (sl) out.push({ t, sl }); } return out; }, []).sort((a, b) => a.sl.start - b.sl.start) : [];
+    // Late openings: tonight's times from 8pm (shown before the doors open too), else anything still free today while open
+    const g = u ? E.rbGender(u) : 'Any', pick = late => ['yoni', 'lingam', 'nuru', 'edge', 'prostate', 'express', 'fourhands', 'warm', 'squirt', 'clit'].map(E.tr).filter(F.trOpen).reduce((out, t) => { if (out.length < 4) { const sl = E.memo(`rs|${t.id}|${t.d[0]}|${c}|${day}|${g}|null`, () => E.slots({ tid: t.id, dur: t.d[0], cityId: c, key: day, gender: g, same: null })).find(x => !out.some(o => o.sl.start === x.start) && (!late || E.spaMins(tz, x.start) >= 20 * 60)); if (sl) out.push({ t, sl }); } return out; }, []).sort((a, b) => a.sl.start - b.sl.start);
+    const lateL = pick(true), tonight = lateL.length ? lateL : open ? pick(false) : [];
     const feat = F.ranked(['yoni', 'lingam', 'nuru', 'edge', 'side', 'rose_vulva', 'prostate', 'watch'].map(E.tr)).slice(0, 6), mine = u ? F.forYouVV(u, feat.map(t => t.id)) : '';
     return { title: 'The sensual spa', html: `<section class="xh"><div class="xh-ph">${F.plate({ key: 'site/hero', cls: 'xh-plate' })}</div><div class="wrap xh-in"><div class="xh-top"><span>Licensed hands · Est. 2026</span><span>West Hollywood · SoHo · Marylebone · 10am to 2am</span></div>
     <div class="xh-mark"><h1 class="xh-word" aria-label="Velvet">VELVET</h1></div>
@@ -3593,7 +3596,7 @@ F.pages.home = {
     <div class="xs-f"><label for="vfC">Spa</label><select id="vfC" name="city">${F.CITIES.map(x => `<option value="${x.id}" ${x.id === c ? 'selected' : ''}>${esc(F.SPAS[x.id].name.replace('Velvet ', ''))}</option>`).join('')}</select></div>
     <div class="xs-f"><label for="vfG">Therapist</label><select id="vfG" name="g">${F.OPT.gender.map(g => `<option>${g}</option>`).join('')}</select></div><button class="btn btn-pri">Find a time ${F.ic('arrow', 14)}</button></form>
     <p class="live-l mt16"><i class="dot ${open ? 'live' : ''}"></i>${open ? `${esc(sp)} is open until 2am` : `${esc(sp)} opens at 10am`}</p></div></div></section>
-    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u) || (u && !E.myVisits(u).some(v => ['confirmed', 'arrived', 'in', 'lounge'].includes(v.status)) && F.usualCard(u) ? `<div class="vv-top">${F.usualCard(u)}</div>` : '')}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
+    <section class="sec-md sec-alt"><div class="wrap">${F.vvTop(u) || (u && !E.myVisits(u).some(v => ['confirmed', 'arrived', 'in', 'lounge'].includes(v.status)) && F.usualCard(u) ? `<div class="vv-top">${F.usualCard(u)}</div>` : '')}${F.vvStrip ? F.vvStrip(c) : ''}${F.secHead({ eyebrow: `<i class="dot ${open ? 'live' : ''}"></i> Tonight at ${esc(sp)}`, title: lateL.length ? 'Late openings <span class="it">tonight</span>' : tonight.length ? 'Still free <span class="it">tonight</span>' : 'Tomorrow, <span class="it">first pick</span>', action: '<a class="btn-link" href="#/build">Every time</a>' })}
     ${tonight.length ? `<div class="g g2 tn">${tonight.map(({ t, sl }) => `<a class="tn-c spot-on" href="#/build?t=${t.id}&d=${t.d[0]}&g=${encodeURIComponent(g)}&s=${sl.start}"><span class="tn-t mono">${U.fmt(sl.start, tz, 'time')}</span><span class="tn-m"><strong>${esc(t.n)}</strong><small class="d-b muted">${U.dur(t.d[0])} · from ${F.trFrom(t, c)}</small></span>${F.ic('arrow', 16)}</a>`).join('')}</div>` : `<p class="lead">${open ? 'Tonight is fully booked; late cancellations open up here first. Tomorrow opens at 10am, and the evening times go first.' : 'We open at 10am. The evening times go first.'}</p><a class="btn btn-pri mt24" href="#/build">Book for tomorrow</a>`}</div></section>
     <section class="sec-md"><div class="wrap">${F.secHead({ eyebrow: 'The menu', title: 'Said <span class="it">plainly</span>', action: '<a class="btn-link" href="#/menu">Everything</a>' })}<div class="chiprow">${F.COLS.map(([k, l]) => `<a class="chip chip-sm" href="${k === 'occasion' ? '#/couples' : k === 'glow' ? '#/glow' : '#/menu?c=' + k}">${l}</a>`).join('')}</div>
     <div class="clist cl-s2 cl-home mt24">${feat.map(F.trCC).join('')}</div>${mine ? `<div class="mt48">${mine}</div>` : ''}</div></section>
@@ -4793,11 +4796,41 @@ const label = t => {
     let i = 0, first = true; [...r.cells].forEach(c => { const h = heads[i]; if (h && !c.hasAttribute('data-l')) c.setAttribute('data-l', h); if (first && c.hasAttribute('data-l')) { c.classList.add('tc-h'); first = false; } i += c.colSpan || 1; });   // the first named cell is the card's title
   }));
   t.classList.add('tbl-cards', 'tc-auto');
+  tools(t);
 };
+/* Long tables (more than 12 rows): a search box above, on every screen; on a phone, 10 rows at a time with "Show more".
+   The box is kept when the page redraws the table in place, and its search is applied to the new rows. */
+const PAGE = 10, phone = () => window.matchMedia && matchMedia('(max-width:640px)').matches;
+const rowsOf = t => [...t.tBodies].flatMap(b => [...b.rows]).filter(r => !r.classList.contains('tc-one'));
+const tools = t => {
+  const rows = rowsOf(t), box = t.closest('.tblw') || t; if (rows.length <= 12 || t.closest('.modal, .sheet') || (box.parentNode && box.parentNode.querySelector(':scope > .pager, .pager'))) return;   // tables that page themselves keep their own pager
+  let bar = box.previousElementSibling && box.previousElementSibling.classList.contains('tc-tools') ? box.previousElementSibling : null;
+  if (!bar) {
+    bar = document.createElement('div'); bar.className = 'tc-tools';
+    bar.innerHTML = `<label class="tc-q"><span class="sr">Search this table</span><input class="inp" type="search" placeholder="Search ${rows.length} rows" autocomplete="off" spellcheck="false"></label><span class="tiny muted tc-n" aria-live="polite"></span>`;
+    box.parentNode.insertBefore(bar, box);
+    bar._box = box; bar._shown = PAGE;
+    bar.querySelector('input').addEventListener('input', () => { bar._shown = PAGE; apply(bar); });
+  }
+  if (bar._t !== t) { bar._t = t; apply(bar); }
+};
+const apply = bar => {
+  const t = bar._t; if (!t || !t.isConnected) return;
+  const q = bar.querySelector('input').value.trim().toLowerCase(), rows = rowsOf(t), hits = rows.filter(r => !q || r.textContent.toLowerCase().includes(q)), cap = phone() ? bar._shown : Infinity;
+  rows.forEach(r => r.classList.add('tc-hide')); hits.slice(0, cap).forEach(r => r.classList.remove('tc-hide'));
+  const shown = Math.min(hits.length, cap), left = hits.length - shown;
+  bar.querySelector('.tc-n').textContent = q ? `${hits.length} of ${rows.length}` : (left > 0 ? `${shown} of ${rows.length}` : '');
+  // "Show more" exists only while there are more rows to show (a registered action, like every other button)
+  let more = bar._box.nextElementSibling && bar._box.nextElementSibling.classList.contains('tc-more') ? bar._box.nextElementSibling : null;
+  if (left > 0) { if (!more) { more = document.createElement('button'); more.type = 'button'; more.className = 'btn btn-ghost btn-sm tc-more'; more.dataset.a = 'tcMore'; bar._box.after(more); } more.textContent = `Show ${Math.min(PAGE, left)} more · ${left} left`; }
+  else if (more) more.remove();
+};
+F.A.tcMore = el => { const box = el.previousElementSibling, bar = box && box.previousElementSibling; if (!bar || !bar.classList.contains('tc-tools')) return; bar._shown += PAGE; apply(bar); };
 const scan = () => document.querySelectorAll('table.tbl').forEach(label);
 let queued = false;
 const later = () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; scan(); }); };
-const CSS = `@media (max-width:640px){
+const CSS = `.tc-tools{display:flex;align-items:center;gap:12px;margin:0 0 12px}.tc-q{flex:1;max-width:340px}.tc-q .inp{width:100%}.tc-hide{display:none!important}.tc-more{display:flex;margin:12px auto 0}
+@media (max-width:640px){
 .tblw:has(> .tc-auto){border:0;overflow:visible;background:none}
 .tc-auto thead{display:none}
 .tc-auto,.tc-auto tbody{display:block;width:100%}
@@ -5104,8 +5137,21 @@ FAM.base = site => {
   return m ? location.origin + m[1] + dir + '/' : 'https://titastudio.github.io/' + dir + '/';
 };
 
+/* ---------- every staff area on the three sites, in one place (staff sign-in and the Operations overview) ---------- */
+const STAFF_AREAS = [['flingr', '/staff', 'Operations', 'Bookings, hosts, places, Afterhours, the clock'], ['flingr', '/host-studio', 'Host Studio', 'A host’s calendar, prices, guests and pay'],
+  ['practice', '/staff', 'Operations', 'Members, timetable, educators, skills'], ['practice', '/studio', 'Educator Studio', 'An educator’s day, notes and pay'],
+  ['velvet', '/staff', 'Operations', 'Rooms, therapists, menu, members'], ['velvet', '/desk', 'Front desk', 'Today’s arrivals, rooms and walk-ins']];
+FAM.staffHub = () => {
+  const here = (F.SITE && F.SITE.id) || 'flingr', cur = (F.route && F.route.path) || '';
+  return `<div class="sth"><div class="lbl">All staff areas</div><p class="tiny muted mt4">One staff code opens every one of them.</p><div class="sth-g">${STAFF_AREAS.map(([site, path, name, line]) => {
+    const href = site === here ? '#' + path : FAM.base(site) + '#' + path, on = site === here && (cur === path || cur.startsWith(path + '/'));
+    return `<a class="sth-a${on ? ' on' : ''}" href="${href}"${on ? ' aria-current="page"' : ''}><span class="tiny muted">${NAMES[site]}</span><strong>${name}</strong><small class="muted">${line}</small></a>`;
+  }).join('')}</div></div>`;
+};
+
 /* ---------- styles (one block, so the three stylesheets stay untouched) ---------- */
 const CSS = `
+.sth{margin-top:40px;padding-top:24px;border-top:1px solid var(--ln)}.sth-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.sth-a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--ln);background:var(--card,transparent);text-decoration:none;color:inherit;transition:border-color .2s}.sth-a:hover{border-color:var(--ln2,var(--fg))}.sth-a.on{border-color:var(--fg)}.sth-a strong{font-weight:500}.sth-a small{font-size:12px;line-height:1.35}@media (max-width:640px){.sth-g{grid-template-columns:1fr 1fr}.sth-a small{display:none}}
 html.hc,html.hc *{--mut:color-mix(in srgb,var(--fg) 92%,transparent);--ln:color-mix(in srgb,var(--fg) 42%,transparent);--ln2:color-mix(in srgb,var(--fg) 55%,transparent)}
 html.hc .muted,html.hc small,html.hc .tiny{opacity:1}
 html.hc a.u,html.hc .btn-link{text-decoration-thickness:2px;text-underline-offset:3px}
