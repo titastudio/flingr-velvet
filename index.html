@@ -642,8 +642,6 @@ a,button,label,summary,[data-a]{-webkit-tap-highlight-color:transparent}
 .kb-row{display:flex;align-items:center;gap:20px;padding:10px 0;border-top:1px solid var(--ln)}
 .kb-row:last-child{border-bottom:1px solid var(--ln)}
 .kb-k{display:flex;gap:6px;min-width:96px}
-.kb-link{display:none}
-@media (hover:hover) and (pointer:fine) and (min-width:1024px){.kb-link{display:inline}}
 /* spacing pass: the sticky header hides what scrolls under it; back-to-top off on phones (it covered text);
    one plain style for the footer's bottom links; the support number on one line */
 .hdr{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
@@ -1036,7 +1034,7 @@ const art = (seed, kind) => {
   <path d="M${30 + r(9) * 40} ${20 + r(10) * 20} c ${3 + r(11) * 3} ${6 + r(12) * 4}, ${6 + r(13) * 3} ${10 + r(14) * 4}, 0 ${15 + r(15) * 4} c ${-6 - r(13) * 3} -${4 + r(14) * 2}, -${3 + r(11) * 3} ${-10 - r(12) * 4}, 0 -${15 + r(15) * 4}z" fill="${a}" opacity=".55"/></svg>`;
 };
 F.SITE = {
-  id: 'velvet', brand: 'Velvet', title: 'Velvet by FLINGR', storeKey: 'flingr.velvet', launch: '2026-10-22', refPrefix: 'VV', descriptor: 'FLG*SPA', opsCode: 'WARM-OIL',
+  id: 'velvet', brand: 'Velvet', title: 'Velvet by FLINGR', storeKey: 'flingr.velvet', launch: '2026-10-22', refPrefix: 'VV', descriptor: 'FLG*SPA', opsCode: 'NOCTURNE-2026',
   logo: '<span class="lg-a">VELVET</span><span class="lg-b">by FLINGR</span>', gateLine: 'Touch, <span class="it">finished</span> properly.', emptyIcon: 'drop',
   arrays: ['visits', 'members', 'maps', 'glow', 'programs', 'orders', 'reviews', 'incidents', 'tickets', 'blocks', 'walkins', 'desk', 'waits', 'refills', 'giftsOut'],
   nav: [{ label: 'Menu', href: '#/menu', pages: ['menu', 'treatment', 'build'] }, { label: 'Programs', href: '#/programs', pages: ['programs', 'program'] }, { label: 'Shop', href: '#/shop', pages: ['shop', 'product'] }, { label: 'Membership', href: '#/membership', pages: ['membership', 'join'] }],
@@ -1443,7 +1441,7 @@ F.footer = () => {
   <div class="ftr-grid"><div><a href="#/" class="logo">${F.SITE.logo}</a><p class="small muted mt16">${f.blurb}</p>${famLinks().length ? `<div class="fam mt24"><span class="lbl">The FLINGR family</span><div class="fam-l mt8">${famLinks().map(x => `<a class="fam-a" href="${x.url}">${esc(x.name)}<small>${esc(x.line)}</small></a>`).join('')}</div></div>` : ''}</div>
   ${f.cols.map(([h, links]) => `<div><h4 class="eyebrow">${h}</h4>${links.map(([l, href]) => `<a href="${href}">${l}</a>`).join('')}</div>`).join('')}
   <div><h4 class="eyebrow">Help</h4><a href="#/help">Help & FAQ</a><a href="#/contact">Contact</a><p class="tiny muted mt16 ftr-sup">24/7 line <button class="btn-link tiny" data-a="call" data-c="${c.id}">${c.phone}</button></p></div></div>
-  <div class="ftr-b"><span>© ${new Date(Date.now()).getUTCFullYear()} FLINGR Technologies, Inc. ${esc(F.SITE.brand)} is part of FLINGR.</span><span class="row wrap-gap"><button class="btn-link qx-link" data-a="quickExit" title="Or press Esc twice">Quick exit</button><button class="btn-link qx-link" data-a="resetSite">Reset site</button><button class="btn-link qx-link kb-link" data-a="keys">Shortcuts</button>${F.fam ? F.fam.footLink() : ''}<a href="#/legal/terms">Terms</a><a href="#/legal/privacy">Privacy</a><a href="#/legal/cookies">Cookies</a><button class="btn-link tiny" data-a="cookieSettings">Cookie settings</button></span></div></div>`;
+  <div class="ftr-b"><span>© ${new Date(Date.now()).getUTCFullYear()} FLINGR Technologies, Inc. ${esc(F.SITE.brand)} is part of FLINGR.</span><span class="row wrap-gap"><button class="btn-link qx-link" data-a="quickExit" title="Or press Esc twice">Quick exit</button>${F.fam ? F.fam.footLink() : ''}<a href="#/legal/terms">Terms</a><a href="#/legal/privacy">Privacy</a><a href="#/legal/cookies">Cookies</a><button class="btn-link tiny" data-a="cookieSettings">Cookie settings</button></span></div></div>`;
 };
 A.call = el => { const c = E.city(el.dataset.c || F.cityId()); F.modal(`<h2 class="h-disp h3">Call us</h2><p class="muted mt8">${esc(F.SITE.brand)} ${c.name} · open around the clock. You’ll speak to a person, not a menu.</p><a class="btn btn-pri mt24" href="tel:${c.phone.replace(/[^\d+]/g, '')}" data-a="closeModal" data-follow="1">${F.ic('phone', 16)} ${c.phone}</a><p class="tiny muted mt16">In an emergency call ${c.emergency}.</p>`, { cls: 'modal-sm', label: 'Call us' }); };
 
@@ -2281,7 +2279,7 @@ V.privacy = u => ({ title: 'Privacy', html: `<div class="g g2 al-start">
 <div class="card"><h2 class="h-disp h4">Download your data</h2><p class="small muted mt8">Everything ${esc(F.SITE.brand)} holds about you, as a JSON file.</p><button class="btn btn-ghost btn-sm mt16" data-a="dlMine">${F.ic('download', 14)} Download</button></div>
 <div class="card"><h2 class="h-disp h4">Clear my history here</h2><p class="small muted mt8">Removes your ${esc(F.SITE.historyWord || 'bookings')}, messages and notes on ${esc(F.SITE.brand)}. Your FLINGR account, Wallet and membership stay.</p><button class="btn btn-ghost btn-sm mt16" data-a="forgetMe">Clear my history</button></div>
 <div class="card"><h2 class="h-disp h4">Yesterday’s backup</h2><p class="small muted mt8">${F.store.backupInfo() ? 'A copy of this site’s data is kept once a day. Last saved ' + U.fmt(F.store.backupInfo(), 'UTC', 'dt') + '.' : 'The first daily copy is saved after your first day.'}</p><button class="btn btn-ghost btn-sm mt16" data-a="restoreBackup" ${F.store.backupInfo() ? '' : 'disabled'}>Restore backup</button></div>
-<div class="card"><h2 class="h-disp h4">Reset the whole site</h2><p class="small muted mt8">${F.fam.RESET_LINE}</p><button class="btn btn-warn btn-sm mt16" data-a="resetSite">Reset site</button></div></div>
+<div class="card"><h2 class="h-disp h4">Clear this device</h2><p class="small muted mt8">${F.fam.RESET_LINE}</p><button class="btn btn-warn btn-sm mt16" data-a="resetSite">Clear this device</button></div></div>
 <p class="small muted mt32">Read our <a class="u" href="#/legal/privacy">Privacy Policy</a>.</p>` });
 A.dlMine = () => { const u = E.user(), mine = F.SITE.mine ? F.SITE.mine(u) : {}; U.download(`${F.SITE.id}-${u.id}.json`, JSON.stringify({ account: { name: u.name, email: u.email, phone: u.phone, city: u.city }, ...mine }, null, 2)); };
 A.forgetMe = async () => { if (!(await F.confirm({ title: 'Clear your history here?', body: 'This can’t be undone. Your FLINGR account, Wallet and membership stay.', ok: 'Clear it', danger: true }))) return; F.store.commit(s => { const u = E.user(); if (F.SITE.forget) F.SITE.forget(s, u); s.threads = s.threads.filter(t => t.userId !== u.id); s.notifications = s.notifications.filter(n => n.userId !== u.id); s.outbox = s.outbox.filter(m => m.userId !== u.id); }); F.toast('Cleared.'); F.nav('/account'); };
@@ -2300,13 +2298,13 @@ F.pages.ops = {
   render(r) {
     if (!ok()) return F.staffIn({ title: 'The back <span class="it">office.</span>', name: 'Operations' });
     const tabs = F.SITE.opsTabs.concat([['clock', 'Clock'], ['health', 'Health'], ['data', 'Data']]), tab = r.params[0] || '';
-    if (!tabs.some(t => t[0] === tab) || !OV[tab]) return { redirect: '/ops' };
+    if (!tabs.some(t => t[0] === tab) || !OV[tab]) return { redirect: '/staff' };
     return { title: 'Operations', html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div><div class="eyebrow">Operations · ${esc(F.SITE.brand)}</div><h1 class="h-cond acct-n">${esc(tabs.find(t => t[0] === tab)[1])}</h1><p class="tiny muted">Site time ${U.fmt(now(), F.city().tz, 'dt')} ${U.tzAbbr(F.city().tz)}${F.clock.offset() ? ' · moved forward ' + U.dur(Math.round(F.clock.offset() / 6e4)) : ''}</p></div><button class="btn btn-ghost btn-sm" data-a="opsOut">Leave</button></div>
-    ${F.subnav(tabs.map(([k, l]) => ['#/ops' + (k ? '/' + k : ''), l]), '#/ops' + (tab ? '/' + tab : ''), 'Operations')}</div></section><section class="sec-sm"><div class="wrap">${OV[tab](r)}</div></section>` };
+    ${F.subnav(tabs.map(([k, l]) => ['#/staff' + (k ? '/' + k : ''), l]), '#/staff' + (tab ? '/' + tab : ''), 'Operations')}</div></section><section class="sec-sm"><div class="wrap">${OV[tab](r)}</div></section>` };
   }
 };
 // the staff sign-in, in the site's own page style (operations and the front desk)
-F.staffIn = ({ title, name, lead = `For ${esc(F.SITE.brand)} staff. Enter your staff code to go on.` }) => ({ title: name, html: `${F.pageHead({ eyebrow: 'Staff only', title, lead })}<section class="sec-sm"><div class="wrap"><form class="card stack ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use the staff code</button><button class="btn btn-pri">Enter</button></form></div></section>` });
+F.staffIn = ({ title, name, lead = `For ${esc(F.SITE.brand)} staff. Enter your staff code to go on.` }) => ({ title: name, html: `${F.pageHead({ eyebrow: 'Staff only', title, lead })}<section class="sec-sm"><div class="wrap"><form class="card stack ops-in" data-f="opsIn"><div class="field"><label for="opC">Staff code</label><input class="inp mono" id="opC" name="code" autocomplete="off"></div><button type="button" class="btn-link tiny" data-a="opsFill">${F.ic('key', 12)} Use saved code</button><button class="btn btn-pri">Enter</button></form></div></section>` });
 F.Fm.opsIn = (f, d) => { if (String(d.code || '').trim().toUpperCase() !== F.SITE.opsCode) return F.fieldErr(f, 'code', 'That code isn’t right.'); F.store.commit(s => { s.prefs.opsAt = now(); }); F.rerender(); };
 A.opsFill = () => F.fill($('form[data-f=opsIn]'), { code: F.SITE.opsCode });
 A.opsOut = () => { F.store.commit(s => { s.prefs.opsAt = 0; }); F.nav('/'); };
@@ -2332,7 +2330,7 @@ A.clockReset = async () => { if (!(await F.confirm({ title: 'Back to real time?'
 OV.data = () => `<div class="g g2 al-start"><div class="card"><h2 class="h-disp h4">Export</h2><p class="small muted mt8">Everything ${esc(F.SITE.brand)} holds on this browser, as JSON.</p><button class="btn btn-ghost btn-sm mt16" data-a="opsExport">${F.ic('download', 14)} Export</button></div>
 <form class="card" data-f="opsImport"><h2 class="h-disp h4">Import</h2><p class="small muted mt8">Replaces this site’s data with an export. It’s checked before anything changes.</p><input class="inp mt16" type="file" name="file" accept="application/json,.json" aria-label="Export file"><button class="btn btn-ghost btn-sm mt16">Import</button></form>
 <div class="card"><h2 class="h-disp h4">Size</h2><p class="small muted mt8">${Math.round(JSON.stringify(F.S).length / 1024)} KB for ${esc(F.SITE.brand)} · ${Math.round(JSON.stringify(F.P).length / 1024)} KB for FLINGR accounts</p></div>
-<div class="card"><h2 class="h-disp h4">Reset</h2><p class="small muted mt8">${F.fam.RESET_LINE}</p><button class="btn btn-warn btn-sm mt16" data-a="resetSite">Reset site</button></div></div>`;
+<div class="card"><h2 class="h-disp h4">Reset</h2><p class="small muted mt8">${F.fam.RESET_LINE}</p><button class="btn btn-warn btn-sm mt16" data-a="resetSite">Clear this device</button></div></div>`;
 A.opsExport = () => U.download(`${F.SITE.id}-export-${E.todayKey('la')}.json`, F.store.exportJSON());
 F.Fm.opsImport = async f => { const file = f.elements.file.files[0]; if (!file) return F.toast('Choose a file first.', 'err'); try { F.store.importJSON(await file.text()); F.toast('Imported.'); F.rerender(); } catch (e) { F.toast(e.message, 'err'); } };
 })();
@@ -3563,7 +3561,7 @@ F.ROUTES = [
   [/^\/?$/, 'home'], [/^\/menu$/, 'menu'], [/^\/treatment\/([\w-]+)$/, 'treatment'], [/^\/build$/, 'build'], [/^\/programs$/, 'programs'], [/^\/program\/([\w-]+)$/, 'program'], [/^\/membership$/, 'membership'], [/^\/join\/(\w+)$/, 'join'],
   [/^\/glow$/, 'glow'], [/^\/couples$/, 'couples'], [/^\/your-visit$/, 'yourvisit'], [/^\/spas$/, 'spas'], [/^\/standards$/, 'standards'], [/^\/shop$/, 'shop'],
   [/^\/journal$/, 'journal'], [/^\/journal\/([\w-]+)$/, 'article'], [/^\/help$/, 'help'], [/^\/contact$/, 'contact'], [/^\/gift$/, 'gift'], [/^\/legal\/(\w+)$/, 'legal'],
-  [/^\/account\/visit\/([\w-]+)$/, 'visit'], [/^\/account(?:\/(\w+))?(?:\/([\w-]+))?$/, 'account'], [/^\/desk$/, 'desk'], [/^\/ops(?:\/(\w+))?$/, 'ops']
+  [/^\/account\/visit\/([\w-]+)$/, 'visit'], [/^\/account(?:\/(\w+))?(?:\/([\w-]+))?$/, 'account'], [/^\/desk$/, 'desk'], [/^\/staff(?:\/(\w+))?$/, 'ops']
 ];
 F.trArt = (t, cls = 'r45') => F.plate({ key: 'site/t-' + t.id, art: F.SITE.art(t.id, t.c), cls });
 // "from" price on the menu today (the season applied), with the usual price struck through when it is lower
@@ -3711,7 +3709,7 @@ F.pages.yourvisit = { render: () => { const c = F.cityId(), sp = F.SPAS[c], city
   <div class="card"><span class="lbl">${F.ic('pin', 14)} ${esc(city.name)}</span><h2 class="h-disp h4 mt16">${esc(sp.name)}</h2><p class="small mt8">${esc(sp.addr)}</p><p class="small muted mt4">${esc(sp.note)}</p><button class="btn-link mono mt16" data-a="call" data-c="${c}">${city.phone}</button></div></div></div></section>
   <section class="sec-sm sec-alt"><div class="wrap split al-start yv-s"><div>${F.secHead({ eyebrow: 'Step by step', title: 'How a visit <span class="it">runs</span>' })}<ol class="mins">${VISIT.map(([m, x]) => `<li><span class="mono">${m}</span><p>${x}</p></li>`).join('')}</ol></div><div class="yv-ph">${F.plate({ key: 'site/spa-' + c, art: F.SITE.art(c, 'room'), cls: 'r45', cap: esc(sp.name) })}</div></div></section>
   <section class="sec-sm"><div class="wrap split al-start"><div>${F.secHead({ eyebrow: 'Good to know', title: 'Before you <span class="it">book</span>' })}<div class="btn-row"><a class="btn btn-pri" href="#/build">Build a ritual</a><a class="btn btn-ghost" href="#/help">All questions</a></div></div>
-  <div class="accs">${F.acc([['House rules', RULES], ['Aftercare', CARE]].map(([q, l]) => [q, `<ul class="ticks">${l.map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul>`]).concat(F.CONTENT.faq.filter(x => x[0] === 'Your visit' && !/bring/.test(x[1])).concat(F.CONTENT.faq.filter(x => /cancel/.test(x[1]))).map(x => [x[1], esc(x[2])])), { name: 'yv', open: 0 })}</div></div></section>` }; } };
+  <div class="accs">${F.acc([['House rules', RULES], ['Aftercare', CARE]].map(([q, l]) => [q, `<ul class="ticks">${l.map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul>`]).concat(F.CONTENT.faq.filter(x => x[0] === 'Your visit' && !/bring/.test(x[1])).slice(0, 2).concat(F.CONTENT.faq.filter(x => /cancel/.test(x[1]))).map(x => [x[1], esc(x[2])])), { name: 'yv', open: 0 })}</div></div></section>` }; } };
 const RULES = ['Licensed hands only: no oral, no sex.', 'You don’t touch your therapist.', 'No phones in the rooms; lockers have chargers.', 'Either of you can stop at any time.', 'Tips are optional, pooled and shared.'];
 const CARE = ['Drink water; warm oil and steam dry you out.', 'After a Glow peel: no hot baths, sun or scented products for 48 hours.', 'After waxing: nothing tight and no exercise for a day.', 'After RF: two days before internal touch.', 'Anything feels wrong? Call the desk, day or night.'];
 F.pages.standards = { render: () => ({ title: 'Standards', html: `${F.pageHead({ eyebrow: 'Standards', title: 'Licensed, <span class="it">and it shows.</span>', lead: 'Every therapist holds a Licensed Intimate Therapist credential for what they practice. Glow therapists are licensed aestheticians; pelvic therapists are licensed pelvic health practitioners.' })}<section class="sec-sm"><div class="wrap split al-start"><ul class="ticks">${['License numbers are printed on every receipt.', 'Touch rituals by touch-licensed therapists only; internal work and RF by pelvic practitioners.', 'Gloves for every internal touch. Fresh linen and a full clean between every guest.', 'No photos, no profiles, no tipping pressure: tips are pooled and shared.', 'A therapist may stop at any time; so may you.', 'Every room has a call button to the desk.'].map(x => `<li>${F.ic('check', 14)}<span>${x}</span></li>`).join('')}</ul><div class="card"><span class="lbl">Therapists on the license register</span><div class="h-disp h1 mt8">${F.THERAPISTS.filter(t => E.therOn(t, E.todayKey('la'))).length}</div><p class="small muted mt8">Across West Hollywood, SoHo and Marylebone. Touch, Glow and pelvic licenses.</p></div></div></section>` }) };
@@ -4081,7 +4079,7 @@ F.pages.desk = {
     const ths = F.THERAPISTS.filter(t => t.city === c).map(t => ({ t, sh: E.therShift(t, day) })).filter(x => x.sh);
     const busyNow = t => visits.some(v => v.ther.includes(t.id) && v.status === 'in') || seated.some(x => x.st.ther === t.id && x.st.start <= n && x.st.end > n) ? 'With a member' : E.simTher(t, tz, n) ? 'With a guest' : 'Free';
     const live = visits.filter(v => E.live(v) || v.status === 'lounge').sort((a, b) => a.start - b.start);
-    return { title: 'Front desk', html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div><div class="eyebrow">Front desk · ${esc(sp.name)}</div><h1 class="h-disp acct-n">${U.fmt(n, tz, 'time')}</h1><p class="tiny muted">${U.keyFmt(day, 'dateLong')} · open 10am to 2am</p></div><div class="row wrap-gap">${F.cityChips()}<a class="btn btn-ghost btn-sm" href="#/ops">Operations</a></div></div></div></section>
+    return { title: 'Front desk', html: `<section class="acct-h"><div class="wrap"><div class="row between wrap-gap end"><div><div class="eyebrow">Front desk · ${esc(sp.name)}</div><h1 class="h-disp acct-n">${U.fmt(n, tz, 'time')}</h1><p class="tiny muted">${U.keyFmt(day, 'dateLong')} · open 10am to 2am</p></div><div class="row wrap-gap">${F.cityChips()}<a class="btn btn-ghost btn-sm" href="#/staff">Operations</a></div></div></div></section>
     <section class="sec-sm"><div class="wrap stack">
     <div class="g g4 dk-st">${[['Waiting', waiting.length, waiting.length ? 'Seat them within ten minutes' : 'Nobody at the desk'], ['Seated today', seated.length, E.money(earned, c) + ' from walk-ins'], ['Turned away', handled.length - seated.length, 'No room or no hands free'], ['Handled by you', mine.length, handled.length - mine.length ? (handled.length - mine.length) + ' by the desk team' : 'Every one so far']].map(([l, v, s]) => `<div class="card stat"><span class="lbl">${l}</span><span class="h-disp">${v}</span><small class="tiny muted">${s}</small></div>`).join('')}</div>
     <div class="g g2 al-start"><div class="card"><span class="lbl">At the desk</span>${waiting.length ? `<div class="stack-s mt16">${waiting.map(({ w }) => { const t = E.tr(w.tid), left = Math.max(0, Math.ceil((w.at + 10 * M - n) / M)); return `<div class="wk-r"><div><strong class="small">${esc(w.name)}</strong><small class="d-b muted">${esc(t.n)} · ${U.dur(w.dur)} · ${esc(w.gender === 'Any' ? 'any therapist' : w.gender.toLowerCase())} · came in ${U.fmt(w.at, tz, 'time')}</small><small class="d-b tiny ${left < 4 ? 'warn-t' : 'muted'}">${left} min before the team steps in</small></div><div class="row nowrap"><button class="btn btn-pri btn-sm" data-a="dkSeat" data-w="${w.id}">Seat</button><button class="btn btn-ghost btn-sm" data-a="dkAway" data-w="${w.id}">Turn away</button></div></div>`; }).join('')}</div>` : `<p class="small muted mt16">Nobody waiting. Walk-ins come in through the day; move the clock forward in Operations to see the evening rush.</p>`}
@@ -4776,6 +4774,52 @@ H.card = u => { const rs = H.records(u); return `<div class="card" id="health"><
 (() => { const s = document.createElement('style'); s.textContent = `.hrow{border:1px solid var(--ln);border-radius:10px;padding:12px 14px}.hchip{display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:999px;border:1px solid var(--ln);opacity:.5}.hchip.on{opacity:1}.hopt{text-align:left;cursor:pointer;color:inherit;font:inherit;background:none}.hopt:disabled{opacity:.5;cursor:default}.hi .spin{display:inline-block}.hrow+.hrow{margin-top:0}.hdoc .pp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:14px 0;margin-top:20px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}.hdoc .pp-grid>div{display:flex;flex-direction:column;gap:4px}.hdoc .pp-tbl{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}.hdoc .pp-tbl th{text-align:left;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:8px 8px 8px 0;border-bottom:1px solid #1C1916}.hdoc .pp-tbl td{padding:10px 8px 10px 0;border-bottom:1px dotted var(--ln2);vertical-align:top}.hdoc .pp-note{margin-top:16px;color:var(--mut);max-width:62ch}.hdoc .pp-m2{display:none}.hdoc .pp-ref{display:flex;flex-direction:column;align-items:flex-end}@media(max-width:640px){.hdoc .pp-grid{grid-template-columns:1fr 1fr}.hdoc .pp-m{display:none}.hdoc .pp-m2{display:block;margin-top:4px;font-size:11.5px;color:var(--mut)}.hdoc .pp-ref{align-items:flex-start}}`; document.head.appendChild(s); })();
 })();
 
+/* ---- 96b-tables.js ---- */
+/* Data tables on a phone (all three sites). Below 641px every data table with four or more columns (Operations, Host Studio,
+   Educator Studio, the front desk) turns into a stack of cards: one card per row, each line labelled with its column name
+   from the table head, so nothing is cut off or pushed sideways. Wider screens keep the normal table. Grids that read
+   better as a grid stay as they are: the trip planner, the skill passport, journal tables and receipts. */
+(() => {
+'use strict';
+const SKIP = ['rtbl', 'trip', 'pp-pt', 'j-tbl'];
+const headText = th => { const v = th.cloneNode(true); v.querySelectorAll('.sr').forEach(x => x.remove()); return v.textContent.replace(/\s+/g, ' ').trim(); };
+const label = t => {
+  if (!t.tHead || !t.tHead.rows.length || SKIP.some(c => t.classList.contains(c))) return;
+  const row = t.tHead.rows[t.tHead.rows.length - 1], heads = [];
+  [...row.cells].forEach(c => { for (let k = 0; k < (c.colSpan || 1); k++) heads.push(headText(c)); });
+  if (heads.length < 4) return;
+  [...t.tBodies].forEach(b => [...b.rows].forEach(r => {
+    if (r.cells.length === 1) { r.classList.add('tc-one'); return; }   // "No reports." and similar single-cell rows
+    let i = 0, first = true; [...r.cells].forEach(c => { const h = heads[i]; if (h && !c.hasAttribute('data-l')) c.setAttribute('data-l', h); if (first && c.hasAttribute('data-l')) { c.classList.add('tc-h'); first = false; } i += c.colSpan || 1; });   // the first named cell is the card's title
+  }));
+  t.classList.add('tbl-cards', 'tc-auto');
+};
+const scan = () => document.querySelectorAll('table.tbl').forEach(label);
+let queued = false;
+const later = () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; scan(); }); };
+const CSS = `@media (max-width:640px){
+.tblw:has(> .tc-auto){border:0;overflow:visible;background:none}
+.tc-auto thead{display:none}
+.tc-auto,.tc-auto tbody{display:block;width:100%}
+.tc-auto tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 16px;border:1px solid var(--ln);background:var(--card,transparent);padding:12px 14px;margin-bottom:8px}
+.tc-auto tr:last-child{margin-bottom:0}
+.tc-auto td{display:block;border:0!important;padding:0!important;text-align:left!important;white-space:normal;min-width:0;background:none!important;font-size:13px;line-height:1.4}
+.tc-auto td[data-l]::before{content:attr(data-l);display:block;margin-bottom:2px;font:500 9.5px var(--f-mono,ui-monospace,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.tc-auto td.tc-h{grid-column:1/-1;font-size:15px;padding-bottom:8px!important;border-bottom:1px solid var(--ln)!important}
+.tc-auto td.tc-h::before{display:none}
+.tc-auto td:not([data-l]){grid-column:1/-1;display:flex;justify-content:flex-end;align-items:center;gap:12px;flex-wrap:wrap}
+.tc-auto td:empty{display:none}
+.tc-auto td input:not([type=checkbox]):not([type=radio]),.tc-auto td select{width:100%;max-width:100%;min-width:0}
+.tc-auto td .row{flex-wrap:wrap}
+.tc-auto tr.tc-one{display:block}.tc-auto tr.tc-one td{text-align:center!important;color:var(--mut)}
+}`;
+const start = () => {
+  if (!document.getElementById('tcCss')) { const s = document.createElement('style'); s.id = 'tcCss'; s.textContent = CSS; document.head.appendChild(s); }
+  scan(); new MutationObserver(later).observe(document.body, { childList: true, subtree: true });
+};
+if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
+})();
+
 /* ---- 97a-evening.js ---- */
 /* One Evening: a Velvet ritual, a FLINGR night and a Practice lesson, in the visitor's order, paid for in one checkout
    on FLINGR (10% off the whole evening with All-Access). FLINGR books its own part at once; the Velvet and Practice parts
@@ -4997,7 +5041,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'g' && !e.shiftKey) { gAt = Date.now(); return; }
   if (gAt && Date.now() - gAt < 1200) { const hit = GO.find(x => x[0] === e.key.toLowerCase()); gAt = 0; if (hit) { e.preventDefault(); F.nav(hit[2]); } }
 });
-F.A.keys = () => sheet();
 })();
 
 /* ---- 97d-guide.js ---- */
@@ -5180,7 +5223,7 @@ const registerSw = () => { try { if ('serviceWorker' in navigator && /^https?:$/
 /* ---------- the "This browser" panel (footer link, account settings) ---------- */
 const chips = (act, cur, opts) => `<div class="row wrap-gap mt8">${opts.map(([v, l]) => `<button type="button" class="chip chip-sm ${String(cur) === String(v) ? 'on' : ''}" aria-pressed="${String(cur) === String(v)}" data-a="${act}" data-v="${v}">${html(l)}</button>`).join('')}</div>`;
 FAM.deviceHtml = () => { const p = FAM.prefs();
-  return `<h2 class="h-disp h3">This browser</h2><p class="small muted mt8">Settings here apply to FLINGR, Velvet and Practice on this browser.</p>
+  return `<h2 class="h-disp h3">Device settings</h2><p class="small muted mt8">Settings here apply to FLINGR, Velvet and Practice on this browser.</p>
   <div class="fam-sec mt24"><span class="lbl">Text size</span>${chips('famZoom', p.z, FAM.SIZES)}<span class="lbl d-b mt16">Contrast</span>${chips('famHc', p.hc ? 1 : 0, [[0, 'Standard'], [1, 'High contrast']])}</div>
   <div class="fam-sec"><span class="lbl">Storage</span><div id="famStore">${FAM.storageHtml()}</div></div>
   <div class="fam-sec"><span class="lbl">Move to another device</span><p class="small muted mt8">Your account, bookings, Wallet and settings live in this browser. Take them with you:</p>
@@ -5189,13 +5232,13 @@ FAM.deviceHtml = () => { const p = FAM.prefs();
     <div id="famCodeOut" class="mt16" hidden><textarea class="inp fam-code" readonly aria-label="Transfer code"></textarea><p class="tiny muted mt8 fam-len"></p><button class="btn btn-ghost btn-sm mt8" data-a="famCopyCode">Copy code</button></div>
     <div class="field mt16"><label for="famPaste">Have a code from another device?</label><textarea class="inp fam-code" id="famPaste" placeholder="FLG1.…"></textarea></div><button class="btn btn-ghost btn-sm mt8" data-a="famLoadCode">Load the code</button>` : ''}</div>
   <div class="fam-sec"><span class="lbl">App</span><div class="mt8" id="famInst">${installHtml()}</div></div>`; };
-A.famDevice = () => { F.modal(FAM.deviceHtml(), { label: 'This browser' }); idbLine(); };
+A.famDevice = () => { F.modal(FAM.deviceHtml(), { label: 'Device settings' }); idbLine(); };
 FAM.refreshDevice = () => { const s = document.getElementById('famStore'); if (s) { s.innerHTML = FAM.storageHtml(); idbLine(); } const i = document.getElementById('famInst'); if (i) i.innerHTML = installHtml(); };
 const redrawDevice = () => { const m = F._modal && F._modal.m; if (m && m.querySelector('#famStore')) { const y = m.scrollTop; m.innerHTML = m.innerHTML.split('<h2')[0] + FAM.deviceHtml(); m.scrollTop = y; idbLine(); } };
 A.famZoom = el => { FAM.setPref('z', +el.dataset.v); redrawDevice(); };
 A.famHc = el => { FAM.setPref('hc', el.dataset.v === '1'); redrawDevice(); };
-FAM.footLink = () => `<button class="btn-link tiny" data-a="famDevice">This browser</button>`;
-FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">This browser</h2><p class="small muted mt8">Text size and contrast; storage; moving your account and bookings to another device; installing the app. Start over removes everything you changed on all three sites.</p><div class="row wrap-gap mt16"><button class="btn btn-ghost btn-sm" data-a="famDevice">Open</button><button class="btn btn-ghost btn-sm" data-a="resetSite">Start over</button></div></div>`;
+FAM.footLink = () => `<button class="btn-link tiny" data-a="famDevice">Device settings</button>`;
+FAM.settingsCard = () => `<div class="card"><h2 class="h-disp h4">Device settings</h2><p class="small muted mt8">Text size and contrast; storage; moving your account and bookings to another device; installing the app. Start over removes everything you changed on all three sites.</p><div class="row wrap-gap mt16"><button class="btn btn-ghost btn-sm" data-a="famDevice">Open</button><button class="btn btn-ghost btn-sm" data-a="resetSite">Start over</button></div></div>`;
 
 /* ---------- Operations → Health ---------- */
 FAM.errors = () => (window.FLINGR_ERRLOG ? window.FLINGR_ERRLOG.read() : []);
@@ -5240,14 +5283,14 @@ FAM.elsewhere = (qs, n = 6) => {
 };
 FAM.elsewhereHtml = (q, rowFn) => { const xs = FAM.elsewhere(q); if (!xs.length) return ''; return xs.map((x, i) => rowFn(x, i)).join(''); };
 
-/* ---------- Reset site (footer, Account → Privacy, Operations) ---------- */
+/* ---------- Clear this device (Account → Privacy, Operations) ---------- */
 // The three sites share one account, Wallet and clock, so a reset covers all three: every change made on this browser
 // (new accounts, cards, Wallet, bookings, visits, lessons, messages, settings, the clock, uploaded photos) goes, and
 // everything that came with the sites (hosts, therapists, educators, the built-in accounts and their history) is back
 // as on day one. Display settings (text size, contrast) stay. It starts again at the age check.
-FAM.RESET_LINE = 'Removes everything you changed on this browser, on all three sites: accounts, cards, Wallet, bookings, messages and settings. The built-in accounts come back as they were on day one.';
+FAM.RESET_LINE = 'Signs you out and clears everything FLINGR, Practice and Velvet keep on this device: accounts, saved cards, Wallet, bookings, messages and settings.';
 A.resetSite = async () => {
-  if (!(await F.confirm({ title: 'Reset the whole site?', body: FAM.RESET_LINE + ' You’ll start again at the age check.', ok: 'Reset everything', danger: true }))) return;
+  if (!(await F.confirm({ title: 'Clear everything on this device?', body: FAM.RESET_LINE + ' You’ll start again at the age check.', ok: 'Clear everything', danger: true }))) return;
   F.resetting = true;
   try { Object.keys(localStorage).filter(k => /^flingr/.test(k) && k !== 'flingr.a11y').forEach(k => localStorage.removeItem(k)); } catch (e) { }
   try { sessionStorage.clear(); } catch (e) { }
